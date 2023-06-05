@@ -1,102 +1,108 @@
-import enum
 import uuid
 
-from sqlalchemy import Boolean, Column, Enum, Float, Integer, String
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship
-from sqlalchemy.schema import ForeignKey
-
-from core.db import Base
+from django.db import models
 
 
-class Order(Base):
-    """Заказ."""
+class Order(models.Model):
+    class Status(models.TextChoices):
+        OK = "ok"
+        FORMED = "formed"
 
-    class Status(str, enum.Enum):
-        """Статус заказа."""
-# подумать какие еще статусы добавить
-    OK = "ok"
-    FORMED = "formed"
-
-    orderkey = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    packages = relationship(
-        'Package',
-        secondary='orderpackage',
-        back_populates='orders'
+    order_key = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name="Код заказа",
     )
-    items = relationship("Item", back_populates="order")
-    status = Column(
-        Enum(
-            Status,
-            name="order_status",
-            values_callable=lambda obj: [e.value for e in obj]
-        ),
-        nullable=False
+    items = models.ManyToManyField(
+        'Item', related_name='order_items', verbose_name="Товары"
+    )
+    packages = models.ManyToManyField(
+        'Package', related_name='order_packages', verbose_name="Упаковки"
+    )
+    status = models.CharField(
+        max_length=50, choices=Status.choices, verbose_name="Статус"
     )
 
+    def __str__(self):
+        return str(self.order_key)
 
-class Item(Base):
-    sku = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    orderkey = Column(
-        UUID(as_uuid=True),
-        ForeignKey(Order.orderkey, ondelete="CASCADE"),
-        nullable=False
+    class Meta:
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"
+
+
+class Item(models.Model):
+    sku = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name="Артикул",
     )
-    count = Column(Integer, nullable=False)
-    size1 = Column(String(50), nullable=False)
-    size2 = Column(String(50), nullable=False)
-    size3 = Column(String(50), nullable=False)
-    weight = Column(String(50), nullable=False)
-    types = relationship(
-        'Cargotype',
-        secondary='itemcargotypes',
-        back_populates='items'
+    count = models.IntegerField(verbose_name="Количество товара на складе")
+    length = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Длина"
     )
-
-
-class Cargotype(Base):
-    cargotype = Column(String(50), primary_key=True)
-    description = Column(String(150), nullable=False)
-    items = relationship(
-        'Item',
-        secondary='itemcargotypes',
-        back_populates='types'
+    width = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Ширина"
     )
-
-
-class Package(Base):
-    cartontype = Column(String(50), primary_key=True)
-    length = Column(String(50), nullable=False)
-    width = Column(String(50), nullable=False)
-    height = Column(String(50), nullable=False)
-    displayrfpack = Column(Boolean, nullable=False)
-    price = Column(Float, nullable=False)
-    orders = relationship(
-        'Order',
-        secondary='orderpackage',
-        back_populates='packages'
+    height = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Высота"
+    )
+    weight = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Вес"
+    )
+    types = models.ManyToManyField(
+        'Cargotype', related_name='item_types', verbose_name="Типы грузов"
     )
 
+    def __str__(self):
+        return str(self.sku)
 
-class ItemCargotypes(Base):
-    id = Column(Integer, primary_key=True)
-    sku = Column(UUID(as_uuid=True), ForeignKey(Item.sku), nullable=False)
-    cargotype = Column(
-        String(50),
-        ForeignKey(Cargotype.cargotype),
-        nullable=False
-    )
+    class Meta:
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
 
 
-class OrderPackage(Base):
-    id = Column(Integer, primary_key=True)
-    orderkey = Column(
-        UUID(as_uuid=True),
-        ForeignKey(Order.orderkey),
-        nullable=False
+class Cargotype(models.Model):
+    cargotype = models.CharField(
+        primary_key=True, max_length=50, verbose_name="Тип груза"
     )
-    cartontype = Column(
-        String(50),
-        ForeignKey(Package.cartontype),
-        nullable=False
+    description = models.CharField(max_length=150, verbose_name="Описание")
+    items = models.ManyToManyField(
+        Item, related_name='cargo_items', verbose_name="Товары"
     )
+
+    def __str__(self):
+        return self.cargotype
+
+    class Meta:
+        verbose_name = "Тип груза"
+        verbose_name_plural = "Типы грузов"
+
+
+class Package(models.Model):
+    carton_type = models.CharField(
+        primary_key=True, max_length=50, verbose_name="Тип упаковки"
+    )
+    length = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Длина"
+    )
+    width = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Ширина"
+    )
+    height = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Высота"
+    )
+    display_rf_pack = models.BooleanField(verbose_name="Отображать RF пакет")
+    price = models.IntegerField(verbose_name="Цена")
+    orders = models.ManyToManyField(
+        Order, related_name='package_orders', verbose_name="Заказы"
+    )
+
+    def __str__(self):
+        return self.carton_type
+
+    class Meta:
+        verbose_name = "Упаковка"
+        verbose_name_plural = "Упаковки"
