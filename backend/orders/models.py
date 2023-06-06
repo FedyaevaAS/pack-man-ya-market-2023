@@ -1,15 +1,15 @@
+import enum
 import uuid
 
 from django.db import models
-from django_enum import Enum, EnumField
 
 
 class Order(models.Model):
-    class Status(Enum):
+    class Status(enum.Enum):
         OK = "ok"
         FORMED = "formed"
         FAIL = "fail"
-        IN_PROGRESS = 'in progress'
+        IN_PROGRESS = 'in_progress'
 
     order_key = models.UUIDField(
         primary_key=True,
@@ -23,7 +23,11 @@ class Order(models.Model):
     packages = models.ManyToManyField(
         'Package', related_name='order_packages', verbose_name="Упаковки"
     )
-    status = EnumField(Status, max_length=50, verbose_name="Статус")
+    status = models.CharField(
+        max_length=20,
+        choices=[(status.name) for status in Status],
+        verbose_name="Статус",
+    )
 
     def __str__(self):
         return str(self.order_key)
@@ -34,10 +38,10 @@ class Order(models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=50, verbose_name='название товара')
-    barcode = models.CharField(max_length=50, verbose_name='штрихкод')
+    name = models.CharField(max_length=50, verbose_name='Название товара')
+    barcode = models.CharField(max_length=50, verbose_name='Штрихкод')
     image = models.ImageField(
-        upload_to='item_images/', verbose_name='картинка'
+        upload_to='item_images/', verbose_name='Картинка'
     )
     sku = models.UUIDField(
         primary_key=True,
@@ -59,7 +63,7 @@ class Item(models.Model):
         max_digits=10, decimal_places=2, verbose_name="Вес"
     )
     types = models.ManyToManyField(
-        'Cargotype', related_name='item_types', verbose_name="карготипы"
+        'Cargotype', related_name='item_types', verbose_name="Карготипы"
     )
 
     def __str__(self):
