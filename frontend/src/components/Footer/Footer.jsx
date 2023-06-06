@@ -1,5 +1,5 @@
 import './footer.scss';
-import keyboard from '../../img/keyboard-logo.svg';
+import keyboard from '../../images/keyboard-logo.svg';
 
 const Footer = () => {
   return (
