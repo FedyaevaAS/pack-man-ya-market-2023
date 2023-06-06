@@ -1,4 +1,4 @@
-import Footer from './components/Footer/Footer';
+import Nda from './components/Nda/Nda';
 import Header from './components/Header/Header';
 
 const App = () => {
@@ -6,7 +6,7 @@ const App = () => {
     <>
       <Header />
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>Ищем новые задания</div>
-      <Footer />
+      <Nda />
     </>
   );
 };
