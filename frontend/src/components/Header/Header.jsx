@@ -1,6 +1,6 @@
 import './header.scss';
-import mainLogo from '../../img/header-logo.svg';
-import rocket from '../../img/rocket-logo.svg';
+import mainLogo from '../../images/header-logo.svg';
+import rocket from '../../images/rocket-logo.svg';
 
 const Header = () => {
   return (
