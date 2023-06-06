@@ -8,7 +8,8 @@ class Order(models.Model):
     class Status(Enum):
         OK = "ok"
         FORMED = "formed"
-        CANCELED = "canceled"
+        FAIL = "fail"
+        IN_PROGRESS = 'in progress'
 
     order_key = models.UUIDField(
         primary_key=True,
@@ -33,6 +34,11 @@ class Order(models.Model):
 
 
 class Item(models.Model):
+    name = models.CharField(max_length=50, verbose_name='название товара')
+    barcode = models.CharField(max_length=50, verbose_name='штрихкод')
+    image = models.ImageField(
+        upload_to='item_images/', verbose_name='картинка'
+    )
     sku = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
