@@ -1,6 +1,48 @@
-.nda {
-  background-color: #000000;
-  padding: 4px 24px;
+.footer {
+  position: relative;
+  height: 112px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  padding: 20px 0 20px 24px;
+  box-shadow: 0px 7px 15px 0px #0000001f;
+  box-shadow: 0px 5px 46px 0px #0000001f;
+
+  &__back-button {
+    position: absolute;
+    left: 24px;
+    background-color: #212121;
+    color: #ffffff;
+    width: 296px;
+    height: 72px;
+    border: none;
+    border-radius: 24px;
+    font-size: 28px;
+    line-height: 31px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:active {
+      background-color: #000000;
+    }
+  }
+
+  &__keyboard-button {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background-color: transparent;
+    color: #212121;
+    width: 333px;
+    height: 72px;
+    border: none;
+    font-size: 28px;
+    line-height: 31px;
+    font-weight: 500;
+    cursor: pointer;
+
+    img {
+      width: 36px;
+      height: 30px;
+    }
+  }
 }
