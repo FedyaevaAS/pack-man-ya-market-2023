@@ -1,11 +1,16 @@
+@import '../../vendor/variables';
+
 .footer {
-  position: relative;
+  position: sticky;
+  background-color: $main-bg-color;
+  bottom: 24px;
   height: 112px;
   display: flex;
   justify-content: center;
   padding: 20px 0 20px 24px;
   box-shadow: 0px 7px 15px 0px #0000001f;
   box-shadow: 0px 5px 46px 0px #0000001f;
+  z-index: 2;
 
   &__back-button {
     position: absolute;
