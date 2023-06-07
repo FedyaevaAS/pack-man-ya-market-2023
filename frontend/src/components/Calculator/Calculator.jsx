@@ -29,7 +29,7 @@ const Calculator = ({ onCalculatorSubmit, isOpen, openPopup }) => {
   }, [inputValue]);
 
   return (
-    <div className={`overlay  overlay_opened ${isOpen ? 'overlay_opened' : null}`}>
+    <div className={`overlay overlay_opened  ${isOpen ? 'overlay_opened' : null}`}>
       <section className="calculator">
         <div className="calculator__flex">
           <h2>Введите штрихкод товара</h2>
@@ -49,10 +49,6 @@ const Calculator = ({ onCalculatorSubmit, isOpen, openPopup }) => {
         </div>
         <MainButton onClick={onSubmit} text={'Готово'} disabled={disabledValue} />
       </section>
-      <div className="calculator__footer">
-        <button onClick={openPopup}>Назад</button>
-      </div>
-      <Nda forCalculator={openPopup} />
     </div>
   );
 };
