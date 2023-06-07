@@ -1,11 +1,15 @@
 @import '../../vendor/variables';
 
 .header {
+  position: relative;
+  background-color: $main-bg-color;
   height: 112px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 54px 20px 39px;
+  border-bottom: 1px solid #e8e8e8;
+  z-index: 4;
 
   div {
     display: flex;

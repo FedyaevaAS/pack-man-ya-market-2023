@@ -1,12 +1,13 @@
 import Nda from './components/Nda/Nda';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import { useState } from 'react';
 
 const App = () => {
   return (
     <>
       <Header />
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>Ищем новые задания</div>
+      <h1 style={{ height: '2000px' }}>Hello world</h1>
       <Footer />
       <Nda />
     </>
