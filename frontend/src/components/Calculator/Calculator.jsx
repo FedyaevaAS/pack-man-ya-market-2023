@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import './calculator.scss';
 import MainButton from '../UI/MainButton/MainButton';
+import Nda from '../Nda/Nda';
 
 const Calculator = ({ onCalculatorSubmit, isOpen, openPopup }) => {
   const buttonValue = ['7', '8', '9', '4', '5', '6', '1', '2', '3', 'x', '0'];
@@ -28,7 +29,7 @@ const Calculator = ({ onCalculatorSubmit, isOpen, openPopup }) => {
   }, [inputValue]);
 
   return (
-    <div className={`overlay ${isOpen === true ? 'overlay_opened' : null}`}>
+    <div className={`overlay  overlay_opened ${isOpen ? 'overlay_opened' : null}`}>
       <section className="calculator">
         <div className="calculator__flex">
           <h2>Введите штрихкод товара</h2>
@@ -51,6 +52,7 @@ const Calculator = ({ onCalculatorSubmit, isOpen, openPopup }) => {
       <div className="calculator__footer">
         <button onClick={openPopup}>Назад</button>
       </div>
+      <Nda forCalculator={openPopup} />
     </div>
   );
 };

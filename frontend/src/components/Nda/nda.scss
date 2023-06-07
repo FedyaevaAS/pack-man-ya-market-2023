@@ -1,11 +1,17 @@
 .nda {
   position: sticky;
   bottom: 0;
+  max-width: 1920px;
+  margin: 0 auto;
   background-color: #000000;
   padding: 4px 24px;
   display: flex;
   justify-content: space-between;
   z-index: 2;
+
+  &_static {
+    position: static;
+  }
 
   div {
     display: flex;
