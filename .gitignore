@@ -136,3 +136,16 @@ static/
 backend_static/
 media/
 backend_media/
+project_data/
+
+# файлы DS
+datasets_examples
+Predicting Packaging Sizes Using Machine Learning.pdf
+other_data
+main_for_knn.py
+project_model/Model_research.ipynb
+project_model/knn_model.joblib
+project_functions/predict_functions_for_knn.py
+
+# тестовый файл
+test.py
