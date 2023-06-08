@@ -13,3 +13,15 @@
 
 ## комментарии
 - бизнес метрику (стоимость упаковок было/стало) еще не успели померить
+
+### Docker
+- Перейдите в директорию с Dockerfile
+- Соберите образ
+
+```
+docker build -t yamdb .packman_backend .
+``` 
+- Запустите контейнер
+```
+docker run --name backend -it -p 8000:8000 packman_backend
+``` 
