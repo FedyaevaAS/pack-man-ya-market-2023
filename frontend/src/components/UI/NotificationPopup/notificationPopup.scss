@@ -1,0 +1,42 @@
+@import '../../../vendor/variables';
+
+.notificationPopup {
+  position: fixed;
+  top: 144px;
+  background-color: #ffffff;
+  width: 1096px;
+  height: 185px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  box-shadow: 0px 7px 15px 0px #0000001f;
+  box-shadow: 0px 5px 46px 0px #0000001f;
+  border-radius: 40px;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s linear, visibility 0.4s linear;
+
+  &_opened {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  h2 {
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: $heading-font-48-58;
+    font-size: $heading-size-48-58;
+    font-weight: $heading-weight-48-58;
+    line-height: $heading-line-height-48-58;
+  }
+
+  p {
+    text-align: center;
+    font-family: 'YS Text-Regular';
+    font-size: 32px;
+    line-height: 37px;
+    letter-spacing: -2.5%;
+  }
+}
