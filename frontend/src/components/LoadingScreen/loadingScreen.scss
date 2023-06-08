@@ -1,0 +1,56 @@
+@import '../../vendor/variables';
+
+.loadingScreen {
+  max-width: 1920px;
+  height: 940px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__timer {
+    position: relative;
+    margin-bottom: 107px;
+
+    span {
+      font-family: $subheading-font-28-32;
+      font-size: $subheading-size-28-32;
+      font-weight: $subheading-weight-28-32;
+      line-height: $subheading-line-height-28-32;
+    }
+  }
+
+  &__loader {
+    position: absolute;
+    top: 375px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 6px solid #ffcc00;
+    border-top-color: transparent;
+    animation: rot1 1s linear infinite;
+
+    @keyframes rot1 {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    font-family: $heading-font-56-68;
+    font-size: $heading-size-56-68;
+    font-weight: $heading-weight-56-68;
+    line-height: $heading-line-height-56-68;
+    letter-spacing: $heading-letter-56-68;
+  }
+
+  p {
+    font-family: $subheading-font-28-32;
+    font-size: $subheading-size-28-32;
+    font-weight: $subheading-weight-28-32;
+    line-height: $subheading-line-height-28-32;
+  }
+}
