@@ -146,6 +146,13 @@ main_for_knn.py
 project_model/Model_research.ipynb
 project_model/knn_model.joblib
 project_functions/predict_functions_for_knn.py
+cargotype_info.csv
+carton_price.xlsx
+carton.csv
+data.csv
+sku_cargotypes.csv
+sku.csv
+catboost_info
 
 # тестовый файл
 test.py
