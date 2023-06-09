@@ -1,17 +1,21 @@
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import MainPage from './pages/MainPage/MainPage';
 import Nda from './components/Nda/Nda';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { useState } from 'react';
 import Calculator from './components/Calculator/Calculator';
 
 const App = () => {
   return (
     <>
-      <Header />
-      <h1 style={{ height: '2000px' }}>Hello world</h1>
-      <Calculator />
-      <Footer />
-      <Nda />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route index element={<MainPage />} />
+        </Routes>
+        <Footer />
+        <Nda />
+      </BrowserRouter>
     </>
   );
 };
