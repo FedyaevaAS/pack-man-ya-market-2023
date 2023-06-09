@@ -81,6 +81,10 @@ def _best_variants_for_class(items_cnt: int,
 
     for price in full_prices[: variants_cnt]:
         result.loc[len(result.index)] = prices_cartons_dict[price]
+
+    # если предлагаемый класс/классы не подошли (например, очень большой товар), то предлагается 'NONPACK/STRETCH'
+    if len(result) == 0:
+        result.loc[len(result.index)] = ['NONPACK/STRETCH', 0, items_cnt, None, None, 0]
     return result
 
 

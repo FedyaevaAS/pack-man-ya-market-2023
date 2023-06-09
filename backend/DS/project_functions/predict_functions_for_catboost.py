@@ -80,16 +80,15 @@ def _filtration_from_df(data):
 
 
 # Функция подготовки данных для ML
-def _preprocessing_ml_data(ml_data, cat_columns=['10', '1010', '1011', '110', '120', '130', '1300', '140', '160',
-       '20', '200', '210', '290', '291', '292', '299', '300',
-       '302', '303', '305', '310', '315', '320', '330', '333', '340',
-       '350', '360', '40', '400', '410', '440', '441', '460', '480',
-       '485', '490', '510', '520', '600', '601', '610', '611', '620',
-       '621', '622', '640', '641', '670', '671', '672', '673',
-       '690', '691', '692', '710', '720', '750', '751', '752', '760',
-       '770', '780', '790', '799', '80', '801', '81', '900', '901', '905',
-       '907', '908', '910', '911', '920', '930', '931', '950', '955',
-       '960', '970', '980', '985', '990']):
+def _preprocessing_ml_data(ml_data, cat_columns=['1010', '1011', '110', '120', '130', '1300', '140', '160', '20',
+       '200', '210', '290', '291', '292', '300', '302', '303',
+       '305', '310', '315', '320', '330', '340', '350', '360', '40',
+       '400', '410', '440', '441', '460', '480', '485', '490', '510',
+       '520', '600', '601', '610', '611', '620', '621', '622',
+       '640', '641', '670', '671', '672', '673', '690', '691', '692',
+       '710', '720', '750', '751', '770', '780', '790', '799', '801',
+       '81', '900', '901', '905', '908', '910', '911', '920', '930',
+       '931', '950', '955', '960', '970', '980', '990']):
 
     # создаём датафрейм для фичей, чтобы преобразованиями не менять исходные данные
     X = copy.deepcopy(ml_data)
@@ -126,13 +125,14 @@ def _preprocessing_ml_data(ml_data, cat_columns=['10', '1010', '1011', '110', '1
 
 # Функция предсказания
 def _prediction(prediction_data, model=best_cb):
-    predictions = model.predict_proba(prediction_data)
-    predictions = pd.DataFrame(predictions, columns=['class_1','class_0','class_2'])
-
-    # меняем порядок столбцов для модели оптимизации
-    predictions = predictions.reindex(columns=['class_0','class_1','class_2'])
-
-    return predictions
+    if len(prediction_data) == 0:
+        return None
+    else:
+        predictions = model.predict_proba(prediction_data)
+        predictions = pd.DataFrame(predictions, columns=['class_1', 'class_0', 'class_2'])
+        # меняем порядок столбцов для модели оптимизации
+        predictions = predictions.reindex(columns=['class_0', 'class_1', 'class_2'])
+        return predictions
 
 
 # функции формирования датафрейма с предсказаниями
@@ -145,7 +145,10 @@ def prediction_from_json(json) -> pd.DataFrame:
     filtered_data, ml_data = _filtration_from_json(json)
     X = _preprocessing_ml_data(ml_data)
     predictions = _prediction(X)
-    order_predictions = ml_data.join(predictions)
+    if len(ml_data) == 0:
+        order_predictions = None
+    else:
+        order_predictions = pd.concat([ml_data.reset_index(drop=True), predictions.reset_index(drop=True)], axis=1)
     order_predictions = pd.concat([order_predictions, filtered_data]).reset_index(drop=True)
     return order_predictions
 
@@ -159,7 +162,9 @@ def prediction_from_df(dataframe) -> pd.DataFrame:
     filtered_data, ml_data = _filtration_from_df(dataframe)
     X = _preprocessing_ml_data(ml_data)
     predictions = _prediction(X)
-    # order_predictions = ml_data.join(predictions)
-    order_predictions = pd.concat([ml_data.reset_index(drop=True), predictions.reset_index(drop=True)], axis=1)
+    if len(ml_data) == 0:
+        order_predictions = None
+    else:
+        order_predictions = pd.concat([ml_data.reset_index(drop=True), predictions.reset_index(drop=True)], axis=1)
     order_predictions = pd.concat([order_predictions, filtered_data]).reset_index(drop=True)
     return order_predictions
