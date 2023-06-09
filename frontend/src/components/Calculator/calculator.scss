@@ -12,7 +12,7 @@
   height: 100%;
   opacity: 0;
   transition: opacity 0.4s linear, visibility 0.4s linear;
-  z-index: 3;
+  z-index: 2;
 }
 
 .overlay_opened {
@@ -23,7 +23,7 @@
 .calculator {
   margin: 0 auto;
   max-width: 1920px;
-  padding: 208px 24px 70px;
+  padding: 208px 24px 182px;
   display: flex;
   justify-content: flex-end;
   gap: 48px;
@@ -81,37 +81,6 @@
 
       &:active {
         background-color: #dedede;
-      }
-    }
-  }
-
-  &__footer {
-    position: relative;
-    height: 112px;
-    max-width: 1920px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0 20px 24px;
-    box-shadow: 0px 7px 15px 0px #0000001f;
-    box-shadow: 0px 5px 46px 0px #0000001f;
-
-    button {
-      position: absolute;
-      left: 24px;
-      background-color: #212121;
-      color: #ffffff;
-      width: 296px;
-      height: 72px;
-      border: none;
-      border-radius: 24px;
-      font-size: 28px;
-      line-height: 31px;
-      font-weight: 500;
-      cursor: pointer;
-
-      &:active {
-        background-color: #000000;
       }
     }
   }
