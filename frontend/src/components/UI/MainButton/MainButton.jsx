@@ -1,4 +1,4 @@
-import './mainButton.scss';
+import './MainButton.scss';
 
 const MainButton = ({ text, disabled, onClick }) => {
   return (

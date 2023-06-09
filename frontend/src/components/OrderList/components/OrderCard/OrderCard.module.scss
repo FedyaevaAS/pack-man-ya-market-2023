@@ -1,0 +1,50 @@
+@import '../../../../vendor/variables';
+
+.container {
+  display: flex;
+  max-width: 1120px;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 33px;
+
+  .image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .text {
+    font-family: $body-font-20-22;
+    font-size: $body-size-20-22;
+    font-weight: $body-weight-20-22;
+    line-height: $body-line-height-20-22;
+    width: 489px;
+    padding-bottom: 10px;
+  }
+
+  .tag {
+    width: 214px;
+    height: 48px;
+    background: #e0eeff;
+    border: 1px solid #e0eeff;
+    border-radius: 100px;
+    text-align: center;
+  }
+
+  .counter {
+    width: 48px;
+    height: 48px;
+    background: #2aad2e;
+    border: 1px solid #2aad2e;
+    border-radius: 100px;
+    text-align: center;
+    color: #fff;
+
+    font-family: $body-font-20-22;
+    font-size: $body-size-20-22;
+    font-weight: $body-weight-20-22;
+    line-height: $body-line-height-20-22;
+  }
+
+  .number {
+    color: #0044ee;
+  }
+}
