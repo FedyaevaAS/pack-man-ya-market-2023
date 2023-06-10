@@ -1,7 +1,6 @@
 import { useState } from 'react';
-
 import SecondEfficiency from './SecondView/SecondView';
-import './efficiency.scss';
+import styles from './Efficiency.module.scss';
 
 // чтобы убрать двойной скроллбар, делать display: none, у текущего компонента?
 
@@ -18,14 +17,14 @@ const Efficiency = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`overlay ${isOpen && 'overlay_opened'}`}>
-      <section className="efficiency">
-        <div className="efficiency__header">
+    <div className={`${styles.overlay} ${isOpen && styles.overlay_opened}`}>
+      <section className={styles.efficiency}>
+        <div className={styles.efficiency__header}>
           <h1>Моя эффективность</h1>
           <button onClick={closePopups}></button>
         </div>
         {!isOpenSecondView ? (
-          <div className="efficiency__grid">
+          <div className={styles.efficiency__grid}>
             <div>
               <h2>Текущая смена</h2>
               <h3>
@@ -40,11 +39,11 @@ const Efficiency = ({ isOpen, onClose }) => {
                 79<span>%</span>
               </h3>
               <p>98 единиц</p>
-              <div className="efficiency__footer">
+              <div className={styles.efficiency__footer}>
                 <p>Упаковка КГТ</p>
                 <p>Цель: 100 / час</p>
               </div>
-              <p className="efficiency__timer">01:16</p>
+              <p className={styles.efficiency__timer}>01:16</p>
             </div>
           </div>
         ) : (

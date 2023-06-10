@@ -1,10 +1,13 @@
-import './MainButton.scss';
+import React from 'react';
+import styles from './MainButton.module.scss';
 
 const MainButton = ({ text, disabled, onClick }) => {
   return (
-    <div className="mainButton">
+    <div className={styles.mainButton}>
       <button
-        className={`${text === 'Есть проблема' ? 'mainButton__problem' : 'mainButton__ready'}`}
+        className={`${
+          text === 'Есть проблема' ? styles.mainButton__problem : styles.mainButton__ready
+        }`}
         disabled={disabled}
         onClick={onClick}>
         {text}

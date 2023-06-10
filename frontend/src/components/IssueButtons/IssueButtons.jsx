@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NotificationPopup from '../UI/NotificationPopup/NotificationPopup';
-import './issueButtons.scss';
-
-// it will be as a page /issue
+import styles from './issueButtons.module.scss';
 
 const IssueButtons = () => {
   const buttonName = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер', 'Позвать бригадира'];
@@ -13,11 +11,9 @@ const IssueButtons = () => {
   };
 
   useEffect(() => {
-    const timer = () => setTimeout(setIsOpenPopup, 5000, false);
-
-    if (!isOpenPopup) {
-      timer();
-    }
+    const timer = setTimeout(() => {
+      setIsOpenPopup(false);
+    }, 5000);
 
     return () => {
       clearTimeout(timer);
@@ -25,7 +21,7 @@ const IssueButtons = () => {
   }, [isOpenPopup]);
 
   return (
-    <section className="issueButtons">
+    <section className={styles.issueButtons}>
       <NotificationPopup isOpen={isOpenPopup} onClick={closePopup}>
         <h2>Бригадир скоро подойдет</h2>
         <p>Подождите немного</p>

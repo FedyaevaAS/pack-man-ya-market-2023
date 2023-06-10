@@ -1,9 +1,9 @@
-import './secondView.scss';
+import styles from './SecondView.module.scss';
 
 const SecondView = ({ onClick, isOpen }) => {
   return (
-    <div className={`secondView ${isOpen && 'secondView_opened'}`}>
-      <div className="secondView__grid">
+    <div className={`${styles.secondView} ${isOpen && styles.secondView_opened}`}>
+      <div className={styles.secondView__grid}>
         <div>
           <h2>Учёт рекомендаций</h2>
           <h3>
@@ -19,7 +19,7 @@ const SecondView = ({ onClick, isOpen }) => {
           <p>+9% за последний час</p>
         </div>
       </div>
-      <div className="secondView__footer">
+      <div className={styles.secondView__footer}>
         <button onClick={onClick}>Назад</button>
       </div>
     </div>
