@@ -12,6 +12,10 @@
   height: 48px;
   outline: none;
   margin-left: 12px;
+
+  &:active {
+    background-color: #dedede;
+  }
 }
 
 .icon {
