@@ -2,7 +2,7 @@ import './header.scss';
 import mainLogo from '../../images/header-logo.svg';
 import rocket from '../../images/rocket-logo.svg';
 
-const Header = () => {
+const Header = ({ onClick }) => {
   return (
     <header className="header">
       <div>
@@ -17,7 +17,7 @@ const Header = () => {
       <div>
         <div className="header__efficiency">
           <p className="header__efficiency-id">sof-natgemokee</p>
-          <div>
+          <div onClick={onClick}>
             <img src={rocket} alt="main-logo" />
             <p>79%</p>
           </div>
