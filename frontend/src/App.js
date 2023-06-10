@@ -20,7 +20,7 @@ const App = () => {
         <Routes>
           <Route index element={<MainPage />} />
         </Routes>
-        <Footer openPopup={setIsOpen} />
+        <Footer openPopup={setIsOpen} isCalculatorOpen={isOpen} />
         {isOpen && <Calculator onClose={handleClose} />}
       </BrowserRouter>
     </>
