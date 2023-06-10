@@ -1,0 +1,106 @@
+@import '../../../vendor/variables';
+
+.secondView {
+  background-color: $main-bg-color;
+  padding: 0;
+
+  &__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+
+    div {
+      width: 936px;
+
+      background-repeat: no-repeat;
+      background-position: top 173px center;
+
+      &:first-child {
+        background-image: url('../../../images/full-gradient.svg');
+      }
+
+      &:last-child {
+        background-image: url('../../../images/gradient.svg');
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 277px;
+      font-family: $heading-font-56-68;
+      font-size: $heading-size-56-68;
+      font-weight: $heading-weight-56-68;
+      line-height: $heading-line-height-56-68;
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 148px;
+      font-family: $numbers-font-160-160;
+      font-size: $numbers-size-160-160;
+      font-weight: $numbers-weight-160-160;
+      line-height: $numbers-line-height-160-160;
+
+      span {
+        margin-left: 8px;
+        font-family: $numbers-font-112-160;
+        font-size: $numbers-size-112-160;
+        font-weight: $numbers-weight-112-160;
+        line-height: $numbers-line-height-112-160;
+      }
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 52px;
+      font-family: $heading-font-48-58;
+      font-size: $heading-size-48-58;
+      font-weight: $heading-weight-48-58;
+      line-height: $heading-line-height-48-58;
+    }
+
+    button {
+      background-color: #f3f0e9;
+      border: none;
+      border-radius: 24px;
+      padding: 20px 331px;
+      font-family: $subheading-font-28-32;
+      font-size: $subheading-size-28-32;
+      font-weight: $subheading-weight-28-32;
+      line-height: $subheading-line-height-28-32;
+      cursor: pointer;
+
+      &:active {
+        background-color: #dedede;
+      }
+    }
+  }
+
+  &__footer {
+    position: sticky;
+    margin: 0 auto;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding: 20px 0 20px 24px;
+    box-shadow: 0px 7px 15px 0px #0000001f;
+    box-shadow: 0px 5px 46px 0px #0000001f;
+
+    button {
+      background-color: #212121;
+      color: #ffffff;
+      width: 296px;
+      height: 72px;
+      border: none;
+      border-radius: 24px;
+      font-size: 28px;
+      line-height: 31px;
+      font-weight: 500;
+      cursor: pointer;
+
+      &:active {
+        background-color: #000000;
+      }
+    }
+  }
+}
