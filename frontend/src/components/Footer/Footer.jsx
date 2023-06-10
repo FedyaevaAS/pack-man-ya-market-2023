@@ -12,9 +12,11 @@ const Footer = ({ isCalculatorOpen, openPopup }) => {
   return (
     <>
       <footer className={styles.footer}>
-        <button className={styles['footer__back-button']} onClick={() => openPopup(false)}>
-          Назад
-        </button>
+        {isCalculatorOpen && (
+          <button className={styles['footer__back-button']} onClick={() => openPopup(false)}>
+            Назад
+          </button>
+        )}
         {!isCalculatorOpen && (
           <button onClick={handleOpen} className={styles['footer__keyboard-button']}>
             <img src={keyboard} alt="keyboard-logo" />
