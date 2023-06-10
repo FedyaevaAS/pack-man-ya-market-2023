@@ -2,13 +2,20 @@
 
 .container {
   display: flex;
+  align-items: center;
   max-width: 1120px;
   border-bottom: 1px solid #e8e8e8;
   margin-bottom: 33px;
 
+  .info {
+    margin-bottom: 24px;
+    margin-right: 42px;
+  }
+
   .image {
     width: 100px;
     height: 100px;
+    margin-right: 24px;
   }
 
   .text {
@@ -21,23 +28,28 @@
   }
 
   .tag {
-    width: 214px;
+    display: inline-block;
+    margin-right: 10px;
     height: 48px;
     background: #e0eeff;
     border: 1px solid #e0eeff;
     border-radius: 100px;
     text-align: center;
+    padding: 10px;
   }
 
   .counter {
-    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 42px;
+    width: 80px;
     height: 48px;
     background: #2aad2e;
     border: 1px solid #2aad2e;
     border-radius: 100px;
     text-align: center;
     color: #fff;
-
     font-family: $body-font-20-22;
     font-size: $body-size-20-22;
     font-weight: $body-weight-20-22;
@@ -45,6 +57,9 @@
   }
 
   .number {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
     color: #0044ee;
   }
 }

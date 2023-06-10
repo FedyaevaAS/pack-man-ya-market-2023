@@ -29,11 +29,12 @@ const OrderList = ({ order }) => {
   return (
     <>
       <ul>
-        {orders?.map((order) => (
+        {orders?.map((order, i) => (
           <OrderCard
+            key={i}
             image={order.image}
             text={order.text}
-            tag={order.tag}
+            tags={order.tag}
             counter={`${order.counter} шт.`}
             number={order.number}
           />
