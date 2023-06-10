@@ -1,0 +1,38 @@
+{
+  "yma": {
+    "style": "yma-style",
+    "text": "yma"
+  },
+  "ymc": {
+    "style": "ymc-style",
+    "text": "ymc"
+  },
+  "ymf": {
+    "style": "ymf-style",
+    "text": "ymf"
+  },
+  "myf": {
+    "style": "myf-style",
+    "text": "myf"
+  },
+  "mya": {
+    "style": "mya-style",
+    "text": "mya"
+  },
+  "myb": {
+    "style": "myb-style",
+    "text": "myb"
+  },
+  "mye": {
+    "style": "mye-style",
+    "text": "mye"
+  },
+  "myc": {
+    "style": "myc-style",
+    "text": "myc"
+  },
+  "myd": {
+    "style": "myd-style",
+    "text": "myd"
+  }
+}

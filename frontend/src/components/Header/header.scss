@@ -1,0 +1,115 @@
+@import '../../vendor/variables';
+
+.header {
+  position: relative;
+  background-color: $main-bg-color;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 54px 20px 39px;
+  border-bottom: 1px solid #e8e8e8;
+  z-index: 3;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  &__main-logo {
+    margin-right: 76px;
+  }
+
+  &__burger {
+    position: relative;
+    width: 51px;
+    height: 51px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    margin-right: 39px;
+
+    &-class {
+      display: block;
+      position: absolute;
+      left: 6px;
+      width: 38px;
+      height: 4px;
+      background-color: black;
+    }
+
+    &-class_unclicked:nth-child(1) {
+      top: 12px;
+    }
+
+    &-class_unclicked:nth-child(2) {
+      top: 23px;
+    }
+
+    &-class_unclicked:nth-child(3) {
+      top: 34px;
+    }
+  }
+
+  &__efficiency {
+    height: 72px;
+    border: 4px solid #fed42b;
+    border-radius: 24px;
+    padding: 4px 8px 4px 24px;
+    margin-right: 25px;
+    display: flex;
+    align-items: center;
+
+    p {
+      &:first-child {
+        margin-right: 30px;
+      }
+
+      &:last-child {
+        color: #ffffff;
+      }
+    }
+
+    div {
+      background-color: #2aad2e;
+      padding: 12px 24px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: $body-size-20-22;
+      cursor: pointer;
+    }
+  }
+
+  &__dots {
+    position: relative;
+    width: 51px;
+    height: 41px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &-class {
+      display: block;
+      position: absolute;
+      left: 20px;
+      width: 6px;
+      height: 6px;
+      border-radius: 100%;
+      background-color: black;
+    }
+
+    &-class:nth-child(1) {
+      top: 8px;
+    }
+
+    &-class:nth-child(2) {
+      top: 17px;
+    }
+
+    &-class:nth-child(3) {
+      top: 26px;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 24px;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.heading__title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 50px;
+}
+
+.heading__order {
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 90px;
+}
+
+.heading__badges {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.button {
+  flex-grow: 1;
+  padding: 0 16px;
+}
