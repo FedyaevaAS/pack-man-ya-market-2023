@@ -2,7 +2,7 @@
 
 .container {
   display: flex;
-  align-items: center;
+  // align-items: center;
   max-width: 1120px;
   border-bottom: 1px solid #e8e8e8;
   margin-bottom: 33px;
@@ -61,5 +61,6 @@
     font-size: 20px;
     line-height: 23px;
     color: #0044ee;
+    margin-top: 13px;
   }
 }
