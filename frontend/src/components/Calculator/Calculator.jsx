@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
-import './calculator.scss';
+import styles from './Calculator.module.scss';
 import MainButton from '../UI/MainButton/MainButton';
-import Nda from '../Nda/Nda';
 
 const Calculator = ({ onCalculatorSubmit, onClose }) => {
   const buttonValue = ['7', '8', '9', '4', '5', '6', '1', '2', '3', 'x', '0'];
@@ -29,14 +27,15 @@ const Calculator = ({ onCalculatorSubmit, onClose }) => {
   }, [inputValue]);
 
   return (
-    <div className={`overlay overlay_opened`}>
-      <section className="calculator">
-        <div className="calculator__flex">
+    <div className={`${styles.overlay} ${styles.overlay_opened}`}>
+      <section className={styles.calculator}>
+        <div className={styles.calculator__flex}>
           <h2>Введите штрихкод товара</h2>
           <input
-            className={`${disabledValue === true ? 'disabled' : null}`}
+            className={`${disabledValue === true ? styles.disabled : ''}`}
             value={inputValue}
-            readOnly></input>
+            readOnly
+          />
           <div>
             {buttonValue.map((n, i) => {
               return (

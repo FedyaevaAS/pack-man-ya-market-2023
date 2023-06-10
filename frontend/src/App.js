@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage/MainPage';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -14,15 +14,14 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
+      <Router>
         <Header />
-
         <Routes>
           <Route index element={<MainPage />} />
         </Routes>
         <Footer openPopup={setIsOpen} isCalculatorOpen={isOpen} />
         {isOpen && <Calculator onClose={handleClose} />}
-      </BrowserRouter>
+      </Router>
     </>
   );
 };
