@@ -1,7 +1,8 @@
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import MainPage from './pages/MainPage/MainPage';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { useState } from 'react';
-import Efficiency from './components/Efficiency/Efficiency';
+// import Calculator from './components/Calculator/Calculator';
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,10 +13,14 @@ const App = () => {
 
   return (
     <>
-      <Header onClick={onClick} />
-      <Efficiency isOpen={isOpen} onClose={onClick} />
-      {!isOpen && <h1 style={{ height: '2000px', display: 'block' }}>Hello world</h1>}
-      <Footer />
+      <BrowserRouter>
+        <Header />
+
+        <Routes>
+          <Route index element={<MainPage />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 };

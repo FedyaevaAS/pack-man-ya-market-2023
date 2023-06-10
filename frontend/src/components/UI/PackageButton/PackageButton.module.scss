@@ -1,0 +1,110 @@
+@import '../../../vendor/variables';
+
+.button {
+  width: $package-button-width;
+  height: $package-button-height;
+  font-family: $body-font-20-22;
+  font-size: $body-size-20-22;
+  font-weight: $body-weight-20-22;
+  line-height: $body-line-height-20-22;
+  background-color: $main-bg-color;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-right: 16px;
+}
+
+.button:last-of-type {
+  margin-right: 0;
+}
+
+.yma {
+  border: 4px solid #ff0000;
+  color: #ff0000;
+}
+
+.ymc {
+  border: 4px solid #16523b;
+  color: #16523b;
+}
+
+.ymf {
+  border: 4px solid #f29a00;
+  color: #f29a00;
+}
+
+.myf {
+  border: 4px solid #8a35b3;
+  color: #8a35b3;
+}
+
+.mya {
+  border: 4px solid #f73e47;
+  color: #f73e47;
+}
+
+.myb {
+  border: 4px solid #a7070f;
+  color: #a7070f;
+}
+
+.mye {
+  border: 4px solid #5d4a00;
+  color: #5d4a00;
+}
+
+.myc {
+  border: 4px solid #25add6;
+  color: #25add6;
+}
+
+.myd {
+  border: 4px solid #f5c401;
+  color: #f5c401;
+}
+
+.active.yma {
+  background-color: #ff0000;
+  color: $main-bg-color;
+}
+
+.active.ymc {
+  background-color: #16523b;
+  color: $main-bg-color;
+}
+
+.active.ymf {
+  background-color: #f29a00;
+  color: $main-bg-color;
+}
+
+.active.myf {
+  background-color: #8a35b3;
+  color: $main-bg-color;
+}
+
+.active.mya {
+  background-color: #f73e47;
+  color: $main-bg-color;
+}
+
+.active.myb {
+  background-color: #a7070f;
+  color: $main-bg-color;
+}
+
+.active.mye {
+  background-color: #5d4a00;
+  color: $main-bg-color;
+}
+
+.active.myc {
+  background-color: #25add6;
+  color: $main-bg-color;
+}
+
+.active.myd {
+  background-color: #f5c401;
+  color: $main-bg-color;
+}
