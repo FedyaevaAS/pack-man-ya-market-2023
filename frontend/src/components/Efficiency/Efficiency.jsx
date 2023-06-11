@@ -17,7 +17,7 @@ const Efficiency = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`${styles.overlay} ${true && styles.overlay_opened}`}>
+    <div className={`${styles.overlay} ${isOpen && styles.overlay_opened}`}>
       <section className={styles.efficiency}>
         <div className={styles.efficiency__header}>
           <h1>Моя эффективность</h1>
