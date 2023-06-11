@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/success" index element={<SuccessPage />} />
         </Routes>
         <Footer openPopup={setIsOpen} isCalculatorOpen={isOpen} />
-        {isOpen && <Calculator onClose={handleClose} />}
+        <Calculator isOpen={isOpen} onClose={handleClose} />
       </Router>
     </>
   );
