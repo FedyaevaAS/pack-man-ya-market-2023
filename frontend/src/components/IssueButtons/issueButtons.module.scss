@@ -1,7 +1,27 @@
 @import '../../vendor/variables';
 
+.overlay {
+  visibility: hidden;
+  position: fixed;
+  overflow-y: scroll;
+  background-color: $main-bg-color;
+  top: 0;
+  right: -17px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s linear, visibility 0.4s linear;
+  z-index: 2;
+}
+
+.overlay_opened {
+  opacity: 1;
+  visibility: visible;
+}
+
 .issueButtons {
-  height: 828px;
+  height: 940px;
+  padding-top: 112px;
   display: flex;
   flex-direction: column;
   justify-content: center;

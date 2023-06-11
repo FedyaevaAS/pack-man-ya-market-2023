@@ -6,18 +6,38 @@ import MainButton from '../../components/UI/MainButton/MainButton';
 import OrderList from '../../components/OrderList/OrderList';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import Calculator from '../../components/Calculator/Calculator';
+import IssueButtons from '../../components/IssueButtons/IssueButtons';
 
 const MainPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const issueButtonNames = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер'];
+  const cancelButtonNames = ['Нет товара', 'Несоответствие товара', 'Дефект упаковки'];
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const [isIssueButtonsOpen, setIsIssueButtonsOpen] = useState(false);
+  const [isCancelButtonsOpen, setIsCancelButtonsOpen] = useState(false);
 
-  const handleClose = () => {
-    setIsOpen(!isOpen);
+  const handleOpenPopups = (popupName) => {
+    if (popupName === 'issue') {
+      setIsIssueButtonsOpen(true);
+    } else if (popupName === 'cancel') {
+      setIsCancelButtonsOpen(true);
+    } else {
+      setIsCalculatorOpen(true);
+    }
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopups = () => {
+    setIsIssueButtonsOpen(false);
+    setIsCalculatorOpen(false);
+    setIsCancelButtonsOpen(false);
+    setIsPopupOpen(false);
   };
 
   return (
     <>
       <div className={styles.wrapper}>
-        <MainButton text={'Есть проблема'} />
+        <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
         <div className={styles.content}>
           <div className={styles.heading}>
             <h1 className={styles.heading__title}>Сканируйте товары</h1>
@@ -28,15 +48,18 @@ const MainPage = () => {
               ))}
             </ul>
           </div>
-          <OrderList />
+          <OrderList onCancelClick={() => handleOpenPopups('cancel')} />
         </div>
         <MainButton text={'Готово'} />
       </div>
-      <Calculator isOpen={isOpen} onClose={handleClose} />
+      <Calculator isOpen={isCalculatorOpen} onClose={handleClosePopups} />
+      <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} />
+      <IssueButtons isOpen={isCancelButtonsOpen} buttonNames={cancelButtonNames} />
       <ControlPanel
-        openPopup={setIsOpen}
-        withOutBackButton={isOpen}
-        withOutKeyboardButton={isOpen}
+        onClose={handleClosePopups}
+        openPopup={() => handleOpenPopups('calculator')}
+        withOutBackButton={isPopupOpen}
+        withOutKeyboardButton={isPopupOpen}
       />
     </>
   );
