@@ -1,10 +1,8 @@
 import React from 'react';
 import styles from './Footer.module.scss';
-import { useLocation } from 'react-router-dom';
 import keyboard from '../../images/keyboard-logo.svg';
-import Nda from '../Nda/Nda';
 
-const Footer = ({ isCalculatorOpen, openPopup }) => {
+const Footer = ({ withOutBackButton, withOutKeyboardButton, openPopup }) => {
   const handleOpen = () => {
     openPopup(true);
   };
@@ -12,19 +10,18 @@ const Footer = ({ isCalculatorOpen, openPopup }) => {
   return (
     <>
       <footer className={styles.footer}>
-        {isCalculatorOpen && (
+        {withOutBackButton && (
           <button className={styles['footer__back-button']} onClick={() => openPopup(false)}>
             Назад
           </button>
         )}
-        {!isCalculatorOpen && (
+        {!withOutKeyboardButton && (
           <button onClick={handleOpen} className={styles['footer__keyboard-button']}>
             <img src={keyboard} alt="keyboard-logo" />
             Ввести с клавиатуры
           </button>
         )}
       </footer>
-      <Nda />
     </>
   );
 };

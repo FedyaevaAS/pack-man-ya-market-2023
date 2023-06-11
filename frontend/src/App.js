@@ -6,14 +6,9 @@ import SuccessPage from './pages/SuccessPage/SuccessPage';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Calculator from './components/Calculator/Calculator';
+import Nda from './components/Nda/Nda';
 
 const App = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleClose = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <>
       <Router>
@@ -23,8 +18,8 @@ const App = () => {
           <Route path="/main" index element={<MainPage />} />
           <Route path="/success" index element={<SuccessPage />} />
         </Routes>
-        <Footer openPopup={setIsOpen} isCalculatorOpen={isOpen} />
-        <Calculator isOpen={isOpen} onClose={handleClose} />
+
+        <Nda />
       </Router>
     </>
   );
