@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NotificationPopup from '../UI/NotificationPopup/NotificationPopup';
 import styles from './issueButtons.module.scss';
 
-const IssueButtons = () => {
-  const buttonName = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер', 'Позвать бригадира'];
+const IssueButtons = ({ buttonNames, isOpen }) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   const closePopup = () => {
@@ -21,19 +20,22 @@ const IssueButtons = () => {
   }, [isOpenPopup]);
 
   return (
-    <section className={styles.issueButtons}>
-      <NotificationPopup isOpen={isOpenPopup} onClick={closePopup}>
-        <h2>Бригадир скоро подойдет</h2>
-        <p>Подождите немного</p>
-      </NotificationPopup>
-      {buttonName.map((name, i) => {
-        return (
-          <button onClick={() => setIsOpenPopup(true)} key={i}>
-            {name}
-          </button>
-        );
-      })}
-    </section>
+    <div className={`${styles.overlay} ${isOpen && styles.overlay_opened}`}>
+      <section className={styles.issueButtons}>
+        <NotificationPopup isOpen={isOpenPopup} onClick={closePopup}>
+          <h2>Бригадир скоро подойдет</h2>
+          <p>Подождите немного</p>
+        </NotificationPopup>
+        {buttonNames.map((name, i) => {
+          return (
+            <button onClick={() => setIsOpenPopup(true)} key={i}>
+              {name}
+            </button>
+          );
+        })}
+        <button onClick={() => setIsOpenPopup(true)}>Позвать бригадира</button>
+      </section>
+    </div>
   );
 };
 

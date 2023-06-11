@@ -1,11 +1,7 @@
 import styles from './OrderCard.module.scss';
 import CancelButton from '../../../UI/CancelButton/CancelButton';
 
-const OrderCard = ({ image, text, tags, counter, number }) => {
-  const cancelOrder = () => {
-    console.log('Заказ отменен');
-  };
-
+const OrderCard = ({ image, text, tags, counter, number, onCancelClick }) => {
   return (
     <div className={styles.container}>
       <img className={styles.image} src={image} alt="card-image" />
@@ -23,7 +19,7 @@ const OrderCard = ({ image, text, tags, counter, number }) => {
       </div>
       <p className={styles.counter}>{counter}</p>
       <p className={styles.number}>{number}</p>
-      <CancelButton onCancel={cancelOrder} />
+      <CancelButton onCancel={onCancelClick} />
     </div>
   );
 };
