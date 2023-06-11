@@ -5,8 +5,6 @@ import MainPage from './pages/MainPage/MainPage';
 import SuccessPage from './pages/SuccessPage/SuccessPage';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import Calculator from './components/Calculator/Calculator';
-import Nda from './components/Nda/Nda';
 
 const App = () => {
   return (
@@ -19,7 +17,7 @@ const App = () => {
           <Route path="/success" index element={<SuccessPage />} />
         </Routes>
 
-        <Nda />
+        <Footer />
       </Router>
     </>
   );

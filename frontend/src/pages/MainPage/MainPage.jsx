@@ -4,7 +4,7 @@ import jsonData from '../../vendor/styles.json';
 import PackageButton from '../../components/UI/PackageButton/PackageButton';
 import MainButton from '../../components/UI/MainButton/MainButton';
 import OrderList from '../../components/OrderList/OrderList';
-import Footer from '../../components/Footer/Footer';
+import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import Calculator from '../../components/Calculator/Calculator';
 
 const MainPage = () => {
@@ -33,7 +33,11 @@ const MainPage = () => {
         <MainButton text={'Готово'} />
       </div>
       <Calculator isOpen={isOpen} onClose={handleClose} />
-      <Footer openPopup={setIsOpen} withOutBackButton={isOpen} withOutKeyboardButton={isOpen} />
+      <ControlPanel
+        openPopup={setIsOpen}
+        withOutBackButton={isOpen}
+        withOutKeyboardButton={isOpen}
+      />
     </>
   );
 };
