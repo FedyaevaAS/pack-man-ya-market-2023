@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import NotificationPopup from '../UI/NotificationPopup/NotificationPopup';
 import styles from './issueButtons.module.scss';
+import { Link } from 'react-router-dom';
 
-const IssueButtons = ({ buttonNames, isOpen }) => {
+const IssueButtons = ({ buttonNames, isOpen, toRedirect }) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   const closePopup = () => {
@@ -26,13 +27,21 @@ const IssueButtons = ({ buttonNames, isOpen }) => {
           <h2>Бригадир скоро подойдет</h2>
           <p>Подождите немного</p>
         </NotificationPopup>
-        {buttonNames.map((name, i) => {
-          return (
-            <button onClick={() => setIsOpenPopup(true)} key={i}>
-              {name}
-            </button>
-          );
-        })}
+        {toRedirect
+          ? buttonNames.map((name, i) => {
+              return (
+                <Link to={'/new-work-desk'} key={i}>
+                  <button>{name}</button>
+                </Link>
+              );
+            })
+          : buttonNames.map((name, i) => {
+              return (
+                <button onClick={() => setIsOpenPopup(true)} key={i}>
+                  {name}
+                </button>
+              );
+            })}
         <button onClick={() => setIsOpenPopup(true)}>Позвать бригадира</button>
       </section>
     </div>

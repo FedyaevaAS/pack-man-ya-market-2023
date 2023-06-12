@@ -1,0 +1,39 @@
+@import '../../vendor/variables';
+
+.ChangeWorkDeskPage {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  gap: 48px;
+  padding: 96px 24px 182px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      margin-top: 112px;
+      width: 634px;
+      height: 275px;
+    }
+
+    h1 {
+      width: 1184px;
+      text-align: center;
+      font-family: $heading-font-56-68;
+      font-size: $heading-size-56-68;
+      font-weight: $heading-weight-56-68;
+      line-height: $heading-line-height-56-68;
+      letter-spacing: $heading-letter-56-68;
+    }
+
+    h2 {
+      font-family: $heading-font-72-84;
+      font-size: $heading-size-72-84;
+      font-weight: $heading-weight-72-84;
+      line-height: $heading-line-height-72-84;
+    }
+  }
+}
