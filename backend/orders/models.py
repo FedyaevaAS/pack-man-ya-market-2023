@@ -17,13 +17,13 @@ class Order(models.Model):
         editable=False,
         verbose_name="Id заказа",
     )
-    # items = models.ManyToManyField(
-    #     "Item", related_name="order_items", verbose_name="Товары"
-    # )
-    packages = models.ManyToManyField(
-        "Package", related_name="order_packages", verbose_name="Упаковки"
-    )
     status = EnumField(Status, max_length=50, verbose_name="Статус")
+    items = models.ManyToManyField(
+        "Item", verbose_name="Товары", through="OrderItem"
+    )
+    packages = models.ManyToManyField(
+        "Package", verbose_name="Упаковки", through="OrderPackage"
+    )
 
     def __str__(self):
         return str(self.order_key)
@@ -45,8 +45,6 @@ class Item(models.Model):
     image = models.ImageField(
         upload_to="item_images/", verbose_name="Картинка"
     )
-    order_key = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
-    count = models.IntegerField(verbose_name="Количество")
     a = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name="Длина"
     )
@@ -57,10 +55,10 @@ class Item(models.Model):
         max_digits=10, decimal_places=2, verbose_name="Высота"
     )
     weight = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name="Вес"
+        max_digits=10, decimal_places=3, verbose_name="Вес"
     )
     types = models.ManyToManyField(
-        "Cargotype", related_name="item_types", verbose_name="Карготипы"
+        "Cargotype", verbose_name="Карготипы", through="ItemCargotypes"
     )
 
     def __str__(self):
@@ -72,13 +70,10 @@ class Item(models.Model):
 
 
 class Cargotype(models.Model):
-    cargotype = models.CharField(
-        primary_key=True, max_length=50, verbose_name="Тип груза"
+    cargotype = models.IntegerField(
+        primary_key=True, verbose_name="Тип груза"
     )
     description = models.CharField(max_length=150, verbose_name="Описание")
-    items = models.ManyToManyField(
-        Item, related_name="cargo_items", verbose_name="Товары"
-    )
 
     def __str__(self):
         return self.cargotype
@@ -102,9 +97,6 @@ class Package(models.Model):
         max_digits=10, decimal_places=2, verbose_name="Высота"
     )
     display_rf_pack = models.BooleanField(verbose_name="Доступно на складе")
-    orders = models.ManyToManyField(
-        Order, related_name="package_orders", verbose_name="Заказы"
-    )
 
     def __str__(self):
         return self.carton_type
@@ -127,7 +119,7 @@ class ItemCargotypes(models.Model):
 
 
 class OrderPackage(models.Model):
-    orderkey = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order_key = models.ForeignKey(Order, on_delete=models.CASCADE)
     cartontype = models.ForeignKey(Package, on_delete=models.CASCADE)
 
     class Meta:
@@ -135,4 +127,17 @@ class OrderPackage(models.Model):
         verbose_name_plural = 'Упаковки заказов'
 
     def __str__(self):
-        return f'{self.orderkey} {self.cartontype}'
+        return f'{self.order_key} {self.cartontype}'
+
+
+class OrderItem(models.Model):
+    order_key = models.ForeignKey(Order, on_delete=models.CASCADE)
+    sku = models.ForeignKey(Item, on_delete=models.CASCADE)
+    count = models.IntegerField(verbose_name="Количество")
+
+    class Meta:
+        verbose_name = 'Товар заказа'
+        verbose_name_plural = 'Товары заказов'
+
+    def __str__(self):
+        return f'{self.order_key} {self.sku}'
