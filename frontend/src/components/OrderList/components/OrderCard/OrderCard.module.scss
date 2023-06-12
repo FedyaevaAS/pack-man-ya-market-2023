@@ -54,24 +54,6 @@
     padding: 10px;
   }
 
-  .counter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 42px;
-    width: 80px;
-    height: 48px;
-    background: #2aad2e;
-    border: 1px solid #2aad2e;
-    border-radius: 100px;
-    text-align: center;
-    color: #fff;
-    font-family: $body-font-20-22;
-    font-size: $body-size-20-22;
-    font-weight: $body-weight-20-22;
-    line-height: $body-line-height-20-22;
-  }
-
   .number {
     font-weight: $body-weight-20-22;
     font-size: $body-size-20-22;

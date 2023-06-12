@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import checkMark from '../../../../images/check-mark.svg';
+import CounterButton from '../../../UI/CounterButton/CounterButton';
 import CancelButton from '../../../UI/CancelButton/CancelButton';
 import ExpandButton from '../../../UI/ExpandButton/ExpandButton';
 import styles from './OrderCard.module.scss';
 
 const OrderCard = ({ image, text, tags, counter, number, onCancelClick, isExpanded }) => {
   const [expanded, setExpanded] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const handleCounterClick = () => {
+    setSelected(!selected);
+  };
+
   return (
     <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''}`}>
-      <div className={styles.content}>
+      <div className={`${styles.content} ${selected ? styles.selected : ''}`}>
         {image ? (
           <img className={styles.image} src={image} alt="card-image" />
         ) : (
@@ -33,7 +39,7 @@ const OrderCard = ({ image, text, tags, counter, number, onCancelClick, isExpand
         </div>
         {counter > 1 ? (
           <>
-            <p className={styles.counter}>{counter} шт.</p>
+            <CounterButton counter={counter} onClick={handleCounterClick} />
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
@@ -42,7 +48,7 @@ const OrderCard = ({ image, text, tags, counter, number, onCancelClick, isExpand
           </>
         ) : (
           <>
-            <p className={styles.counter}>1 шт.</p>
+            <CounterButton counter={1} onClick={handleCounterClick} />
             <p className={styles.number}>{number}</p>
           </>
         )}
