@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import MainButton from '../../components/UI/MainButton/MainButton';
 import styles from './SuccessPage.module.scss';
 import successLogo from '../../images/success.svg';
@@ -12,7 +13,9 @@ const SuccessPage = () => {
           Упакуйте товары <br></br> и поставьте коробку на конвейер
         </h1>
       </div>
-      <MainButton text={'Готово'} />
+      <Link to={'/'}>
+        <MainButton text={'Готово'} />
+      </Link>
     </section>
   );
 };

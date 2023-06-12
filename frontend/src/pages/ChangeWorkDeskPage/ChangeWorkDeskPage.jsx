@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import MainButton from '../../components/UI/MainButton/MainButton';
 import styles from './ChangeWorkDeskPage.module.scss';
-import { Link } from 'react-router-dom';
 import NotificationPopup from '../../components/UI/NotificationPopup/NotificationPopup';
 
 const ChangeWorkDeskPage = () => {
