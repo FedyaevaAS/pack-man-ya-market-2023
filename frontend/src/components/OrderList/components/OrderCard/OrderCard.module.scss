@@ -2,20 +2,36 @@
 
 .container {
   display: flex;
-  // align-items: center;
+  flex-direction: column;
   max-width: 1120px;
   border-bottom: 1px solid #e8e8e8;
-  margin-bottom: 33px;
 
-  .info {
-    margin-bottom: 24px;
-    margin-right: 42px;
+  &.expandedCard {
+    border-bottom: none;
+  }
+
+  .content {
+    display: flex;
+    align-items: flex-start;
+    margin: 24px 0;
   }
 
   .image {
     width: 100px;
     height: 100px;
     margin-right: 24px;
+  }
+
+  .emptyImage {
+    width: 100px;
+    height: 100px;
+    margin-right: 24px;
+    background-color: transparent;
+  }
+
+  .info {
+    margin-bottom: 24px;
+    margin-right: 42px;
   }
 
   .text {
@@ -57,9 +73,9 @@
   }
 
   .number {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 23px;
+    font-weight: $body-weight-20-22;
+    font-size: $body-size-20-22;
+    line-height: $body-line-height-20-22;
     color: #0044ee;
     margin-top: 13px;
   }
