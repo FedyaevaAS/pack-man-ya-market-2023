@@ -5,6 +5,11 @@
   margin: 0 24px;
   padding-top: 96px;
   min-height: 832px;
+
+  &_isRecommendationsOpen {
+    padding: 0;
+    min-height: 940px;
+  }
 }
 
 .heading {

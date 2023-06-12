@@ -7,6 +7,7 @@ import OrderList from '../../components/OrderList/OrderList';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import Calculator from '../../components/Calculator/Calculator';
 import IssueButtons from '../../components/IssueButtons/IssueButtons';
+import Recommendations from '../../components/Recommendations/Recommendations';
 
 const MainPage = () => {
   const issueButtonNames = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер'];
@@ -15,12 +16,19 @@ const MainPage = () => {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [isIssueButtonsOpen, setIsIssueButtonsOpen] = useState(false);
   const [isCancelButtonsOpen, setIsCancelButtonsOpen] = useState(false);
+  const [isRecommendationsOpen, setIsRecommendationsOpen] = useState(false);
+
+  isPopupOpen
+    ? (document.body.style.overflowY = 'hidden')
+    : (document.body.style.overflowY = 'scroll');
 
   const handleOpenPopups = (popupName) => {
     if (popupName === 'issue') {
       setIsIssueButtonsOpen(true);
     } else if (popupName === 'cancel') {
       setIsCancelButtonsOpen(true);
+    } else if (popupName === 'recommend') {
+      setIsRecommendationsOpen(true);
     } else {
       setIsCalculatorOpen(true);
     }
@@ -31,18 +39,22 @@ const MainPage = () => {
     setIsIssueButtonsOpen(false);
     setIsCalculatorOpen(false);
     setIsCancelButtonsOpen(false);
+    setIsRecommendationsOpen(false);
     setIsPopupOpen(false);
   };
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div
+        className={`${styles.wrapper} ${
+          isRecommendationsOpen && styles.wrapper_isRecommendationsOpen
+        }`}>
         <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
         <div className={styles.content}>
           <div className={styles.heading}>
             <h1 className={styles.heading__title}>Сканируйте товары</h1>
             <h2 className={styles.heading__order}>B - 63626</h2>
-            <ul className={styles.heading__badges}>
+            <ul className={styles.heading__badges} onClick={() => handleOpenPopups('recommend')}>
               {Object.keys(jsonData).map((key) => (
                 <PackageButton key={key} boxType={key} packageData={jsonData[key]} />
               ))}
@@ -55,12 +67,15 @@ const MainPage = () => {
       <Calculator isOpen={isCalculatorOpen} onClose={handleClosePopups} />
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
       <IssueButtons isOpen={isCancelButtonsOpen} buttonNames={cancelButtonNames} />
-      <ControlPanel
-        onClose={handleClosePopups}
-        openPopup={() => handleOpenPopups('calculator')}
-        withOutBackButton={isPopupOpen}
-        withOutKeyboardButton={isPopupOpen}
-      />
+      <Recommendations isOpen={isRecommendationsOpen} onBackClick={handleClosePopups} />
+      {!isRecommendationsOpen && (
+        <ControlPanel
+          onClose={handleClosePopups}
+          openPopup={() => handleOpenPopups('calculator')}
+          withOutBackButton={isPopupOpen}
+          withOutKeyboardButton={isPopupOpen}
+        />
+      )}
     </>
   );
 };
