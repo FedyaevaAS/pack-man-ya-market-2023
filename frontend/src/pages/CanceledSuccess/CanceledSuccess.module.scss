@@ -1,0 +1,29 @@
+@import '../../vendor/variables';
+
+.CanceledSuccess {
+  display: flex;
+  justify-content: center;
+  padding: 212px 24px 300px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 317px;
+      height: 260px;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      width: 1184px;
+      text-align: center;
+      font-family: $heading-font-56-68;
+      font-size: $heading-size-56-68;
+      font-weight: $heading-weight-56-68;
+      line-height: $heading-line-height-56-68;
+      letter-spacing: $heading-letter-56-68;
+    }
+  }
+}
