@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'orders',
+    'api',
 ]
 
 MIDDLEWARE = [
