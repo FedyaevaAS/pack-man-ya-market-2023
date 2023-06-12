@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './CanceledSuccess.module.scss';
+import styles from './CanceledSuccessPage.module.scss';
 import successLogo from '../../images/canceled-success.svg';
 
-const CanceledSuccess = () => {
+const CanceledSuccessPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const CanceledSuccess = () => {
   }, []);
 
   return (
-    <section className={styles.CanceledSuccess}>
+    <section className={styles.CanceledSuccessPage}>
       <div>
         <img src={successLogo} alt="success-logo" />
         <h1>
@@ -24,4 +24,4 @@ const CanceledSuccess = () => {
   );
 };
 
-export default CanceledSuccess;
+export default CanceledSuccessPage;
