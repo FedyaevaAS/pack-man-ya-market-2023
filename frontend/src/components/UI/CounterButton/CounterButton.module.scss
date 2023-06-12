@@ -1,0 +1,27 @@
+@import '../../../vendor/variables';
+
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 42px;
+  width: 80px;
+  height: 48px;
+  background: #f3f0e9;
+  border: 1px solid #f3f0e9;
+  border-radius: 100px;
+  text-align: center;
+  color: #000000;
+
+  font-family: $body-font-20-22;
+  font-size: $body-size-20-22;
+  font-weight: $body-weight-20-22;
+  line-height: $body-line-height-20-22;
+  cursor: pointer;
+
+  &.scanned {
+    background: #2aad2e;
+    border: 1px solid #2aad2e;
+    color: #fff;
+  }
+}
