@@ -53,7 +53,7 @@ const MainPage = () => {
         <MainButton text={'Готово'} />
       </div>
       <Calculator isOpen={isCalculatorOpen} onClose={handleClosePopups} />
-      <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} />
+      <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
       <IssueButtons isOpen={isCancelButtonsOpen} buttonNames={cancelButtonNames} />
       <ControlPanel
         onClose={handleClosePopups}
