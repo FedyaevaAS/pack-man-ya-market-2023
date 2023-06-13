@@ -28,7 +28,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" index element={<SearchPage />} />
-        <Route path="/main" index element={<MainPage />} />
+        <Route path="/main" index element={<MainPage efficiencyIsOpen={efficiencyIsOpen} />} />
         <Route path="/success" index element={<SuccessPage />} />
         <Route path="/canceled-success" index element={<CanceledSuccessPage />} />
         <Route path="/new-work-desk" index element={<ChangeWorkDeskPage />} />

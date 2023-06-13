@@ -10,7 +10,7 @@ const Calculator = ({ onCalculatorSubmit, onClose, isOpen }) => {
 
   const onChangeInput = (n) => {
     if (n === 'x') {
-      setInputValue(inputValue.slice(0, -1));
+      setInputValue('');
       return;
     } else if (inputValue.length === 13) {
       return;

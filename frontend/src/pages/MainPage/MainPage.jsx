@@ -8,8 +8,9 @@ import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import Calculator from '../../components/Calculator/Calculator';
 import IssueButtons from '../../components/IssueButtons/IssueButtons';
 import Recommendations from '../../components/Recommendations/Recommendations';
+import { Link } from 'react-router-dom';
 
-const MainPage = () => {
+const MainPage = ({ efficiencyIsOpen }) => {
   const issueButtonNames = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер'];
   const cancelButtonNames = ['Нет товара', 'Несоответствие товара', 'Дефект упаковки'];
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -18,7 +19,7 @@ const MainPage = () => {
   const [isCancelButtonsOpen, setIsCancelButtonsOpen] = useState(false);
   const [isRecommendationsOpen, setIsRecommendationsOpen] = useState(false);
 
-  isPopupOpen
+  isPopupOpen || efficiencyIsOpen
     ? (document.body.style.overflowY = 'hidden')
     : (document.body.style.overflowY = 'scroll');
 
@@ -47,7 +48,7 @@ const MainPage = () => {
     <>
       <div
         className={`${styles.wrapper} ${
-          isRecommendationsOpen && styles.wrapper_isRecommendationsOpen
+          (isRecommendationsOpen || efficiencyIsOpen) && styles.wrapper_isRecommendationsOpen
         }`}>
         <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
         <div className={styles.content}>
@@ -62,7 +63,9 @@ const MainPage = () => {
           </div>
           <OrderList onCancelClick={() => handleOpenPopups('cancel')} />
         </div>
-        <MainButton text={'Готово'} />
+        <Link to={'/success'}>
+          <MainButton text={'Готово'} />
+        </Link>
       </div>
       <Calculator isOpen={isCalculatorOpen} onClose={handleClosePopups} />
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
