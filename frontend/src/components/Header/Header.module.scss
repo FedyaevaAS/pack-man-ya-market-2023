@@ -1,7 +1,8 @@
 @import '../../vendor/variables';
 
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   background-color: $main-bg-color;
   height: 112px;
   display: flex;
