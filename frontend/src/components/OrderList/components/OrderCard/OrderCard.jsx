@@ -3,6 +3,8 @@ import checkMark from '../../../../images/check-mark.svg';
 import CounterButton from '../../../UI/CounterButton/CounterButton';
 import CancelButton from '../../../UI/CancelButton/CancelButton';
 import ExpandButton from '../../../UI/ExpandButton/ExpandButton';
+import TagList from '../../../UI/TagList/TagList';
+
 import styles from './OrderCard.module.scss';
 
 const OrderCard = ({
@@ -14,12 +16,11 @@ const OrderCard = ({
   onCancelClick,
   isExpanded,
   handleCounterClick,
-  onScanSubmit
+  onScanSubmit,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
 
-  // new logic
   const [totalCount, setTotalCount] = useState(1);
   const [isTotalScanned, setIsTotalScanned] = useState(false);
 
@@ -46,15 +47,7 @@ const OrderCard = ({
         )}
         <div className={styles.info}>
           <h3 className={styles.text}>{text}</h3>
-          {Array.isArray(tags) ? (
-            tags.map((tag, index) => (
-              <p key={index} className={styles.tag}>
-                {tag}
-              </p>
-            ))
-          ) : (
-            <p className={styles.tag}>{tags}</p>
-          )}
+          <TagList tags={tags} />
         </div>
         {counter > 1 ? (
           <>

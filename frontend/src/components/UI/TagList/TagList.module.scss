@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  width: 433px;
 }
 
 .tag {
@@ -15,12 +16,16 @@
   padding: 10px;
   margin-bottom: 12px;
 
-  &.nonpackBorder {
+  &.nonpackTag {
     background: #ffd9db;
     border-color: #ffd9db;
   }
 
-  &.qrCodeTag,
+  &.qrCodeTag {
+    background: #ffeccc;
+    border-color: #ffeccc;
+  }
+
   &.imeiCodeTag {
     background: #ffeccc;
     border-color: #ffeccc;
