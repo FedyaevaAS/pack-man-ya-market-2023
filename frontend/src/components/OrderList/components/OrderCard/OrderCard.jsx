@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import checkMark from '../../../../images/check-mark.svg';
 import CounterButton from '../../../UI/CounterButton/CounterButton';
 import CancelButton from '../../../UI/CancelButton/CancelButton';
 import ExpandButton from '../../../UI/ExpandButton/ExpandButton';
 import styles from './OrderCard.module.scss';
 
-const OrderCard = ({ image, text, tags, counter, number, onCancelClick, isExpanded }) => {
+const OrderCard = ({
+  image,
+  text,
+  tags,
+  counter,
+  number,
+  onCancelClick,
+  isExpanded,
+  handleCounterClick,
+  onScanSubmit
+}) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
+
+  // new logic
+  const [totalCount, setTotalCount] = useState(1);
+  const [isTotalScanned, setIsTotalScanned] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleCounterClick = () => {
+  const handleClick = () => {
+    setTotalCount(totalCount + 1);
+    if (totalCount === counter) {
+      setIsTotalScanned(true);
+      onScanSubmit(totalCount);
+    }
     setSelected(!selected);
   };
 
@@ -39,7 +58,7 @@ const OrderCard = ({ image, text, tags, counter, number, onCancelClick, isExpand
         </div>
         {counter > 1 ? (
           <>
-            <CounterButton counter={counter} onClick={handleCounterClick} />
+            <CounterButton disabled={true} counter={counter} scanned={isTotalScanned} />
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
@@ -48,7 +67,7 @@ const OrderCard = ({ image, text, tags, counter, number, onCancelClick, isExpand
           </>
         ) : (
           <>
-            <CounterButton counter={1} onClick={handleCounterClick} />
+            <CounterButton counter={1} onClick={handleCounterClick} onScanSubmit={onScanSubmit} />
             <p className={styles.number}>{number}</p>
           </>
         )}
@@ -63,7 +82,9 @@ const OrderCard = ({ image, text, tags, counter, number, onCancelClick, isExpand
             counter={1}
             number={number}
             onCancelClick={onCancelClick}
+            handleCounterClick={handleClick}
             isExpanded={true}
+            onScanSubmit={onScanSubmit}
           />
         ))}
     </div>

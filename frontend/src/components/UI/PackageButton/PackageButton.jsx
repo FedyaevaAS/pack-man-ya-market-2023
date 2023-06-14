@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styles from './PackageButton.module.scss'; // Импорт стилей из SCSS
 
-const PackageButton = ({ boxType, packageType }) => {
+const PackageButton = ({ boxType, packageType, setAllScanned }) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
-    setIsActive(!isActive);
+    setIsActive(true);
+    setAllScanned(1);
   };
 
   let buttonStyle;
