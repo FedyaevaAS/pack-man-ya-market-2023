@@ -68,10 +68,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
 
   return (
     <>
-      <div
-        className={`${styles.wrapper} ${
-          (isRecommendationsOpen || efficiencyIsOpen) && styles.wrapper_isRecommendationsOpen
-        }`}>
+      <div className={`${styles.wrapper} `}>
         <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
         <div className={styles.content}>
           <div className={styles.heading}>
