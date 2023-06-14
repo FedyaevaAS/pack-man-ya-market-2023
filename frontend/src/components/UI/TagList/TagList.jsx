@@ -2,8 +2,8 @@ import React from 'react';
 import fragileIcon from '../../../images/fragile-icon.svg';
 import toxicIcon from '../../../images/toxic-icon.svg';
 import packageIcon from '../../../images/package-icon.svg';
-import imeiCode from '../../../images/imei-code-icon.svg';
-import qrCode from '../../../images/qr-code-icon.svg';
+import imeiCodeIcon from '../../../images/imei-code-icon.svg';
+import qrCodeIcon from '../../../images/qr-code-icon.svg';
 
 import styles from './TagList.module.scss';
 
@@ -11,8 +11,8 @@ const tagIcons = {
   Хрупкое: fragileIcon,
   Токсичное: toxicIcon,
   Крупногабаритное: packageIcon,
-  'Сканировать QR Честный знак': qrCode,
-  'Сканировать IMEI': imeiCode,
+  'Сканировать QR Честный знак': qrCodeIcon,
+  'Сканировать IMEI': imeiCodeIcon,
 };
 
 const TagList = ({ tags }) => {
