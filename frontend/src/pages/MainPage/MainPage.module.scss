@@ -6,10 +6,12 @@
   padding-top: 96px;
   min-height: 832px;
 
-  &_isRecommendationsOpen {
+  //${(isRecommendationsOpen || efficiencyIsOpen) && styles.wrapper_isRecommendationsOpen}
+  // висело на Main page wrapper хз зачем, если что удалим позже
+  /*   &_isRecommendationsOpen {
     padding: 0;
     height: 940px;
-  }
+  } */
 }
 
 .heading {
