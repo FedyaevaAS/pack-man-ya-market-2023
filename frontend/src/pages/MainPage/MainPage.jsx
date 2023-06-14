@@ -18,6 +18,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
   const [isIssueButtonsOpen, setIsIssueButtonsOpen] = useState(false);
   const [isCancelButtonsOpen, setIsCancelButtonsOpen] = useState(false);
   const [isRecommendationsOpen, setIsRecommendationsOpen] = useState(false);
+  const [isOrderScanned, setIsOrderScanned] = useState(false);
 
   isPopupOpen || efficiencyIsOpen
     ? (document.body.style.overflowY = 'hidden')
@@ -44,6 +45,10 @@ const MainPage = ({ efficiencyIsOpen }) => {
     setIsPopupOpen(false);
   };
 
+  const setAllScanned = () => {
+    setIsOrderScanned(true);
+  };
+
   return (
     <>
       <div
@@ -61,11 +66,16 @@ const MainPage = ({ efficiencyIsOpen }) => {
               ))}
             </ul>
           </div>
-          <OrderList onCancelClick={() => handleOpenPopups('cancel')} />
+          <OrderList
+            onCancelClick={() => handleOpenPopups('cancel')}
+            isAllScanned={setAllScanned}
+          />
         </div>
-        <Link to={'/success'}>
-          <MainButton text={'Готово'} />
-        </Link>
+        {isOrderScanned && (
+          <Link to={'/success'}>
+            <MainButton text={'Готово'} />
+          </Link>
+        )}
       </div>
       <Calculator isOpen={isCalculatorOpen} onClose={handleClosePopups} />
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
