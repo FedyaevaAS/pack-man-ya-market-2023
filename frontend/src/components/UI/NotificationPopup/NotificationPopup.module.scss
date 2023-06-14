@@ -1,11 +1,34 @@
 @import '../../../vendor/variables';
 
+.overlay {
+  visibility: hidden;
+  position: absolute;
+  overflow-y: scroll;
+  background-color: transparent;
+  top: 104px;
+  padding-top: 40px;
+  /*  right: -17px; */
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s linear, visibility 0.4s linear;
+  z-index: 2;
+}
+
+.overlay_opened {
+  opacity: 1;
+  visibility: visible;
+}
+
 .notificationPopup {
-  position: fixed;
   top: 144px;
   background-color: #ffffff;
   width: 1096px;
-  height: 185px;
+  /* height: 185px; */
+  padding: 40px 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -14,14 +37,6 @@
   box-shadow: 0px 5px 46px 0px #0000001f;
   border-radius: 40px;
   cursor: pointer;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.4s linear, visibility 0.4s linear;
-
-  &_opened {
-    opacity: 1;
-    visibility: visible;
-  }
 
   h2 {
     margin-bottom: 10px;

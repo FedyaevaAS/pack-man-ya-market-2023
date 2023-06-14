@@ -1,14 +1,21 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin: 0 24px;
+  padding-top: 96px;
+  min-height: 832px;
+
+  &_isRecommendationsOpen {
+    padding: 0;
+    height: 940px;
+  }
 }
 
 .heading {
   text-align: center;
   margin-bottom: 48px;
-  margin-top: 56px;
+  margin-top: -40px;
 
   &__title {
     font-weight: 700;

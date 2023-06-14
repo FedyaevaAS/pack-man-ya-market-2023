@@ -1,0 +1,83 @@
+@import '../../vendor/variables';
+
+.overlay {
+  visibility: hidden;
+  position: fixed;
+  overflow-y: scroll;
+  background-color: $main-bg-color;
+  top: 0;
+  right: -17px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s linear, visibility 0.4s linear;
+  z-index: 2;
+}
+
+.overlay_opened {
+  opacity: 1;
+  visibility: visible;
+}
+
+.content {
+  min-height: 940px;
+  padding: 200px 0 168px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 90px;
+    height: 84px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    text-align: center;
+    font-family: $heading-font-56-68;
+    font-size: $heading-size-56-68;
+    font-weight: $heading-weight-56-68;
+    line-height: $heading-line-height-56-68;
+    letter-spacing: $heading-letter-56-68;
+  }
+
+  h2 {
+    margin-bottom: 91px;
+    text-align: center;
+    font-family: $heading-font-56-68;
+    font-size: $heading-size-56-68;
+    font-weight: $heading-weight-56-68;
+    line-height: $heading-line-height-56-68;
+    letter-spacing: $heading-letter-56-68;
+  }
+
+  div {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+
+    button {
+      background-color: #f3f0e9;
+      border: none;
+      white-space: nowrap;
+      width: 768px;
+      padding: 32px 0;
+      max-height: 108px;
+      text-align: center;
+      font-family: $button-font-40-44;
+      font-size: $button-size-40-44;
+      font-weight: $button-weight-40-44;
+      line-height: $button-line-height-40-44;
+      letter-spacing: $button-letter-40-44;
+      cursor: pointer;
+      border-radius: 24px;
+
+      &:active {
+        background-color: #dedede;
+      }
+    }
+  }
+}
