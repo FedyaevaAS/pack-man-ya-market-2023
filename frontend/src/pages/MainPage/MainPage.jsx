@@ -76,7 +76,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
         <div className={styles.content}>
           <div className={styles.heading}>
             <h1 className={styles.heading__title}>Сканируйте товары</h1>
-            <h2 className={styles.heading__order}>B - 63626</h2>
+            <h2 className={styles.heading__order}>B-63626</h2>
             <ul className={styles.heading__badges}>
               {Object.keys(jsonData).map((key) => (
                 <PackageButton
