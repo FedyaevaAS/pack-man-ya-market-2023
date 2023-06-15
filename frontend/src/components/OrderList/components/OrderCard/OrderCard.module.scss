@@ -10,6 +10,15 @@
     border-bottom: none;
   }
 
+  .closed {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .opened {
+    visibility: visible;
+  }
+
   .content {
     display: flex;
     align-items: flex-start;
@@ -54,7 +63,7 @@
     padding: 10px;
   }
 
-  .barcode {
+  .number {
     font-weight: $body-weight-20-22;
     font-size: $body-size-20-22;
     line-height: $body-line-height-20-22;

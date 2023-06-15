@@ -8,10 +8,12 @@
   padding-top: 96px;
   min-height: 832px;
 
-  &_isRecommendationsOpen {
+  //${(isRecommendationsOpen || efficiencyIsOpen) && styles.wrapper_isRecommendationsOpen}
+  // висело на Main page wrapper хз зачем, если что удалим позже
+  /*   &_isRecommendationsOpen {
     padding: 0;
     height: 940px;
-  }
+  } */
 }
 
 .heading {
@@ -36,8 +38,11 @@
   }
 
   &__badges {
+    max-width: 850px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
     list-style: none;
     padding: 0;
     margin: 0;

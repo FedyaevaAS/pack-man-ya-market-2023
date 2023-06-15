@@ -8,22 +8,34 @@ const Calculator = ({ onCalculatorSubmit, onClose, isOpen }) => {
   const [disabledValue, setDisabledValue] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
+  const createSpaces = (inputValue, n) => {
+    if (inputValue.length === 4) {
+      setInputValue(inputValue + ` ${n}`);
+    } else if (inputValue.length === 9) {
+      setInputValue(inputValue + ` ${n}`);
+    } else if (inputValue.length === 13) {
+      setInputValue(inputValue + ` ${n}`);
+    }
+  };
+
   const onChangeInput = (n) => {
     if (n === 'x') {
       setInputValue('');
       return;
-    } else if (inputValue.length === 13) {
+    } else if (inputValue.length === 16) {
       return;
     }
     setInputValue(inputValue + n);
+    createSpaces(inputValue, n);
   };
 
-  const onSubmit = () => {
+  const onSubmit = (inputValue) => {
     onCalculatorSubmit(inputValue);
+    setInputValue('');
   };
 
   useEffect(() => {
-    inputValue.length === 13 ? setDisabledValue(false) : setDisabledValue(true);
+    inputValue.length === 16 ? setDisabledValue(false) : setDisabledValue(true);
   }, [inputValue]);
 
   return (
@@ -46,7 +58,7 @@ const Calculator = ({ onCalculatorSubmit, onClose, isOpen }) => {
             })}
           </div>
         </div>
-        <MainButton onClick={onSubmit && onClose} text={'Готово'} disabled={disabledValue} />
+        <MainButton onClick={() => onSubmit(inputValue)} text={'Готово'} disabled={disabledValue} />
       </section>
     </div>
   );

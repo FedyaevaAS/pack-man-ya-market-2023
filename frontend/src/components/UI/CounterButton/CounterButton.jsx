@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './CounterButton.module.scss';
 
-const CounterButton = ({ counter, disabled, onClick, scanned, onScanSubmit }) => {
+const CounterButton = ({
+  counter,
+  disabled,
+  onClick,
+  scanned,
+  onScanSubmit,
+  number,
+  calculatorValue
+}) => {
   const [isScanned, setIsScanned] = useState(false);
 
   const handleClick = () => {
@@ -13,6 +21,12 @@ const CounterButton = ({ counter, disabled, onClick, scanned, onScanSubmit }) =>
 
     setIsScanned(!isScanned);
   };
+
+  useEffect(() => {
+    if (calculatorValue && calculatorValue === number) {
+      handleClick();
+    }
+  }, [calculatorValue]);
 
   return (
     <button
