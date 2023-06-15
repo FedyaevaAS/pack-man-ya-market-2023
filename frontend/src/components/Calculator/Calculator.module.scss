@@ -46,7 +46,7 @@
     input {
       border: 7px solid #ffb026;
       border-radius: 24px;
-      padding: 21px 113px;
+      padding: 21px 96px;
       margin-bottom: 32px;
       width: 596px;
       height: 100px;
@@ -54,6 +54,7 @@
       font-size: $heading-size-48-58;
       font-weight: $heading-weight-48-58;
       line-height: $heading-line-height-48-58;
+      cursor: default;
     }
 
     .disabled {
