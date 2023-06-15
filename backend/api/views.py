@@ -17,10 +17,8 @@ class GenerateOrderID(APIView):
         )
         if orders:
             order = random.choice(orders)
-            order.status = Order.Status.IN_PROGRESS.value
-            order.save()
-            serializer = OrderSerializer(order)
-            return Response(serializer.data)
+            data = {'status': order.status, 'order_key': order.order_key}
+            return Response(data)
         else:
             return Response(
                 {'message': 'Заказ не найден.'},
@@ -46,7 +44,7 @@ class MarkOrderAsOK(APIView):
         return Response(serializer.data)
 
 
-class GetByOrderId(APIView):
+class OrderPack(APIView):
     def get(self, request, order_key):
         order = get_object_or_404(Order, order_key=order_key)
         items = order.items.all()
