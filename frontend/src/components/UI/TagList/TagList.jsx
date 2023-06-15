@@ -16,42 +16,41 @@ const tagIcons = {
 };
 
 const TagList = ({ tags }) => {
+  if (!Array.isArray(tags)) {
+    return null;
+  }
+
   return (
     <div className={styles.tagList}>
       {tags.map((tag, index) => {
-        if (typeof tag === 'string') {
-          if (
-            tag === 'Пузырчатая плёнка' ||
-            tag === 'Стретч-плёнка' ||
-            tag === 'Пакет' ||
-            tag === 'Упаковать отдельно в NONPACK'
-          ) {
-            return (
-              <div
-                key={index}
-                className={`${styles.tag} ${
-                  tag === 'Упаковать отдельно в NONPACK' ? styles.nonpackTag : ''
-                }`}>
-                <p className={styles.tagName}>{tag}</p>
-              </div>
-            );
-          } else {
-            return (
-              <div key={index} className={`${styles.tag} ${styles.defaultTag}`}>
-                <p className={styles.tagName}>{tag}</p>
-              </div>
-            );
-          }
-        } else {
-          const tagName = tag[0];
-          const tagIcon = tagIcons[tagName];
+        let tagName = tag;
+        let tagIcon = tagIcons[tagName];
+        let additionalClass = '';
 
+        if (tagName === 'Сканировать QR Честный знак') {
+          additionalClass = styles.qrCodeTag;
+        } else if (tagName === 'Сканировать IMEI') {
+          additionalClass = styles.imeiCodeTag;
+        }
+
+        if (
+          tagName === 'Пузырчатая плёнка' ||
+          tagName === 'Стретч-плёнка' ||
+          tagName === 'Пакет' ||
+          tagName === 'Упаковать отдельно в NONPACK'
+        ) {
           return (
             <div
               key={index}
               className={`${styles.tag} ${
-                tagName === 'Сканировать QR Честный знак' ? styles.qrCodeTag : ''
-              } ${tagName === 'Сканировать IMEI' ? styles.imeiCodeTag : ''}`}>
+                tagName === 'Упаковать отдельно в NONPACK' ? styles.nonpackTag : ''
+              } ${additionalClass}`}>
+              <p className={styles.tagName}>{tagName}</p>
+            </div>
+          );
+        } else {
+          return (
+            <div key={index} className={`${styles.tag} ${styles.defaultTag} ${additionalClass}`}>
               {tagIcon && (
                 <div className={styles.tagIconContainer}>
                   <img src={tagIcon} alt={tagName} className={styles.tagIcon} />
