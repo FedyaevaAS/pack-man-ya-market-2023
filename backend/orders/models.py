@@ -10,6 +10,7 @@ class Order(models.Model):
         FORMED = "formed"
         FAIL = "fail"
         IN_PROGRESS = "in_progress"
+        CANCELED = "canceled"
 
     order_key = models.UUIDField(
         primary_key=True,
@@ -17,7 +18,9 @@ class Order(models.Model):
         editable=False,
         verbose_name="Id заказа",
     )
+    order_number = models.IntegerField(verbose_name="Номер заказа", unique=True)
     status = EnumField(Status, max_length=50, verbose_name="Статус")
+    delivery_type = models.CharField(max_length=100, verbose_name="Способ доставки")
     items = models.ManyToManyField(
         "Item", verbose_name="Товары", through="OrderItem"
     )
@@ -40,11 +43,9 @@ class Item(models.Model):
         editable=False,
         verbose_name="Id товара",
     )
-    name = models.CharField(max_length=50, verbose_name="Название товара")
+    name = models.CharField(max_length=200, verbose_name="Название товара")
     barcode = models.CharField(max_length=50, verbose_name="Штрихкод")
-    image = models.ImageField(
-        upload_to="item_images/", verbose_name="Картинка"
-    )
+    image_url = models.URLField(verbose_name="Ссылка на изображение")
     a = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name="Длина"
     )
@@ -69,11 +70,22 @@ class Item(models.Model):
         verbose_name_plural = "Товары"
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Тэг")
+    action = models.BooleanField()
+
 class Cargotype(models.Model):
     cargotype = models.IntegerField(
         primary_key=True, verbose_name="Тип груза"
     )
     description = models.CharField(max_length=150, verbose_name="Описание")
+    tag = models.ForeignKey(
+        Tag,
+        on_delete=models.SET_DEFAULT,
+        null=True,
+        default='',
+        related_name='cargotypes'
+    )
 
     def __str__(self):
         return self.cargotype
