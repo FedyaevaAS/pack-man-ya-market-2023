@@ -1,7 +1,7 @@
 import uuid
 
 from django.db import models
-from django_enum import EnumField
+from django_enum.fields import EnumField
 
 
 class Order(models.Model):
@@ -9,6 +9,7 @@ class Order(models.Model):
         OK = "ok"
         FORMED = "formed"
         FAIL = "fail"
+        CANCEL = "cancel"
         IN_PROGRESS = "in_progress"
         CANCELED = "canceled"
 
@@ -75,9 +76,7 @@ class Tag(models.Model):
     action = models.BooleanField()
 
 class Cargotype(models.Model):
-    cargotype = models.IntegerField(
-        primary_key=True, verbose_name="Тип груза"
-    )
+    cargotype = models.IntegerField(primary_key=True, verbose_name="Тип груза")
     description = models.CharField(max_length=150, verbose_name="Описание")
     tag = models.ForeignKey(
         Tag,

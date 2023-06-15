@@ -1,13 +1,26 @@
-from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from .views import OrderViewSet
-
-app_name = 'api'
-
-router = DefaultRouter()
-router.register('orders', OrderViewSet, basename='order')
+from .views import CancelOrder, GenerateOrderKey, MarkOrderAsOK, OrderPack
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path(
+        'generate_order_key/',
+        GenerateOrderKey.as_view(),
+        name='generate_order_id',
+    ),
+    path(
+        '<uuid:order_key>/cancel',
+        CancelOrder.as_view(),
+        name='cancel_order',
+    ),
+    path(
+        '<uuid:order_key>/ok',
+        MarkOrderAsOK.as_view(),
+        name='mark_order_as_ok',
+    ),
+    path(
+        '<uuid:order_key>/pack',
+        OrderPack.as_view(),
+        name='get_by_order_id',
+    ),
 ]
