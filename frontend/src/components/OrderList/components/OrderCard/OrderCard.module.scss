@@ -10,6 +10,15 @@
     border-bottom: none;
   }
 
+  .closed {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .opened {
+    visibility: visible;
+  }
+
   .content {
     display: flex;
     align-items: flex-start;

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import checkMark from '../../../../images/check-mark.svg';
+import reversedCheckMark from '../../../../images/reversed-check-mark.svg';
 import CounterButton from '../../../UI/CounterButton/CounterButton';
 import CancelButton from '../../../UI/CancelButton/CancelButton';
 import ExpandButton from '../../../UI/ExpandButton/ExpandButton';
@@ -14,13 +15,15 @@ const OrderCard = ({
   onCancelClick,
   isExpanded,
   handleCounterClick,
-  onScanSubmit
+  onScanSubmit,
+  calculatorValue,
+  expandedIsOpen
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
 
   // new logic
-  const [totalCount, setTotalCount] = useState(1);
+  const totalCount = useRef(0);
   const [isTotalScanned, setIsTotalScanned] = useState(false);
 
   const handleExpandClick = () => {
@@ -28,16 +31,20 @@ const OrderCard = ({
   };
 
   const handleClick = () => {
-    setTotalCount(totalCount + 1);
-    if (totalCount === counter) {
+    totalCount.current = totalCount.current + 1;
+    if (totalCount.current === counter) {
       setIsTotalScanned(true);
-      onScanSubmit(totalCount);
+      onScanSubmit(totalCount.current);
+      totalCount.current = 0;
     }
-    setSelected(!selected);
+    setSelected(true);
   };
 
   return (
-    <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''}`}>
+    <div
+      className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} ${
+        expandedIsOpen ? styles.opened : styles.closed
+      }`}>
       <div className={`${styles.content} ${selected ? styles.selected : ''}`}>
         {image ? (
           <img className={styles.image} src={image} alt="card-image" />
@@ -62,18 +69,24 @@ const OrderCard = ({
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
-              buttonLogo={checkMark}
+              buttonLogo={expanded ? reversedCheckMark : checkMark}
             />
           </>
         ) : (
           <>
-            <CounterButton counter={1} onClick={handleCounterClick} onScanSubmit={onScanSubmit} />
+            <CounterButton
+              counter={1}
+              onClick={handleCounterClick}
+              onScanSubmit={onScanSubmit}
+              number={number}
+              calculatorValue={calculatorValue}
+            />
             <p className={styles.number}>{number}</p>
           </>
         )}
         {counter === 1 && <CancelButton onCancel={onCancelClick} />}
       </div>
-      {expanded &&
+      {counter > 1 &&
         Array.from({ length: counter }).map((_, index) => (
           <OrderCard
             key={index}
@@ -85,6 +98,8 @@ const OrderCard = ({
             handleCounterClick={handleClick}
             isExpanded={true}
             onScanSubmit={onScanSubmit}
+            calculatorValue={calculatorValue}
+            expandedIsOpen={expanded}
           />
         ))}
     </div>
