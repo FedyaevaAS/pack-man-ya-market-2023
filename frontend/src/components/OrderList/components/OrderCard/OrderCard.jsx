@@ -12,7 +12,7 @@ const OrderCard = ({
   text,
   tags,
   counter,
-  number,
+  barcode,
   onCancelClick,
   isExpanded,
   handleCounterClick,
@@ -61,7 +61,7 @@ const OrderCard = ({
         ) : (
           <>
             <CounterButton counter={1} onClick={handleCounterClick} onScanSubmit={onScanSubmit} />
-            <p className={styles.number}>{number}</p>
+            <p className={styles.barcode}>{barcode}</p>
           </>
         )}
         {counter === 1 && <CancelButton onCancel={onCancelClick} />}
@@ -73,7 +73,7 @@ const OrderCard = ({
             text={text}
             tags={tags}
             counter={1}
-            number={number}
+            barcode={barcode}
             onCancelClick={onCancelClick}
             handleCounterClick={handleClick}
             isExpanded={true}
