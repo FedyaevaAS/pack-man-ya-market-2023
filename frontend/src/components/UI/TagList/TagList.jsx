@@ -20,7 +20,12 @@ const TagList = ({ tags }) => {
     <div className={styles.tagList}>
       {tags.map((tag, index) => {
         if (typeof tag === 'string') {
-          if (tag === 'Пузырчатая плёнка' || tag === 'Стретч-плёнка' || tag === 'Пакет') {
+          if (
+            tag === 'Пузырчатая плёнка' ||
+            tag === 'Стретч-плёнка' ||
+            tag === 'Пакет' ||
+            tag === 'Упаковать отдельно в NONPACK'
+          ) {
             return (
               <div
                 key={index}

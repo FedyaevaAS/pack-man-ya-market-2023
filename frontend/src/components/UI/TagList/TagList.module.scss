@@ -1,3 +1,5 @@
+@import '../../../vendor/variables';
+
 .tagList {
   display: flex;
   flex-wrap: wrap;
@@ -18,7 +20,7 @@
 
   &.nonpackTag {
     background: #ffd9db;
-    border-color: #ffd9db;
+    background: #ffd9db;
   }
 
   &.qrCodeTag {
@@ -39,7 +41,8 @@
 }
 
 .tagName {
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 23px;
+  font-family: $body-font-20-22;
+  font-size: $body-size-20-22;
+  font-weight: $body-weight-20-22;
+  line-height: $body-line-height-20-22;
 }
