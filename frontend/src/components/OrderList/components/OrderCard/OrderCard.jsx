@@ -4,6 +4,8 @@ import reversedCheckMark from '../../../../images/reversed-check-mark.svg';
 import CounterButton from '../../../UI/CounterButton/CounterButton';
 import CancelButton from '../../../UI/CancelButton/CancelButton';
 import ExpandButton from '../../../UI/ExpandButton/ExpandButton';
+import TagList from '../../../UI/TagList/TagList';
+
 import styles from './OrderCard.module.scss';
 
 const OrderCard = ({
@@ -11,13 +13,13 @@ const OrderCard = ({
   text,
   tags,
   counter,
-  number,
+  barcode,
   onCancelClick,
   isExpanded,
   handleCounterClick,
   onScanSubmit,
   calculatorValue,
-  expandedIsOpen
+  expandedIsOpen,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -39,12 +41,8 @@ const OrderCard = ({
     }
     setSelected(true);
   };
-
   return (
-    <div
-      className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} ${
-        expandedIsOpen ? styles.opened : styles.closed
-      }`}>
+    <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''}`}>
       <div className={`${styles.content} ${selected ? styles.selected : ''}`}>
         {image ? (
           <img className={styles.image} src={image} alt="card-image" />
@@ -53,15 +51,7 @@ const OrderCard = ({
         )}
         <div className={styles.info}>
           <h3 className={styles.text}>{text}</h3>
-          {Array.isArray(tags) ? (
-            tags.map((tag, index) => (
-              <p key={index} className={styles.tag}>
-                {tag}
-              </p>
-            ))
-          ) : (
-            <p className={styles.tag}>{tags}</p>
-          )}
+          <TagList tags={tags} />
         </div>
         {counter > 1 ? (
           <>
@@ -69,37 +59,29 @@ const OrderCard = ({
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
-              buttonLogo={expanded ? reversedCheckMark : checkMark}
+              buttonLogo={checkMark}
             />
           </>
         ) : (
           <>
-            <CounterButton
-              counter={1}
-              onClick={handleCounterClick}
-              onScanSubmit={onScanSubmit}
-              number={number}
-              calculatorValue={calculatorValue}
-            />
-            <p className={styles.number}>{number}</p>
+            <CounterButton counter={1} onClick={handleCounterClick} onScanSubmit={onScanSubmit} />
+            <p className={styles.barcode}>{barcode}</p>
           </>
         )}
         {counter === 1 && <CancelButton onCancel={onCancelClick} />}
       </div>
-      {counter > 1 &&
+      {expanded &&
         Array.from({ length: counter }).map((_, index) => (
           <OrderCard
             key={index}
             text={text}
             tags={tags}
             counter={1}
-            number={number}
+            barcode={barcode}
             onCancelClick={onCancelClick}
             handleCounterClick={handleClick}
             isExpanded={true}
             onScanSubmit={onScanSubmit}
-            calculatorValue={calculatorValue}
-            expandedIsOpen={expanded}
           />
         ))}
     </div>
