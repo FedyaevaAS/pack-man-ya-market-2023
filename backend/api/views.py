@@ -10,7 +10,7 @@ from orders.models import Order
 from .serializers import OrderSerializer
 
 
-class GenerateOrderID(APIView):
+class GenerateOrderKey(APIView):
     def get(self, request):
         orders = Order.objects.filter(
             status__in=[Order.Status.FORMED.value, Order.Status.FAIL.value]
@@ -47,6 +47,9 @@ class MarkOrderAsOK(APIView):
 class OrderPack(APIView):
     def get(self, request, order_key):
         order = get_object_or_404(Order, order_key=order_key)
+        order.status = Order.Status.IN_PROGRESS.value
+        order.save()
+
         items = order.items.all()
 
         result = []
