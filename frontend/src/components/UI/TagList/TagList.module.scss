@@ -1,7 +1,10 @@
+@import '../../../vendor/variables';
+
 .tagList {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  width: 433px;
 }
 
 .tag {
@@ -15,12 +18,16 @@
   padding: 10px;
   margin-bottom: 12px;
 
-  &.nonpackBorder {
+  &.nonpackTag {
     background: #ffd9db;
-    border-color: #ffd9db;
+    background: #ffd9db;
   }
 
-  &.qrCodeTag,
+  &.qrCodeTag {
+    background: #ffeccc;
+    border-color: #ffeccc;
+  }
+
   &.imeiCodeTag {
     background: #ffeccc;
     border-color: #ffeccc;
@@ -34,7 +41,8 @@
 }
 
 .tagName {
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 23px;
+  font-family: $body-font-20-22;
+  font-size: $body-size-20-22;
+  font-weight: $body-weight-20-22;
+  line-height: $body-line-height-20-22;
 }

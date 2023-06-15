@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import checkMark from '../../../../images/check-mark.svg';
-import reversedCheckMark from '../../../../images/reversed-check-mark.svg';
 import CounterButton from '../../../UI/CounterButton/CounterButton';
 import CancelButton from '../../../UI/CancelButton/CancelButton';
 import ExpandButton from '../../../UI/ExpandButton/ExpandButton';
+import TagList from '../../../UI/TagList/TagList';
+
 import styles from './OrderCard.module.scss';
 
 const OrderCard = ({
@@ -16,14 +17,11 @@ const OrderCard = ({
   isExpanded,
   handleCounterClick,
   onScanSubmit,
-  calculatorValue,
-  expandedIsOpen
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
 
-  // new logic
-  const totalCount = useRef(0);
+  const [totalCount, setTotalCount] = useState(1);
   const [isTotalScanned, setIsTotalScanned] = useState(false);
 
   const handleExpandClick = () => {
@@ -31,20 +29,16 @@ const OrderCard = ({
   };
 
   const handleClick = () => {
-    totalCount.current = totalCount.current + 1;
-    if (totalCount.current === counter) {
+    setTotalCount(totalCount + 1);
+    if (totalCount === counter) {
       setIsTotalScanned(true);
-      onScanSubmit(totalCount.current);
-      totalCount.current = 0;
+      onScanSubmit(totalCount);
     }
-    setSelected(true);
+    setSelected(!selected);
   };
 
   return (
-    <div
-      className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} ${
-        expandedIsOpen ? styles.opened : styles.closed
-      }`}>
+    <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''}`}>
       <div className={`${styles.content} ${selected ? styles.selected : ''}`}>
         {image ? (
           <img className={styles.image} src={image} alt="card-image" />
@@ -53,15 +47,7 @@ const OrderCard = ({
         )}
         <div className={styles.info}>
           <h3 className={styles.text}>{text}</h3>
-          {Array.isArray(tags) ? (
-            tags.map((tag, index) => (
-              <p key={index} className={styles.tag}>
-                {tag}
-              </p>
-            ))
-          ) : (
-            <p className={styles.tag}>{tags}</p>
-          )}
+          <TagList tags={tags} />
         </div>
         {counter > 1 ? (
           <>
@@ -69,24 +55,18 @@ const OrderCard = ({
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
-              buttonLogo={expanded ? reversedCheckMark : checkMark}
+              buttonLogo={checkMark}
             />
           </>
         ) : (
           <>
-            <CounterButton
-              counter={1}
-              onClick={handleCounterClick}
-              onScanSubmit={onScanSubmit}
-              number={number}
-              calculatorValue={calculatorValue}
-            />
+            <CounterButton counter={1} onClick={handleCounterClick} onScanSubmit={onScanSubmit} />
             <p className={styles.number}>{number}</p>
           </>
         )}
         {counter === 1 && <CancelButton onCancel={onCancelClick} />}
       </div>
-      {counter > 1 &&
+      {expanded &&
         Array.from({ length: counter }).map((_, index) => (
           <OrderCard
             key={index}
@@ -98,8 +78,6 @@ const OrderCard = ({
             handleCounterClick={handleClick}
             isExpanded={true}
             onScanSubmit={onScanSubmit}
-            calculatorValue={calculatorValue}
-            expandedIsOpen={expanded}
           />
         ))}
     </div>

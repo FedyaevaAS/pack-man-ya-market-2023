@@ -9,7 +9,6 @@ import Calculator from '../../components/Calculator/Calculator';
 import IssueButtons from '../../components/IssueButtons/IssueButtons';
 import Recommendations from '../../components/Recommendations/Recommendations';
 import { Link } from 'react-router-dom';
-import MainHeadingBadge from '../../components/UI/MainHeadingBadge/MainHeadingBadge';
 
 const MainPage = ({ efficiencyIsOpen }) => {
   const issueButtonNames = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер'];
@@ -25,8 +24,6 @@ const MainPage = ({ efficiencyIsOpen }) => {
   const [isRecommendationsOpen, setIsRecommendationsOpen] = useState(false);
   const [isOrderScanned, setIsOrderScanned] = useState(false);
   const [isPackageScanned, setIsPackageScanned] = useState(false);
-
-  const [calculatorValue, setCalculatorValue] = useState('');
 
   isPopupOpen || efficiencyIsOpen
     ? (document.body.style.overflowY = 'hidden')
@@ -65,27 +62,22 @@ const MainPage = ({ efficiencyIsOpen }) => {
     }
   };
 
-  const onCalculatorSubmit = (value) => {
-    setCalculatorValue(value);
-    handleClosePopups();
-  };
-
   useEffect(() => {
     totalPackageCount.current = Object.keys(jsonData).length;
   }, []);
 
   return (
     <>
-      <div className={`${styles.wrapper} `}>
+      <div
+        className={`${styles.wrapper} ${
+          (isRecommendationsOpen || efficiencyIsOpen) && styles.wrapper_isRecommendationsOpen
+        }`}>
         <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
         <div className={styles.content}>
           <div className={styles.heading}>
             <h1 className={styles.heading__title}>Сканируйте товары</h1>
             <h2 className={styles.heading__order}>B-63626</h2>
             <ul className={styles.heading__badges}>
-              <MainHeadingBadge text={'Заказ отменён'} />
-              <MainHeadingBadge text={'4 товара'} />
-              <MainHeadingBadge text={'Почта России'} />
               {Object.keys(jsonData).map((key) => (
                 <PackageButton
                   key={key}
@@ -99,7 +91,6 @@ const MainPage = ({ efficiencyIsOpen }) => {
           <OrderList
             onCancelClick={() => handleOpenPopups('cancel')}
             isAllScanned={setAllItemsScanned}
-            calculatorValue={calculatorValue}
           />
         </div>
         {isOrderScanned && (
@@ -108,11 +99,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
           </Link>
         )}
       </div>
-      <Calculator
-        isOpen={isCalculatorOpen}
-        onClose={handleClosePopups}
-        onCalculatorSubmit={onCalculatorSubmit}
-      />
+      <Calculator isOpen={isCalculatorOpen} onClose={handleClosePopups} />
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
       <IssueButtons isOpen={isCancelButtonsOpen} buttonNames={cancelButtonNames} />
       <Recommendations isOpen={isRecommendationsOpen} onBackClick={handleClosePopups} />
