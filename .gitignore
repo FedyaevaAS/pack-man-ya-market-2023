@@ -153,6 +153,7 @@ data.csv
 sku_cargotypes.csv
 sku.csv
 catboost_info
+packing2ver.ipynb
 
 # тестовый файл
 test.py
