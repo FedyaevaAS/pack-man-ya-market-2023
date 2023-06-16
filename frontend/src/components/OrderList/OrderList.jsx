@@ -1,32 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './OrderList.module.scss';
 import OrderCard from './components/OrderCard/OrderCard';
+import { useSelector } from 'react-redux';
 
-const orders = [
-  {
-    image: 'https://avatars.mds.yandex.net/get-mpic/1361544/img_id3625151140723044197.jpeg/orig',
-    text: 'Умная колонка Яндекс Станция Лайт, ультрафиолет',
-    tag: ['Упаковать отдельно в NONPACK'],
-    counter: 3,
-    number: '1234 5678 234 32',
-  },
-  {
-    image: 'https://avatars.mds.yandex.net/get-mpic/1361544/img_id3625151140723044197.jpeg/orig',
-    text: 'Тарелка. Императорский фарфоровый завод. Форма "Стандартная - 2", рисунок "Скарлетт 2". Костяной фарфор . 270 мм.',
-    tag: ['Сканировать IMEI', 'Сканировать QR Честный знак'],
-    counter: 2,
-    number: '1234 5678 234 33',
-  },
-  {
-    image: 'https://avatars.mds.yandex.net/get-mpic/1361544/img_id3625151140723044197.jpeg/orig',
-    text: 'Набор для рисования, детский художественный набор в чемоданчике, набор юного художника, 48 предметов и раскраска',
-    tag: ['Хрупкое'],
-    counter: 1,
-    number: '1234 5678 234 34',
-  },
-];
+const OrderList = ({ onCancelClick, isAllScanned, calculatorValue }) => {
+  const { order } = useSelector((state) => state.apiSlice);
 
-const OrderList = ({ order, onCancelClick, isAllScanned, calculatorValue }) => {
   const totalCount = useRef(0);
   const scanned = useRef(0);
 
@@ -40,15 +19,15 @@ const OrderList = ({ order, onCancelClick, isAllScanned, calculatorValue }) => {
   };
 
   useEffect(() => {
-    orders.forEach((order) => {
-      totalCount.current = totalCount.current + order.counter;
+    order.forEach((item) => {
+      totalCount.current = totalCount.current + item.counter;
     });
   }, []);
 
   return (
     <>
       <ul>
-        {orders?.map((order, i) => (
+        {order?.map((order, i) => (
           <OrderCard
             key={i}
             image={order.image}

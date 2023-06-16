@@ -10,6 +10,7 @@ import IssueButtons from '../../components/IssueButtons/IssueButtons';
 import Recommendations from '../../components/Recommendations/Recommendations';
 import { Link } from 'react-router-dom';
 import MainHeadingBadge from '../../components/UI/MainHeadingBadge/MainHeadingBadge';
+import { useSelector } from 'react-redux';
 
 const MainPage = ({ efficiencyIsOpen }) => {
   const issueButtonNames = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер'];
@@ -27,6 +28,10 @@ const MainPage = ({ efficiencyIsOpen }) => {
   const [isPackageScanned, setIsPackageScanned] = useState(false);
 
   const [calculatorValue, setCalculatorValue] = useState('');
+
+  const { status } = useSelector((state) => state.apiSlice);
+
+  console.log(status);
 
   isPopupOpen || efficiencyIsOpen
     ? (document.body.style.overflowY = 'hidden')
