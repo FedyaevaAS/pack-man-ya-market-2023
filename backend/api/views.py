@@ -17,7 +17,7 @@ class GenerateOrderKey(APIView):
         )
         if orders:
             order = random.choice(orders)
-            data = {'status': order.status, 'order_key': order.order_key}
+            data = {'status': order.status, 'order_number': order.order_number}
             return Response(data)
         else:
             return Response(
@@ -26,7 +26,7 @@ class GenerateOrderKey(APIView):
             )
 
 
-class CancelOrder(APIView):
+class CanceledOrder(APIView):
     def patch(self, request, order_key):
         order = get_object_or_404(Order, order_key=order_key)
         order.status = Order.Status.CANCEL.value

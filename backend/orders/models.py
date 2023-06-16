@@ -9,7 +9,6 @@ class Order(models.Model):
         OK = "ok"
         FORMED = "formed"
         FAIL = "fail"
-        CANCEL = "cancel"
         IN_PROGRESS = "in_progress"
         CANCELED = "canceled"
 
@@ -19,9 +18,13 @@ class Order(models.Model):
         editable=False,
         verbose_name="Id заказа",
     )
-    order_number = models.IntegerField(verbose_name="Номер заказа", unique=True)
+    order_number = models.IntegerField(
+        verbose_name="Номер заказа", unique=True
+    )
     status = EnumField(Status, max_length=50, verbose_name="Статус")
-    delivery_type = models.CharField(max_length=100, verbose_name="Способ доставки")
+    delivery_type = models.CharField(
+        max_length=100, verbose_name="Способ доставки"
+    )
     items = models.ManyToManyField(
         "Item", verbose_name="Товары", through="OrderItem"
     )
@@ -75,6 +78,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тэг")
     action = models.BooleanField()
 
+
 class Cargotype(models.Model):
     cargotype = models.IntegerField(primary_key=True, verbose_name="Тип груза")
     description = models.CharField(max_length=150, verbose_name="Описание")
@@ -83,7 +87,7 @@ class Cargotype(models.Model):
         on_delete=models.SET_DEFAULT,
         null=True,
         default='',
-        related_name='cargotypes'
+        related_name='cargotypes',
     )
 
     def __str__(self):
