@@ -9,9 +9,9 @@ urlpatterns = [
         name='generate_order_id',
     ),
     path(
-        '<uuid:order_key>/cancel',
+        '<uuid:order_key>/canceled',
         CanceledOrder.as_view(),
-        name='cancel_order',
+        name='canceled_order',
     ),
     path(
         '<uuid:order_key>/ok',

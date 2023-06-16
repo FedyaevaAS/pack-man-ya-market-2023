@@ -7,8 +7,8 @@ paths:
   /api/orders/generate_order_key:
     get:
       tags:
-          - Order
-#тут FORMED и FAIL
+        - Order
+      #тут FORMED и FAIL
       description: Генерирует случайным образом order_key
       responses:
         "200":
@@ -19,11 +19,11 @@ paths:
                 $ref: "#/components/schemas/Order"
         "404":
           $ref: "#/components/responses/NotFound"
-# добавить статус formed, failed
+  # добавить статус formed, failed
   /api/orders/{order_key}/in_progress:
     patch:
       tags:
-          - Order
+        - Order
       description: Изменяет статус заказа на in_progress
       parameters:
         - name: order_key
@@ -46,7 +46,7 @@ paths:
   /api/orders/{order_key}/formed:
     patch:
       tags:
-          - Order
+        - Order
       description: Изменяет статус заказа на formed
       parameters:
         - name: order_key
@@ -69,7 +69,7 @@ paths:
   /api/orders/{order_key}/fail:
     patch:
       tags:
-          - Order
+        - Order
       description: Изменяет статус заказа на fail
       parameters:
         - name: order_key
@@ -89,10 +89,10 @@ paths:
           $ref: "#/components/responses/ValidationError"
         "404":
           $ref: "#/components/responses/NotFound"
-  /api/orders/{order_key}/cancel:
+  /api/orders/{order_key}/canceled:
     patch:
       tags:
-          - Order
+        - Order
       description: Отмена заказа, изменение статуса на canceled
       parameters:
         - name: order_key
@@ -115,7 +115,7 @@ paths:
   /api/orders/{order_key}/ok:
     patch:
       tags:
-          - Order
+        - Order
       description: Заказ упакован, изменение статуса на ok
       parameters:
         - name: order_key
@@ -138,7 +138,7 @@ paths:
   /api/orders/{order_key}/pack:
     get:
       tags:
-          - Order
+        - Order
       description: Информация по заказу
       parameters:
         - name: order_key
@@ -175,10 +175,10 @@ components:
       type: object
       properties:
         order_key:
-          type: string 
+          type: string
           format: uuid
         delivery_type:
-          type: string # почта России, сдэки тд 
+          type: string # почта России, сдэки тд
         count:
           type: integer
         status:
@@ -220,11 +220,11 @@ components:
       properties:
         field_name:
           description: "Название поля, в котором произошли ошибки. Таких полей может быть несколько"
-          example: [ "Обязательное поле." ]
+          example: ["Обязательное поле."]
           type: array
           items:
             type: string
-  
+
   responses:
     NotFound:
       description: Объект не найден
