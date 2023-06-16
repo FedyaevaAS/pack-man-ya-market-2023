@@ -1,4 +1,11 @@
+import os
+import pandas as pd
 from py3dbp import Packer, Bin, Item
+
+from packman.settings import BASE_DIR
+
+carton_data_location = os.path.join(BASE_DIR, "project_data", "carton_data.csv")
+carton_data = pd.read_csv(carton_data_location)
 
 # зададим функцию инициализации упаковщика
 def _packing_remains(bin_specs, item_specs):
