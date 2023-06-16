@@ -29,7 +29,7 @@ class GenerateOrderKey(APIView):
 class CanceledOrder(APIView):
     def patch(self, request, order_key):
         order = get_object_or_404(Order, order_key=order_key)
-        order.status = Order.Status.CANCEL.value
+        order.status = Order.Status.CANCELED.value
         order.save()
         serializer = OrderSerializer(order)
         return Response(serializer.data)
