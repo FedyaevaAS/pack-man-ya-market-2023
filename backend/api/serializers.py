@@ -1,11 +1,9 @@
-from django.db.models import F
 from rest_framework import serializers
 
-from orders.models import Order, OrderItem,  Item
+from orders.models import Order, OrderItem
 
 
 class OrderSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Order
         fields = ['status', 'order_number']
@@ -21,16 +19,16 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ['sku', 'count', 'size1', 'size2', 'size3', 'weight', 'type']
-    
+
     def get_size1(self, obj):
         return obj.sku.a
-    
+
     def get_size2(self, obj):
         return obj.sku.b
-    
+
     def get_size3(self, obj):
         return obj.sku.c
-    
+
     def get_weight(self, obj):
         return obj.sku.weight
 
@@ -48,7 +46,7 @@ class OrderToPackSerializer(serializers.ModelSerializer):
 
     def get_orderId(self, obj):
         return obj.order_key
-    
+
     def get_items(self, obj):
         order_items = obj.orderitem_set.select_related('sku').all()
         order_item_serializer = OrderItemSerializer(order_items, many=True)
@@ -65,7 +63,9 @@ class OrderPackSerializer(serializers.ModelSerializer):
 
     def get_items(self, obj):
         return obj.items.values(
-            'image_url', 'name', 'barcode',
+            'image_url',
+            'name',
+            'barcode',
         )
 
     # def get_items_count(self, obj):

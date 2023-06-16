@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import CanceledOrder, GenerateOrderKey, MarkOrderAsOK, OrderPack, OrderToPack
+from .views import (CanceledOrder, GenerateOrderKey, MarkOrderAsOK, OrderPack,
+                    OrderToPack)
 
 urlpatterns = [
     path(

@@ -1,15 +1,15 @@
 import random
-import requests
 
+import requests
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from orders.models import Order
 from DS.main_for_catboost_new import predict
+from orders.models import Order
 
-from .serializers import OrderSerializer, OrderPackSerializer, OrderToPackSerializer
+from .serializers import OrderSerializer, OrderToPackSerializer
 
 
 class GenerateOrderKey(APIView):
@@ -53,11 +53,46 @@ class OrderToPack(APIView):
         serializer = OrderToPackSerializer(order)
         return Response(serializer.data)
 
+
+# class OrderPack(APIView):
+#     def get(self, request, order_number):
+#         url = f'http://localhost:8000/api/orders/{order_number}/order_to_pack/'
+#         response = requests.get(url)
+#         data = response.json()
+#         packages = predict(data)
+#         print(packages)
+#         return Response({'message': 'Success'})
+
+
 class OrderPack(APIView):
     def get(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number)
         url = f'http://localhost:8000/api/orders/{order_number}/order_to_pack/'
         response = requests.get(url)
         data = response.json()
         packages = predict(data)
-        print(packages)
-        return Response({'message': 'Success'})
+        recomended_packs = packages['recomended_packs'][0]
+        response_data = {
+            "order_key": str(order.order_key),
+            "delivery_type": order.delivery_type,
+            "count": order.items.count(),
+            "status": order.status,
+            "packages": packages['recomended_packs'][0],
+            "items": [],
+        }
+        for item in order.items.all():
+            item_data = {
+                "image": item.image_url,
+                "name": item.name,
+                "count": order.items.filter(sku=item.sku).count(),
+                "tags": list(item.types.values_list('cargotype', flat=True)),
+                "barcode": item.barcode,
+            }
+            response_data["items"].append(item_data)
+
+        if not recomended_packs:
+            return Response(
+                {'message': 'Нет рекомендованных упаковок'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return Response(response_data)

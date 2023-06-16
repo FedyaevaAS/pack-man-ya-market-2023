@@ -152,3 +152,4 @@ websocket-client==1.5.2
 widgetsnbextension==4.0.7
 django-extensions==3.2.3
 py3dbp==1.1.2
+catboost==1.2
