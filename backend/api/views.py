@@ -1,4 +1,5 @@
 import random
+import requests
 
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -6,8 +7,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from orders.models import Order
+from DS.main_for_catboost_new import predict
 
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, OrderPackSerializer, OrderToPackSerializer
 
 
 class GenerateOrderKey(APIView):
@@ -17,8 +19,8 @@ class GenerateOrderKey(APIView):
         )
         if orders:
             order = random.choice(orders)
-            data = {'status': order.status, 'order_number': order.order_number}
-            return Response(data)
+            serializer = OrderSerializer(order)
+            return Response(serializer.data)
         else:
             return Response(
                 {'message': 'Заказ не найден.'},
@@ -27,8 +29,9 @@ class GenerateOrderKey(APIView):
 
 
 class CanceledOrder(APIView):
-    def patch(self, request, order_key):
-        order = get_object_or_404(Order, order_key=order_key)
+    def patch(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number)
+        print(order)
         order.status = Order.Status.CANCELED.value
         order.save()
         serializer = OrderSerializer(order)
@@ -36,31 +39,25 @@ class CanceledOrder(APIView):
 
 
 class MarkOrderAsOK(APIView):
-    def patch(self, request, order_key):
-        order = get_object_or_404(Order, order_key=order_key)
+    def patch(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number)
         order.status = Order.Status.OK.value
         order.save()
         serializer = OrderSerializer(order)
         return Response(serializer.data)
 
 
+class OrderToPack(APIView):
+    def get(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number)
+        serializer = OrderToPackSerializer(order)
+        return Response(serializer.data)
+
 class OrderPack(APIView):
-    def get(self, request, order_key):
-        order = get_object_or_404(Order, order_key=order_key)
-        order.status = Order.Status.IN_PROGRESS.value
-        order.save()
-
-        items = order.items.all()
-
-        result = []
-        for item in items:
-            item_data = {
-                'image': item.image,
-                'name': item.name,
-                'count': item.count,
-                'type': item.types,
-                'barcode': item.barcode,
-            }
-            result.append(item_data)
-
-        return Response(result)
+    def get(self, request, order_number):
+        url = f'http://localhost:8000/api/orders/{order_number}/order_to_pack/'
+        response = requests.get(url)
+        data = response.json()
+        packages = predict(data)
+        print(packages)
+        return Response({'message': 'Success'})

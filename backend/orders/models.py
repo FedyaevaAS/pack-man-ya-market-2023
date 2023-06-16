@@ -80,7 +80,7 @@ class Tag(models.Model):
 
 
 class Cargotype(models.Model):
-    cargotype = models.IntegerField(primary_key=True, verbose_name="Тип груза")
+    cargotype = models.CharField(primary_key=True, max_length=50, verbose_name="Тип груза")
     description = models.CharField(max_length=150, verbose_name="Описание")
     tag = models.ForeignKey(
         Tag,

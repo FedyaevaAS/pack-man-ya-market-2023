@@ -9,6 +9,4 @@ def predict(data):
     recomendation_df = orderkey_recomendations(
         from_model_data, second_class_diff_less=0.00001, variants_cnt=1
     )
-    print(recomendation_df)
-    recomendation = recomendation_df.to_json()
-    return recomendation
+    return recomendation_df

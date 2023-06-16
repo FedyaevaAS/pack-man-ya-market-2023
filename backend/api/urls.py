@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import CanceledOrder, GenerateOrderKey, MarkOrderAsOK, OrderPack
+from .views import CanceledOrder, GenerateOrderKey, MarkOrderAsOK, OrderPack, OrderToPack
 
 urlpatterns = [
     path(
@@ -9,18 +9,22 @@ urlpatterns = [
         name='generate_order_id',
     ),
     path(
-        '<uuid:order_key>/canceled',
+        '<int:order_number>/cancel/',
         CanceledOrder.as_view(),
-        name='canceled_order',
+        name='cancel_order',
     ),
     path(
-        '<uuid:order_key>/ok',
+        '<int:order_number>/ok/',
         MarkOrderAsOK.as_view(),
         name='mark_order_as_ok',
     ),
     path(
-        '<uuid:order_key>/pack',
+        '<int:order_number>/pack/',
         OrderPack.as_view(),
         name='get_by_order_id',
+    ),
+    path(
+        '<int:order_number>/order_to_pack/',
+        OrderToPack.as_view(),
     ),
 ]

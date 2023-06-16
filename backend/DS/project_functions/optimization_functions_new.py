@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from py3dbp import Packer, Bin, Item
+import copy
 
 from packman.settings import BASE_DIR
 
