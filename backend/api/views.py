@@ -9,7 +9,11 @@ from rest_framework.views import APIView
 from DS.main_for_catboost_new import predict
 from orders.models import Order
 
-from .serializers import OrderSerializer, OrderToPackSerializer
+from .serializers import (
+    OrderPackResponseSerializer,
+    OrderSerializer,
+    OrderToPackSerializer,
+)
 
 
 class GenerateOrderKey(APIView):
@@ -54,16 +58,6 @@ class OrderToPack(APIView):
         return Response(serializer.data)
 
 
-# class OrderPack(APIView):
-#     def get(self, request, order_number):
-#         url = f'http://localhost:8000/api/orders/{order_number}/order_to_pack/'
-#         response = requests.get(url)
-#         data = response.json()
-#         packages = predict(data)
-#         print(packages)
-#         return Response({'message': 'Success'})
-
-
 class OrderPack(APIView):
     def get(self, request, order_number):
         order = get_object_or_404(Order, order_number=order_number)
@@ -71,28 +65,14 @@ class OrderPack(APIView):
         response = requests.get(url)
         data = response.json()
         packages = predict(data)
-        recomended_packs = packages['recomended_packs'][0]
-        response_data = {
-            "order_key": str(order.order_key),
-            "delivery_type": order.delivery_type,
-            "count": order.items.count(),
-            "status": order.status,
-            "packages": packages['recomended_packs'][0],
-            "items": [],
-        }
-        for item in order.items.all():
-            item_data = {
-                "image": item.image_url,
-                "name": item.name,
-                "count": order.items.filter(sku=item.sku).count(),
-                "tags": list(item.types.values_list('cargotype', flat=True)),
-                "barcode": item.barcode,
-            }
-            response_data["items"].append(item_data)
+        recomended_pack = packages['recomended_packs'][0]
 
-        if not recomended_packs:
-            return Response(
-                {'message': 'Нет рекомендованных упаковок'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        if not recomended_pack:
+            recomended_pack = 'Нет рекомендованных упаковок'
+
+        serializer = OrderPackResponseSerializer(order)
+        response_data = serializer.data
+        response_data['recomended_pack'] = recomended_pack
+        response_data['packages'] = packages
+
         return Response(response_data)

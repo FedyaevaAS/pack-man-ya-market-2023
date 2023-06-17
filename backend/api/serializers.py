@@ -53,20 +53,26 @@ class OrderToPackSerializer(serializers.ModelSerializer):
         return order_item_serializer.data
 
 
-class OrderPackSerializer(serializers.ModelSerializer):
+class OrderPackResponseSerializer(serializers.ModelSerializer):
     items = serializers.SerializerMethodField()
-    # items_count = serializers.SerializerMethodField()
+    count = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ['order_number', 'delivery_type', 'status', 'items']
+        fields = ['order_number', 'delivery_type', 'count', 'status', 'items']
 
     def get_items(self, obj):
-        return obj.items.values(
-            'image_url',
-            'name',
-            'barcode',
-        )
+        items = []
+        for item in obj.items.all():
+            item_data = {
+                "image": item.image_url,
+                "name": item.name,
+                "count": obj.items.filter(sku=item.sku).count(),
+                "tags": list(item.types.values_list('cargotype', flat=True)),
+                "barcode": item.barcode,
+            }
+            items.append(item_data)
+        return items
 
-    # def get_items_count(self, obj):
-    #     return obj.orderitem_set.values('sku','count')
+    def get_count(self, obj):
+        return obj.items.count()
