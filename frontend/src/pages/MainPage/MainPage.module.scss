@@ -1,0 +1,69 @@
+@import '../../vendor/variables';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0 24px;
+  padding-top: 96px;
+  min-height: 832px;
+
+  //${(isRecommendationsOpen || efficiencyIsOpen) && styles.wrapper_isRecommendationsOpen}
+  // висело на Main page wrapper хз зачем, если что удалим позже
+  /*   &_isRecommendationsOpen {
+    padding: 0;
+    height: 940px;
+  } */
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 48px;
+  margin-top: -40px;
+
+  &__title {
+    font-family: $heading-font-48-58;
+    font-size: $heading-size-48-58;
+    font-weight: $heading-weight-48-58;
+    line-height: $heading-line-height-48-58;
+  }
+
+  &__order {
+    margin-bottom: 12px;
+    margin-top: 4px;
+    font-family: $heading-font-72-84;
+    font-size: $heading-size-72-84;
+    font-weight: $heading-weight-72-84;
+    line-height: $heading-line-height-72-84;
+  }
+
+  &__badges {
+    max-width: 850px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.button {
+  flex-grow: 1;
+  padding: 0 16px;
+}

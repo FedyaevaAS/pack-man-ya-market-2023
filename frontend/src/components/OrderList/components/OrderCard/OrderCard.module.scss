@@ -1,0 +1,66 @@
+@import '../../../../vendor/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1120px;
+  border-bottom: 1px solid #e8e8e8;
+
+  &.expandedCard {
+    border-bottom: none;
+  }
+
+  .closed {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .opened {
+    visibility: visible;
+  }
+
+  .content {
+    display: flex;
+    align-items: flex-start;
+    margin: 24px 0;
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+    margin-right: 24px;
+  }
+
+  .emptyImage {
+    width: 100px;
+    height: 100px;
+    margin-right: 24px;
+    background-color: transparent;
+  }
+
+  .info {
+    margin-bottom: 24px;
+    margin-right: 42px;
+  }
+
+  .text {
+    font-family: $body-font-20-22;
+    font-size: $body-size-20-22;
+    font-weight: $body-weight-20-22;
+    line-height: $body-line-height-20-22;
+    width: 489px;
+    padding-bottom: 10px;
+  }
+
+  .expandButton {
+    margin-left: 40px;
+  }
+
+  .barcode {
+    font-weight: $body-weight-20-22;
+    font-size: $body-size-20-22;
+    line-height: $body-line-height-20-22;
+    color: #0044ee;
+    margin-top: 13px;
+  }
+}

@@ -1,0 +1,87 @@
+@import '../../vendor/variables';
+
+.overlay {
+  visibility: hidden;
+  position: fixed;
+  overflow-y: scroll;
+  background-color: $main-bg-color;
+  top: 0;
+  right: -17px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s linear, visibility 0.4s linear;
+  z-index: 2;
+}
+
+.overlay_opened {
+  opacity: 1;
+  visibility: visible;
+}
+
+.calculator {
+  margin: 0 auto;
+  max-width: 1920px;
+  padding: 208px 24px 182px;
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+
+  &__flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+      width: 1184px;
+      margin-bottom: 48px;
+      text-align: center;
+      font-family: $heading-font-56-68;
+      font-size: $heading-size-56-68;
+      font-weight: $heading-weight-56-68;
+      line-height: $heading-line-height-56-68;
+      letter-spacing: $heading-letter-56-68;
+    }
+
+    input {
+      border: 7px solid #ffb026;
+      border-radius: 24px;
+      padding: 21px 96px;
+      margin-bottom: 32px;
+      width: 596px;
+      height: 100px;
+      font-family: $heading-font-48-58;
+      font-size: $heading-size-48-58;
+      font-weight: $heading-weight-48-58;
+      line-height: $heading-line-height-48-58;
+      cursor: default;
+    }
+
+    .disabled {
+      border-color: #ababab;
+    }
+
+    div {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    button {
+      width: 185px;
+      height: 82px;
+      border: none;
+      background-color: #f3f0e9;
+      border-radius: 24px;
+      font-family: $heading-font-28-32;
+      font-size: $heading-size-28-32;
+      font-weight: $heading-weight-28-32;
+      line-height: $heading-line-height-28-32;
+      cursor: pointer;
+
+      &:active {
+        background-color: #dedede;
+      }
+    }
+  }
+}
