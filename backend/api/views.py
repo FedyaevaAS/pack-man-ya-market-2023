@@ -59,19 +59,40 @@ class OrderToPack(APIView):
         return Response(serializer.data)
 
 
+# class OrderPack(APIView):
+#     def get(self, request, order_number):
+#         order = get_object_or_404(Order, order_number=order_number)
+#         url = f'http://localhost:8000/api/orders/{order_number}/order_to_pack/'
+#         response = requests.get(url)
+#         data = response.json()
+#         packages = predict(data)
+#         recomended_pack = packages['recomended_packs'][0]
+#         counter = Counter(recomended_pack)
+#         recomended_pack = [{key: value for key, value in counter.items()}]
+#         serializer = OrderPackResponseSerializer(order)
+#         response_data = serializer.data
+#         response_data['packages'] = recomended_pack
+#         return Response(response_data)
+
+
 class OrderPack(APIView):
     def get(self, request, order_number):
         order = get_object_or_404(Order, order_number=order_number)
         url = f'http://localhost:8000/api/orders/{order_number}/order_to_pack/'
         response = requests.get(url)
         data = response.json()
-        packages = predict(data)
-        recomended_pack = packages['recomended_packs'][0]
-        counter = Counter(recomended_pack)
-        recomended_pack = [{key: value for key, value in counter.items()}]
         serializer = OrderPackResponseSerializer(order)
         response_data = serializer.data
-        response_data['packages'] = recomended_pack
-        # response_data['packages'] = packages
+        packages = predict(data)
+        print(packages)
 
+        if packages['recomended_packs'][0]:
+            recomended_pack = packages['recomended_packs'][0]
+            counter = Counter(recomended_pack)
+            recomended_pack = [dict(counter)]
+            response_data['packages'] = recomended_pack
+        else:
+            response_data['packages'] = [
+                {'message': 'Рекомендуемые упаковки не найдены.'}
+            ]
         return Response(response_data)

@@ -49,7 +49,9 @@ class OrderToPackSerializer(serializers.ModelSerializer):
 
     def get_items(self, obj):
         order_items = obj.orderitem_set.select_related('sku').all()
-        order_item_serializer = OrderToPackItemSerializer(order_items, many=True)
+        order_item_serializer = OrderToPackItemSerializer(
+            order_items, many=True
+        )
         return order_item_serializer.data
 
 
@@ -61,7 +63,7 @@ class OrderItemSerializer(OrderToPackItemSerializer):
 
     class Meta(OrderToPackItemSerializer.Meta):
         fields = ['count', 'image_url', 'name', 'barcode', 'tags']
-    
+
     def get_image_url(self, obj):
         return obj.sku.image_url
 
@@ -73,7 +75,7 @@ class OrderItemSerializer(OrderToPackItemSerializer):
 
     def get_tags(self, obj):
         tags = obj.sku.types.values_list('tag__name', flat=True)
-        return [i for i in set(tags) if i]
+        return [tag for tag in set(tags) if tag]
 
 
 class OrderPackResponseSerializer(serializers.ModelSerializer):
@@ -84,23 +86,14 @@ class OrderPackResponseSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['order_number', 'delivery_type', 'count', 'status', 'items']
 
-    # def get_items(self, obj):
-    #     items = []
-    #     for item in obj.items.all():
-    #         item_data = {
-    #             "image": item.image_url,
-    #             "name": item.name,
-    #             "count": obj.items.filter(sku=item.sku).count(),
-    #             "tags": list(item.types.values_list('cargotype', flat=True)),
-    #             "barcode": item.barcode,
-    #         }
-    #         items.append(item_data)
-    #     return items
-
     def get_items(self, obj):
         order_items = obj.orderitem_set.select_related('sku').all()
         order_item_serializer = OrderItemSerializer(order_items, many=True)
         return order_item_serializer.data
 
     def get_count(self, obj):
-        return sum(obj.orderitem_set.select_related('sku').all().values_list('count', flat=True))
+        return sum(
+            obj.orderitem_set.select_related('sku')
+            .all()
+            .values_list('count', flat=True)
+        )

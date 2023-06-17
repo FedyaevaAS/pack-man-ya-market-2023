@@ -82,17 +82,13 @@ class Tag(models.Model):
         return self.name
 
 
-
 class Cargotype(models.Model):
     cargotype = models.CharField(
         primary_key=True, max_length=50, verbose_name="Тип груза"
     )
     description = models.CharField(max_length=150, verbose_name="Описание")
     tag = models.ForeignKey(
-        Tag,
-        on_delete=models.SET_DEFAULT,
-        null=True,
-        default=''
+        Tag, on_delete=models.SET_DEFAULT, null=True, default=''
     )
 
     def __str__(self):
