@@ -1,0 +1,29 @@
+@import '../../../vendor/variables';
+
+.content {
+  padding: 12.5px 16px;
+  background-color: #f3f0e9;
+  border-radius: 100px;
+
+  &_cancel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 9.5px;
+    background-color: #ff5639;
+    color: #ffffff;
+
+    img {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  p {
+    text-align: center;
+    font-family: $body-font-20-22;
+    font-size: $body-size-20-22;
+    font-weight: $body-weight-20-22;
+    line-height: $body-line-height-20-22;
+  }
+}

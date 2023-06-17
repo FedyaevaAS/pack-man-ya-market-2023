@@ -1,0 +1,19 @@
+@import '../../../vendor/variables';
+
+.expandButton {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-weight: $body-weight-20-22;
+  font-size: $body-size-20-22;
+  line-height: $body-line-height-20-22;
+  color: #245eee;
+  cursor: pointer;
+  margin: 13px 0 0 83px;
+
+  .expandButtonText {
+    margin-right: 12px;
+  }
+}

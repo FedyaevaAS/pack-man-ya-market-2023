@@ -1,0 +1,11 @@
+@import '../vendor/variables';
+
+.page {
+  max-width: 1920px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0;
+  font-family: 'YS Text-Regular', 'Helvetica', sans-serif;
+  background-color: $main-bg-color;
+  font-weight: 400;
+}
