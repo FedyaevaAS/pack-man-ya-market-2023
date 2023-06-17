@@ -78,6 +78,10 @@ class Tag(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тэг")
     action = models.BooleanField()
 
+    def __str__(self):
+        return self.name
+
+
 
 class Cargotype(models.Model):
     cargotype = models.CharField(
@@ -88,8 +92,7 @@ class Cargotype(models.Model):
         Tag,
         on_delete=models.SET_DEFAULT,
         null=True,
-        default='',
-        related_name='cargotypes',
+        default=''
     )
 
     def __str__(self):

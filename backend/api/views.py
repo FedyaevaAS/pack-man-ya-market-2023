@@ -1,4 +1,5 @@
 import random
+from collections import Counter
 
 import requests
 from django.shortcuts import get_object_or_404
@@ -66,13 +67,11 @@ class OrderPack(APIView):
         data = response.json()
         packages = predict(data)
         recomended_pack = packages['recomended_packs'][0]
-
-        if not recomended_pack:
-            recomended_pack = 'Нет рекомендованных упаковок'
-
+        counter = Counter(recomended_pack)
+        recomended_pack = [{key: value for key, value in counter.items()}]
         serializer = OrderPackResponseSerializer(order)
         response_data = serializer.data
-        response_data['recomended_pack'] = recomended_pack
-        response_data['packages'] = packages
+        response_data['packages'] = recomended_pack
+        # response_data['packages'] = packages
 
         return Response(response_data)
