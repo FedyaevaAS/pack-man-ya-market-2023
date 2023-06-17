@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
-    apiSlice
-  }
+    apiSlice,
+  },
 });
 
 export const useAppDispatch = useDispatch;
