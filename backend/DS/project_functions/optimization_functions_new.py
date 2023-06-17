@@ -1,7 +1,8 @@
-import os
-import pandas as pd
-from py3dbp import Packer, Bin, Item
 import copy
+import os
+
+import pandas as pd
+from py3dbp import Bin, Item, Packer
 
 from packman.settings import BASE_DIR
 

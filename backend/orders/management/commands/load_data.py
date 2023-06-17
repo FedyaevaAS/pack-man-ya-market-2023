@@ -3,8 +3,8 @@ import os
 
 from django.core.management.base import BaseCommand
 
-from orders.models import (Cargotype, Item, ItemCargotypes, Order, OrderItem, Tag,
-                           Package)
+from orders.models import (Cargotype, Item, ItemCargotypes, Order, OrderItem,
+                           Package, Tag)
 from packman.settings import BASE_DIR
 
 

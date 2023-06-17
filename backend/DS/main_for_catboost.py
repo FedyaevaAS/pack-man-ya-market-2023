@@ -1,7 +1,6 @@
 from DS.project_functions.optimization_functions import orderkey_recomendations
-from DS.project_functions.predict_functions_for_catboost import (
-    prediction_from_json,
-)
+from DS.project_functions.predict_functions_for_catboost import \
+    prediction_from_json
 
 
 def predict(data):

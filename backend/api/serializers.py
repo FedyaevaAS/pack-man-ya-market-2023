@@ -1,11 +1,9 @@
-from django.db.models import F
 from rest_framework import serializers
 
-from orders.models import Order, OrderItem,  Item
+from orders.models import Order, OrderItem
 
 
 class OrderSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Order
         fields = ['status', 'order_number']
@@ -21,16 +19,16 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ['sku', 'count', 'size1', 'size2', 'size3', 'weight', 'type']
-    
+
     def get_size1(self, obj):
         return obj.sku.a
-    
+
     def get_size2(self, obj):
         return obj.sku.b
-    
+
     def get_size3(self, obj):
         return obj.sku.c
-    
+
     def get_weight(self, obj):
         return obj.sku.weight
 
@@ -48,25 +46,33 @@ class OrderToPackSerializer(serializers.ModelSerializer):
 
     def get_orderId(self, obj):
         return obj.order_key
-    
+
     def get_items(self, obj):
         order_items = obj.orderitem_set.select_related('sku').all()
         order_item_serializer = OrderItemSerializer(order_items, many=True)
         return order_item_serializer.data
 
 
-class OrderPackSerializer(serializers.ModelSerializer):
+class OrderPackResponseSerializer(serializers.ModelSerializer):
     items = serializers.SerializerMethodField()
-    # items_count = serializers.SerializerMethodField()
+    count = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ['order_number', 'delivery_type', 'status', 'items']
+        fields = ['order_number', 'delivery_type', 'count', 'status', 'items']
 
     def get_items(self, obj):
-        return obj.items.values(
-            'image_url', 'name', 'barcode',
-        )
+        items = []
+        for item in obj.items.all():
+            item_data = {
+                "image": item.image_url,
+                "name": item.name,
+                "count": obj.items.filter(sku=item.sku).count(),
+                "tags": list(item.types.values_list('cargotype', flat=True)),
+                "barcode": item.barcode,
+            }
+            items.append(item_data)
+        return items
 
-    # def get_items_count(self, obj):
-    #     return obj.orderitem_set.values('sku','count')
+    def get_count(self, obj):
+        return obj.items.count()

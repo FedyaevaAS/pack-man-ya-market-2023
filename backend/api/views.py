@@ -1,15 +1,19 @@
 import random
-import requests
 
+import requests
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from orders.models import Order
 from DS.main_for_catboost_new import predict
+from orders.models import Order
 
-from .serializers import OrderSerializer, OrderPackSerializer, OrderToPackSerializer
+from .serializers import (
+    OrderPackResponseSerializer,
+    OrderSerializer,
+    OrderToPackSerializer,
+)
 
 
 class GenerateOrderKey(APIView):
@@ -53,11 +57,22 @@ class OrderToPack(APIView):
         serializer = OrderToPackSerializer(order)
         return Response(serializer.data)
 
+
 class OrderPack(APIView):
     def get(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number)
         url = f'http://localhost:8000/api/orders/{order_number}/order_to_pack/'
         response = requests.get(url)
         data = response.json()
         packages = predict(data)
-        print(packages)
-        return Response({'message': 'Success'})
+        recomended_pack = packages['recomended_packs'][0]
+
+        if not recomended_pack:
+            recomended_pack = 'Нет рекомендованных упаковок'
+
+        serializer = OrderPackResponseSerializer(order)
+        response_data = serializer.data
+        response_data['recomended_pack'] = recomended_pack
+        response_data['packages'] = packages
+
+        return Response(response_data)
