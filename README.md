@@ -26,7 +26,7 @@
 
 ### Frontend-разработка
 [ссылка](https://github.com/FedyaevaAS/pack-man-ya-market-2023/tree/main/frontend) на раздел в репозитории
-* Адуйский Антон Валерьевич, https://t.me/aduiskywalker, A.mltw@yandex.ru
+* Адуйский Антон Валерьевич, https://t.me/aduiskywalker, anton@aduisky.ru
 * Колганов Александр Михайлович, https://t.me/Methodmvn, gengizar@yandex.ru
 
 ### Backend-разработка
