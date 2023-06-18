@@ -23,10 +23,12 @@ const MainPage = ({ efficiencyIsOpen }) => {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [isIssueButtonsOpen, setIsIssueButtonsOpen] = useState(false);
   const [isCancelButtonsOpen, setIsCancelButtonsOpen] = useState(false);
+
+  const [isCanceled, setIsCanceled] = useState(false);
+
   const [isRecommendationsOpen, setIsRecommendationsOpen] = useState(false);
   const [isOrderScanned, setIsOrderScanned] = useState(false);
   const [isPackageScanned, setIsPackageScanned] = useState(false);
-
   const [calculatorValue, setCalculatorValue] = useState('');
 
   const { status } = useSelector((state) => state.apiSlice);
@@ -75,6 +77,11 @@ const MainPage = ({ efficiencyIsOpen }) => {
     handleClosePopups();
   };
 
+  const onCancelSubmit = (value) => {
+    setIsCanceled(value);
+    handleClosePopups();
+  };
+
   useEffect(() => {
     totalPackageCount.current = Object.keys(jsonData).length;
   }, []);
@@ -83,7 +90,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
     <>
       <div className={`${styles.wrapper} `}>
         <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
-        <div className={styles.content}>
+        <div className={`${styles.content}`}>
           <div className={styles.heading}>
             <h1 className={styles.heading__title}>Сканируйте товары</h1>
             <h2 className={styles.heading__order}>B-63626</h2>
@@ -91,27 +98,41 @@ const MainPage = ({ efficiencyIsOpen }) => {
               <MainHeadingBadge text={'Заказ отменён'} />
               <MainHeadingBadge text={'4 товара'} />
               <MainHeadingBadge text={'Почта России'} />
-              {Object.keys(jsonData).map((key) => (
-                <PackageButton
-                  key={key}
-                  boxType={key}
-                  packageData={jsonData[key]}
-                  setAllScanned={setAllPackageScanned}
-                />
-              ))}
+              {!isCanceled && (
+                <ul className={styles.heading__badges}>
+                  {Object.keys(jsonData).map((key) => (
+                    <PackageButton
+                      key={key}
+                      boxType={key}
+                      packageData={jsonData[key]}
+                      setAllScanned={setAllPackageScanned}
+                    />
+                  ))}
+                </ul>
+              )}
             </ul>
           </div>
-          <OrderList
-            onCancelClick={() => handleOpenPopups('cancel')}
-            isAllScanned={setAllItemsScanned}
-            calculatorValue={calculatorValue}
-          />
+          <div className={`${isCanceled ? styles.disabled : ''}`}>
+            <OrderList
+              onCancelClick={() => handleOpenPopups('cancel')}
+              isAllScanned={setAllItemsScanned}
+              calculatorValue={calculatorValue}
+              isCanceled={isCanceled}
+            />
+          </div>
+          {(isCanceled || isOrderScanned) && (
+            <Link
+              to={
+                isCanceled
+                  ? '/canceled-success'
+                  : isOrderScanned && isPackageScanned
+                  ? '/success'
+                  : '/main'
+              }>
+              <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
+            </Link>
+          )}
         </div>
-        {isOrderScanned && (
-          <Link to={isOrderScanned && isPackageScanned ? '/success' : '/main'}>
-            <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
-          </Link>
-        )}
       </div>
       <Calculator
         isOpen={isCalculatorOpen}
@@ -119,7 +140,11 @@ const MainPage = ({ efficiencyIsOpen }) => {
         onCalculatorSubmit={onCalculatorSubmit}
       />
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
-      <IssueButtons isOpen={isCancelButtonsOpen} buttonNames={cancelButtonNames} />
+      <IssueButtons
+        isOpen={isCancelButtonsOpen}
+        buttonNames={cancelButtonNames}
+        isCanceled={onCancelSubmit}
+      />
       <Recommendations isOpen={isRecommendationsOpen} onBackClick={handleClosePopups} />
       {!isRecommendationsOpen && (
         <ControlPanel
