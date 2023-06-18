@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import SearchPage from './pages/SearchPage/SearchPage';
 import MainPage from './pages/MainPage/MainPage';
 import SuccessPage from './pages/SuccessPage/SuccessPage';
@@ -9,8 +9,14 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Efficiency from './components/Efficiency/Efficiency';
 
+import { useAppDispatch } from './Redux/store';
+import { fetchOrder } from './Redux/Slices/apiSlice';
+import { getLocalStorageOrderId } from './utils/getLocalStorageApiKey';
+
 const App = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
+  let navigate = useNavigate();
   const [efficiencyIsOpen, setEfficiencyIsOpen] = useState(false);
 
   const openEfficiency = () => {
@@ -20,6 +26,16 @@ const App = () => {
 
     setEfficiencyIsOpen(true);
   };
+
+  useEffect(() => {
+    const orderKey = getLocalStorageOrderId();
+
+    if (orderKey) {
+      dispatch(fetchOrder(orderKey)).catch((e) => console.log(e));
+    } else {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <>

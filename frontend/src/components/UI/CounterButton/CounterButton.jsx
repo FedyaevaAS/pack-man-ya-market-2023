@@ -7,7 +7,7 @@ const CounterButton = ({
   onClick,
   scanned,
   onScanSubmit,
-  number,
+  barcode,
   calculatorValue
 }) => {
   const [isScanned, setIsScanned] = useState(false);
@@ -23,7 +23,7 @@ const CounterButton = ({
   };
 
   useEffect(() => {
-    if (calculatorValue && calculatorValue === number) {
+    if (calculatorValue && calculatorValue === barcode) {
       handleClick();
     }
   }, [calculatorValue]);

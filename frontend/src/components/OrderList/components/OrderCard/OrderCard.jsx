@@ -19,7 +19,7 @@ const OrderCard = ({
   handleCounterClick,
   onScanSubmit,
   calculatorValue,
-  expandedIsOpen,
+  expandedIsOpen
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -42,7 +42,10 @@ const OrderCard = ({
     setSelected(true);
   };
   return (
-    <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''}`}>
+    <div
+      className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} ${
+        expandedIsOpen ? styles.opened : styles.closed
+      }`}>
       <div className={`${styles.content} ${selected ? styles.selected : ''}`}>
         {image ? (
           <img className={styles.image} src={image} alt="card-image" />
@@ -59,18 +62,24 @@ const OrderCard = ({
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
-              buttonLogo={checkMark}
+              buttonLogo={expanded ? reversedCheckMark : checkMark}
             />
           </>
         ) : (
           <>
-            <CounterButton counter={1} onClick={handleCounterClick} onScanSubmit={onScanSubmit} />
+            <CounterButton
+              counter={1}
+              onClick={handleCounterClick}
+              onScanSubmit={onScanSubmit}
+              calculatorValue={calculatorValue}
+              barcode={barcode}
+            />
             <p className={styles.barcode}>{barcode}</p>
           </>
         )}
         {counter === 1 && <CancelButton onCancel={onCancelClick} />}
       </div>
-      {expanded &&
+      {counter > 1 &&
         Array.from({ length: counter }).map((_, index) => (
           <OrderCard
             key={index}
@@ -82,6 +91,8 @@ const OrderCard = ({
             handleCounterClick={handleClick}
             isExpanded={true}
             onScanSubmit={onScanSubmit}
+            calculatorValue={calculatorValue}
+            expandedIsOpen={expanded}
           />
         ))}
     </div>
