@@ -8,7 +8,8 @@ const CounterButton = ({
   scanned,
   onScanSubmit,
   number,
-  calculatorValue
+  calculatorValue,
+  isCanceled,
 }) => {
   const [isScanned, setIsScanned] = useState(false);
 
@@ -30,7 +31,9 @@ const CounterButton = ({
 
   return (
     <button
-      className={`${styles.counter} ${isScanned || scanned ? styles.scanned : ''}`}
+      className={`${isCanceled ? styles.disabled : styles.counter} ${
+        isScanned || scanned ? styles.scanned : ''
+      }`}
       onClick={handleClick}
       disabled={disabled || isScanned}>
       {counter} шт.
