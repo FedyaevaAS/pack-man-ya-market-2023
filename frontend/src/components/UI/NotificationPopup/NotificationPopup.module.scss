@@ -53,4 +53,9 @@
     font-weight: $heading-weight-28-32;
     line-height: $heading-line-height-28-32;
   }
+
+  &_error {
+    background-color: #de0000;
+    color: #ffffff;
+  }
 }

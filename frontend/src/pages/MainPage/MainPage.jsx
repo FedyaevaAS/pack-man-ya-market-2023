@@ -8,11 +8,13 @@ import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import Calculator from '../../components/Calculator/Calculator';
 import IssueButtons from '../../components/IssueButtons/IssueButtons';
 import Recommendations from '../../components/Recommendations/Recommendations';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MainHeadingBadge from '../../components/UI/MainHeadingBadge/MainHeadingBadge';
 import { useSelector } from 'react-redux';
+import NotificationPopup from '../../components/UI/NotificationPopup/NotificationPopup';
 
 const MainPage = ({ efficiencyIsOpen }) => {
+  let navigate = useNavigate();
   const issueButtonNames = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер'];
   const cancelButtonNames = ['Нет товара', 'Несоответствие товара', 'Дефект упаковки'];
 
@@ -29,9 +31,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
 
   const [calculatorValue, setCalculatorValue] = useState('');
 
-  const { status } = useSelector((state) => state.apiSlice);
-
-  console.log(status);
+  const { status, order, errorMessage } = useSelector((state) => state.apiSlice);
 
   isPopupOpen || efficiencyIsOpen
     ? (document.body.style.overflowY = 'hidden')
@@ -79,40 +79,55 @@ const MainPage = ({ efficiencyIsOpen }) => {
     totalPackageCount.current = Object.keys(jsonData).length;
   }, []);
 
+  /*   const keys = Object.keys(Object.assign({}, ...order.packages));
+
+  console.log(keys); */
+
+  /* Object.keys(order.packages).map((key) => console.log(key[0] + ' is ' + order.packages[key[0]])); */
+
   return (
     <>
       <div className={`${styles.wrapper} `}>
-        <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
-        <div className={styles.content}>
-          <div className={styles.heading}>
-            <h1 className={styles.heading__title}>Сканируйте товары</h1>
-            <h2 className={styles.heading__order}>B-63626</h2>
-            <ul className={styles.heading__badges}>
-              <MainHeadingBadge text={'Заказ отменён'} />
-              <MainHeadingBadge text={'4 товара'} />
-              <MainHeadingBadge text={'Почта России'} />
-              {Object.keys(jsonData).map((key) => (
-                <PackageButton
-                  key={key}
-                  boxType={key}
-                  packageData={jsonData[key]}
-                  setAllScanned={setAllPackageScanned}
-                />
-              ))}
-            </ul>
-          </div>
-          <OrderList
-            onCancelClick={() => handleOpenPopups('cancel')}
-            isAllScanned={setAllItemsScanned}
-            calculatorValue={calculatorValue}
-          />
-        </div>
-        {isOrderScanned && (
-          <Link to={isOrderScanned && isPackageScanned ? '/success' : '/main'}>
-            <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
-          </Link>
+        <NotificationPopup isOpen={status === 'error'} onClick={() => navigate('/')} error={status}>
+          <h2>Что-то пошло не так</h2>
+          <p>{errorMessage}</p>
+        </NotificationPopup>
+        {status === 'success' && (
+          <>
+            <MainButton text={'Есть проблема'} onClick={() => handleOpenPopups('issue')} />
+            <div className={styles.content}>
+              <div className={styles.heading}>
+                <h1 className={styles.heading__title}>Сканируйте товары</h1>
+                <h2 className={styles.heading__order}>В-{order.order_number}</h2>
+                <ul className={styles.heading__badges}>
+                  {order.status === 'fail' && <MainHeadingBadge text={'Заказ отменён'} />}
+                  <MainHeadingBadge text={`${order.count} товара`} />
+                  <MainHeadingBadge text={order.delivery_type} />
+                  {Object.keys(Object.assign({}, ...order.packages)).map((key) => (
+                    <PackageButton
+                      key={key}
+                      boxType={key}
+                      packageData={key}
+                      setAllScanned={setAllPackageScanned}
+                    />
+                  ))}
+                </ul>
+              </div>
+              <OrderList
+                onCancelClick={() => handleOpenPopups('cancel')}
+                isAllScanned={setAllItemsScanned}
+                calculatorValue={calculatorValue}
+              />
+            </div>
+            {isOrderScanned && (
+              <Link to={isOrderScanned && isPackageScanned ? '/success' : '/main'}>
+                <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
+              </Link>
+            )}
+          </>
         )}
       </div>
+
       <Calculator
         isOpen={isCalculatorOpen}
         onClose={handleClosePopups}
