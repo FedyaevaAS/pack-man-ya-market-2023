@@ -13,7 +13,7 @@ const PackageButton = ({ boxType, packageType, setAllScanned }) => {
 
   useEffect(() => {
     setButtonText(boxType);
-    setButtonStyle(boxType);
+    setButtonStyle(boxType.toLowerCase());
   }, [boxType]);
 
   /*   let buttonStyle;
