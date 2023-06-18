@@ -3,7 +3,7 @@ import styles from './OrderList.module.scss';
 import OrderCard from './components/OrderCard/OrderCard';
 import { useSelector } from 'react-redux';
 
-const OrderList = ({ onCancelClick, isAllScanned, calculatorValue }) => {
+const OrderList = ({ onCancelClick, isAllScanned, calculatorValue, isCanceled }) => {
   const { order } = useSelector((state) => state.apiSlice);
 
   const totalCount = useRef(0);
@@ -39,6 +39,7 @@ const OrderList = ({ onCancelClick, isAllScanned, calculatorValue }) => {
             isExpanded={false}
             onScanSubmit={onScanSubmit}
             calculatorValue={calculatorValue}
+            isCanceled={isCanceled}
           />
         ))}
       </ul>

@@ -1,6 +1,20 @@
 @import '../../../../vendor/variables';
 
+.disabled {
+  font-weight: $body-weight-20-22;
+  font-size: $body-size-20-22;
+  line-height: $body-line-height-20-22;
+  color: $disabled-color;
+  margin-top: 13px;
+}
+
+.emptyTags {
+  width: 300px;
+  height: 70px;
+}
+
 .container {
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   max-width: 1120px;

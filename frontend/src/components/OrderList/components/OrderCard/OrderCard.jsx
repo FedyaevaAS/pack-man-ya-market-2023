@@ -20,6 +20,7 @@ const OrderCard = ({
   onScanSubmit,
   calculatorValue,
   expandedIsOpen,
+  isCanceled,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -41,8 +42,9 @@ const OrderCard = ({
     }
     setSelected(true);
   };
+
   return (
-    <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''}`}>
+    <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} `}>
       <div className={`${styles.content} ${selected ? styles.selected : ''}`}>
         {image ? (
           <img className={styles.image} src={image} alt="card-image" />
@@ -51,24 +53,35 @@ const OrderCard = ({
         )}
         <div className={styles.info}>
           <h3 className={styles.text}>{text}</h3>
-          <TagList tags={tags} />
+          {!isCanceled ? <TagList tags={tags} /> : <div className={styles.emptyTags}></div>}
         </div>
         {counter > 1 ? (
           <>
-            <CounterButton disabled={true} counter={counter} scanned={isTotalScanned} />
+            <CounterButton
+              disabled={true}
+              counter={counter}
+              scanned={isTotalScanned}
+              isCanceled={isCanceled}
+            />
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
               buttonLogo={checkMark}
+              isCanceled={isCanceled}
             />
           </>
         ) : (
           <>
-            <CounterButton counter={1} onClick={handleCounterClick} onScanSubmit={onScanSubmit} />
-            <p className={styles.barcode}>{barcode}</p>
+            <CounterButton
+              counter={1}
+              onClick={handleCounterClick}
+              onScanSubmit={onScanSubmit}
+              isCanceled={isCanceled}
+            />
+            <p className={`${isCanceled ? styles.disabled : styles.barcode}`}>{barcode}</p>
           </>
         )}
-        {counter === 1 && <CancelButton onCancel={onCancelClick} />}
+        {counter === 1 && <CancelButton onCancel={onCancelClick} isCanceled={isCanceled} />}
       </div>
       {expanded &&
         Array.from({ length: counter }).map((_, index) => (
@@ -82,6 +95,7 @@ const OrderCard = ({
             handleCounterClick={handleClick}
             isExpanded={true}
             onScanSubmit={onScanSubmit}
+            isCanceled={isCanceled}
           />
         ))}
     </div>
