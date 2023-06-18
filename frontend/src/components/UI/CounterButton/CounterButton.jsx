@@ -9,7 +9,7 @@ const CounterButton = ({
   onScanSubmit,
   barcode,
   isCanceled,
-  calculatorValue
+  calculatorValue,
 }) => {
   const [isScanned, setIsScanned] = useState(false);
 

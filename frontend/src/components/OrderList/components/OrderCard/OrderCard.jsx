@@ -21,12 +21,10 @@ const OrderCard = ({
   calculatorValue,
   expandedIsOpen,
   isCanceled,
-
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
 
-  // new logic
   const totalCount = useRef(0);
   const [isTotalScanned, setIsTotalScanned] = useState(false);
 
@@ -45,7 +43,6 @@ const OrderCard = ({
   };
 
   return (
-
     <div
       className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} ${
         expandedIsOpen ? styles.opened : styles.closed
@@ -81,11 +78,11 @@ const OrderCard = ({
               counter={1}
               onClick={handleCounterClick}
               onScanSubmit={onScanSubmit}
-              ssssssssssssssssssssssssssssssssssssssssssssssisCanceled={isCanceled}
               calculatorValue={calculatorValue}
               barcode={barcode}
+              isCanceled={isCanceled}
             />
-             <p className={`${isCanceled ? styles.disabled : styles.barcode}`}>{barcode}</p>
+            <p className={`${isCanceled ? styles.disabled : styles.barcode}`}>{barcode}</p>
           </>
         )}
         {counter === 1 && <CancelButton onCancel={onCancelClick} isCanceled={isCanceled} />}
@@ -102,9 +99,9 @@ const OrderCard = ({
             handleCounterClick={handleClick}
             isExpanded={true}
             onScanSubmit={onScanSubmit}
-            isCanceled={isCanceled}
             calculatorValue={calculatorValue}
             expandedIsOpen={expanded}
+            isCanceled={isCanceled}
           />
         ))}
     </div>

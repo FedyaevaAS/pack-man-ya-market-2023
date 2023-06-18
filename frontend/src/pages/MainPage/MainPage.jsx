@@ -128,25 +128,26 @@ const MainPage = ({ efficiencyIsOpen }) => {
                 </ul>
               </div>
               <div className={`${isCanceled ? styles.disabled : ''}`}>
-              <OrderList
-                onCancelClick={() => handleOpenPopups('cancel')}
-                isAllScanned={setAllItemsScanned}
-                calculatorValue={calculatorValue}
-                isCanceled={isCanceled}
-              />
+                <OrderList
+                  onCancelClick={() => handleOpenPopups('cancel')}
+                  isAllScanned={setAllItemsScanned}
+                  calculatorValue={calculatorValue}
+                  isCanceled={isCanceled}
+                />
+              </div>
+              {(isCanceled || (isOrderScanned && isPackageScanned)) && (
+                <Link
+                  to={
+                    isCanceled
+                      ? '/canceled-success'
+                      : isOrderScanned && isPackageScanned
+                      ? '/success'
+                      : '/main'
+                  }>
+                  <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
+                </Link>
+              )}
             </div>
-            {(isCanceled || isOrderScanned) && (
-            <Link
-              to={
-                isCanceled
-                  ? '/canceled-success'
-                  : isOrderScanned && isPackageScanned
-                  ? '/success'
-                  : '/main'
-              }>
-                <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
-              </Link>
-            )}
           </>
         )}
       </div>
@@ -159,7 +160,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
       <IssueButtons
         isOpen={isCancelButtonsOpen}
-        buttonNames={cancelButtonNames}ssssssssssssssssssssssssss
+        buttonNames={cancelButtonNames}
         isCanceled={onCancelSubmit}
       />
       <Recommendations
