@@ -1,57 +1,48 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchOrderByKey } from '../../api/orderApi';
 
-export const fetchOrder = createAsyncThunk('order/fetchOrderStatus');
+export const fetchOrder = createAsyncThunk('order/fetchOrderStatus', async (params) => {
+  const orderKey = params;
+  const { data } = await fetchOrderByKey(orderKey);
+  localStorage.setItem('orderKey', /* '11212' */ data.order_number);
+  return data;
+});
 
 const initialState = {
-  order: [
-    {
-      image: 'https://avatars.mds.yandex.net/get-mpic/1361544/img_id3625151140723044197.jpeg/orig',
-      text: 'Умная колонка Яндекс Станция Лайт, ультрафиолет',
-      tag: ['Упаковать отдельно в NONPACK'],
-      counter: 3,
-      number: '1234 5678 234 32'
-    },
-    {
-      image: 'https://avatars.mds.yandex.net/get-mpic/1361544/img_id3625151140723044197.jpeg/orig',
-      text: 'Тарелка. Императорский фарфоровый завод. Форма "Стандартная - 2", рисунок "Скарлетт 2". Костяной фарфор . 270 мм.',
-      tag: ['Сканировать IMEI', 'Сканировать QR Честный знак'],
-      counter: 2,
-      number: '1234 5678 234 33'
-    },
-    {
-      image: 'https://avatars.mds.yandex.net/get-mpic/1361544/img_id3625151140723044197.jpeg/orig',
-      text: 'Набор для рисования, детский художественный набор в чемоданчике, набор юного художника, 48 предметов и раскраска',
-      tag: ['Хрупкое'],
-      counter: 1,
-      number: '1234 5678 234 34'
-    }
-  ],
-  status: 'loading'
+  order: [],
+  orderKey: '',
+  status: 'loading',
+  errorMessage: ''
 };
 
 export const apiSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    setOrder(state, action) {
-      state.order = action.payload;
+    setOrderKey(state, action) {
+      state.orderKey = action.payload;
     }
   },
-  extraReducers: {
-    [fetchOrder.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchOrder.pending, (state) => {
       state.status = 'loading';
-    },
-    [fetchOrder.fulfilled]: (state, action) => {
+    });
+
+    builder.addCase(fetchOrder.fulfilled, (state, action) => {
       state.order = action.payload;
+      state.orderKey = action.payload.order_number;
       state.status = 'success';
-    },
-    [fetchOrder.rejected]: (state) => {
+      state.errorMessage = '';
+    });
+
+    builder.addCase(fetchOrder.rejected, (state, action) => {
       state.status = 'error';
       state.order = [];
-    }
+      state.errorMessage = action.error.message;
+    });
   }
 });
 
-export const { setOrder } = apiSlice.actions;
+export const { setOrderKey } = apiSlice.actions;
 
 export default apiSlice.reducer;

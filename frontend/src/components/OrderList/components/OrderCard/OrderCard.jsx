@@ -21,6 +21,7 @@ const OrderCard = ({
   calculatorValue,
   expandedIsOpen,
   isCanceled,
+
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -44,7 +45,11 @@ const OrderCard = ({
   };
 
   return (
-    <div className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} `}>
+
+    <div
+      className={`${styles.container} ${isExpanded ? styles.expandedCard : ''} ${
+        expandedIsOpen ? styles.opened : styles.closed
+      }`}>
       <div className={`${styles.content} ${selected ? styles.selected : ''}`}>
         {image ? (
           <img className={styles.image} src={image} alt="card-image" />
@@ -66,7 +71,7 @@ const OrderCard = ({
             <ExpandButton
               onClick={handleExpandClick}
               buttonText="Развернуть"
-              buttonLogo={checkMark}
+              buttonLogo={expanded ? reversedCheckMark : checkMark}
               isCanceled={isCanceled}
             />
           </>
@@ -76,14 +81,16 @@ const OrderCard = ({
               counter={1}
               onClick={handleCounterClick}
               onScanSubmit={onScanSubmit}
-              isCanceled={isCanceled}
+              ssssssssssssssssssssssssssssssssssssssssssssssisCanceled={isCanceled}
+              calculatorValue={calculatorValue}
+              barcode={barcode}
             />
-            <p className={`${isCanceled ? styles.disabled : styles.barcode}`}>{barcode}</p>
+             <p className={`${isCanceled ? styles.disabled : styles.barcode}`}>{barcode}</p>
           </>
         )}
         {counter === 1 && <CancelButton onCancel={onCancelClick} isCanceled={isCanceled} />}
       </div>
-      {expanded &&
+      {counter > 1 &&
         Array.from({ length: counter }).map((_, index) => (
           <OrderCard
             key={index}
@@ -96,6 +103,8 @@ const OrderCard = ({
             isExpanded={true}
             onScanSubmit={onScanSubmit}
             isCanceled={isCanceled}
+            calculatorValue={calculatorValue}
+            expandedIsOpen={expanded}
           />
         ))}
     </div>
