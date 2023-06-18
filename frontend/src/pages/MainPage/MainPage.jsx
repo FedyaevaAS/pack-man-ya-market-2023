@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './MainPage.module.scss';
-import jsonData from '../../vendor/styles.json';
 import PackageButton from '../../components/UI/PackageButton/PackageButton';
 import MainButton from '../../components/UI/MainButton/MainButton';
 import OrderList from '../../components/OrderList/OrderList';
@@ -17,6 +16,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
   let navigate = useNavigate();
   const issueButtonNames = ['Сломан монитор', 'Сломан сканер', 'Сломан принтер'];
   const cancelButtonNames = ['Нет товара', 'Несоответствие товара', 'Дефект упаковки'];
+  const totalCountText = ['товар', 'товара', 'товаров'];
 
   const totalPackageCount = useRef(0);
   const scannedPackages = useRef(0);
@@ -85,6 +85,14 @@ const MainPage = ({ efficiencyIsOpen }) => {
     }
   }, [order.packages]);
 
+  /*   const keys = Object.keys(Object.assign({}, ...order.packages));
+
+  console.log(keys); */
+
+  /* console.log(order.packages[1]); */
+
+  /* Object.keys(order.packages).map((key) => console.log(key[0] + ' is ' + order.packages[key[0]])); */
+
   return (
     <>
       <div className={`${styles.wrapper} `}>
@@ -101,15 +109,18 @@ const MainPage = ({ efficiencyIsOpen }) => {
                 <h2 className={styles.heading__order}>В-{order.order_number}</h2>
                 <ul className={styles.heading__badges}>
                   {order.status === 'fail' && <MainHeadingBadge text={'Заказ отменён'} />}
-                  <MainHeadingBadge text={`${order.count} товара`} />
+                  <MainHeadingBadge
+                    text={`${order.count} ${
+                      order.count !== 1 && order.count < 5
+                        ? totalCountText[1]
+                        : order.count > 5 && order.count < 10
+                        ? totalCountText[2]
+                        : totalCountText[0]
+                    }`}
+                  />
                   <MainHeadingBadge text={order.delivery_type} />
                   {Object.keys(Object.assign({}, ...order.packages)).map((key) => (
-                    <PackageButton
-                      key={key}
-                      boxType={key}
-                      packageData={key}
-                      setAllScanned={setAllPackageScanned}
-                    />
+                    <PackageButton key={key} boxType={key} setAllScanned={setAllPackageScanned} />
                   ))}
                 </ul>
               </div>

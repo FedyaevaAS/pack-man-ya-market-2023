@@ -11,8 +11,8 @@ const Recommendations = ({ isOpen, onBackClick, changePackage }) => {
         <h1>Упаковка отличается</h1>
         <h2>Укажите причину замены</h2>
         <div>
-          <button onClick={changePackage}>Нет на складе</button>
-          <button onClick={changePackage}>Неподходящий размер</button>
+          <button onClick={onBackClick}>Нет на складе</button>
+          <button onClick={onBackClick}>Неподходящий размер</button>
           <button onClick={onBackClick}>Сканировать повторно</button>
           <Link to={'/success'}>
             <button>Пропустить</button>

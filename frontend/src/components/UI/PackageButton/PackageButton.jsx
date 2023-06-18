@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './PackageButton.module.scss'; // Импорт стилей из SCSS
 
-const PackageButton = ({ boxType, packageType, setAllScanned }) => {
+const PackageButton = ({ boxType, setAllScanned }) => {
   const [isActive, setIsActive] = useState(false);
   const [buttonText, setButtonText] = useState(false);
   const [buttonStyle, setButtonStyle] = useState(false);
+
+  console.log(boxType);
 
   const handleClick = () => {
     setIsActive(true);
@@ -16,23 +18,9 @@ const PackageButton = ({ boxType, packageType, setAllScanned }) => {
     setButtonStyle(boxType.toLowerCase());
   }, [boxType]);
 
-  /*   let buttonStyle;
-  let buttonText; */
-
-  /*     if (boxType && styles[boxType]) {
-      buttonStyle = styles[boxType];
-      setButtonText(boxType);
-    } else if (boxType && styles[packageType]) {
-      setButtonStyle(boxType);
-      setButtonText(boxType);
-    } else {
-      setButtonStyle(styles.default);
-      setButtonText('Default');
-    } */
-
   return (
     <button
-      className={`${styles.button} ${buttonStyle} ${isActive ? styles.active : ''}`}
+      className={`${styles.button} ${styles[buttonStyle]} ${isActive ? styles.active : ''}`}
       onClick={handleClick}>
       {buttonText}
     </button>
