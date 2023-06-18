@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom';
 import danger from '../../images/Danger-ico.svg';
 import styles from './Recommendations.module.scss';
 
-const Recommendations = ({ isOpen, onBackClick, changePack }) => {
-  const closePopup = () => {
-    setIsOpenPopup(false);
-  };
-
+const Recommendations = ({ isOpen, onBackClick, changePackage }) => {
   return (
     <div className={`${styles.overlay} ${isOpen && styles.overlay_opened}`}>
       <section className={styles.content}>
@@ -15,8 +11,8 @@ const Recommendations = ({ isOpen, onBackClick, changePack }) => {
         <h1>Упаковка отличается</h1>
         <h2>Укажите причину замены</h2>
         <div>
-          <button onClick={changePack}>Нет на складе</button>
-          <button onClick={changePack}>Неподходящий размер</button>
+          <button onClick={changePackage}>Нет на складе</button>
+          <button onClick={changePackage}>Неподходящий размер</button>
           <button onClick={onBackClick}>Сканировать повторно</button>
           <Link to={'/success'}>
             <button>Пропустить</button>

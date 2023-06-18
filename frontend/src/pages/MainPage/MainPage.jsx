@@ -75,15 +75,15 @@ const MainPage = ({ efficiencyIsOpen }) => {
     handleClosePopups();
   };
 
+  const changePackageRecommendation = () => {
+    console.log('changePackageRecommendation');
+  };
+
   useEffect(() => {
-    totalPackageCount.current = Object.keys(jsonData).length;
-  }, []);
-
-  /*   const keys = Object.keys(Object.assign({}, ...order.packages));
-
-  console.log(keys); */
-
-  /* Object.keys(order.packages).map((key) => console.log(key[0] + ' is ' + order.packages[key[0]])); */
+    if (order.packages) {
+      totalPackageCount.current = Object.keys(Object.assign({}, ...order.packages)).length;
+    }
+  }, [order.packages]);
 
   return (
     <>
@@ -119,8 +119,8 @@ const MainPage = ({ efficiencyIsOpen }) => {
                 calculatorValue={calculatorValue}
               />
             </div>
-            {isOrderScanned && (
-              <Link to={isOrderScanned && isPackageScanned ? '/success' : '/main'}>
+            {!isOrderScanned && (
+              <Link to={!isOrderScanned && isPackageScanned ? '/success' : '/main'}>
                 <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
               </Link>
             )}
@@ -135,7 +135,11 @@ const MainPage = ({ efficiencyIsOpen }) => {
       />
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
       <IssueButtons isOpen={isCancelButtonsOpen} buttonNames={cancelButtonNames} />
-      <Recommendations isOpen={isRecommendationsOpen} onBackClick={handleClosePopups} />
+      <Recommendations
+        isOpen={isRecommendationsOpen}
+        onBackClick={handleClosePopups}
+        changePackage={changePackageRecommendation}
+      />
       {!isRecommendationsOpen && (
         <ControlPanel
           onClose={handleClosePopups}
