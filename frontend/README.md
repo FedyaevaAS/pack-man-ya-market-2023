@@ -10,7 +10,7 @@
 Команда DS-разработки:
 
 - Ильичёв Иван: https://github.com/IvanDmitrich
-- Дмитрий Кин: https://github.com/dmitkin
+- Дмитрий Кобылкин: https://github.com/dmitkin
 - Валов Валерий: https://github.com/valov-vo
 
 ## Ссылка на Github Pages
