@@ -14,12 +14,13 @@
 * Сбор статистики работы пользователя с приложением для последующего анализа
 * Обработка нештатных ситуаций (отсутствие упаковочного материала, ошибки и тд)
 
-### Github Pages 
+### Ссылка на Github Pages 
 Github Pages [ссылка](https://methodm4n.github.io/pack-man-ya-market-2023-frontend/), в данный момент 
 соединение с Backend блокируется при передачи запросов с https на http.
 Поэтому предлагаем вам ознакомиться с временным решением на локальной машине.
 Инструкция по установке на локальной машине: 
 
+#### Инструкция по сборке и запуску
 ```bash
 # клонировать репозиторий
 # перейти в папку frontend
@@ -29,6 +30,37 @@ npm install
 # старт проекта
 npm run start
 ```
+
+### Стек технологии 
+
+#### Backend
+- Python 
+- Django
+- PostgreSQL
+- nginx
+- gunicorn
+- Docker
+- Яндекс.Облако
+
+#### Data science
+- Python (pandas, matplotlib, sklearn, optuna, catboost, tqdm, py3dbp)
+- Docker
+  
+#### Frontend
+- React.JS
+- Router v6
+- ReduxToolkit
+- Web API
+- CSS Modules
+- SCSS
+- сборщик Webpack (втч : минификация HTML,CSS,JS)
+- код поделен на модули
+
+#### Design
+- Figma
+
+### Media queries 
+- 1920x1080px
 
 ### Домен сервера 
 - yphackathon2023.site
