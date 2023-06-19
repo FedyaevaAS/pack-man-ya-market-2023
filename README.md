@@ -30,15 +30,6 @@ npm run start
 ### Домен сервера 
 - yphackathon2023.site
 
-### Стек технологий Backend
-- Python
-- Django
-- PostgreSQL
-- nginx
-- gunicorn
-- Docker
-- Яндекс.Облако
-
 ## Команда проекта
 
 ### Project Manager
