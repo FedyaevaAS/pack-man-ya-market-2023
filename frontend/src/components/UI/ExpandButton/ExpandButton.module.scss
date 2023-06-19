@@ -16,4 +16,13 @@
   .expandButtonText {
     margin-right: 12px;
   }
+
+  .disabled {
+    color: $disabled-color;
+  }
+
+  .disabledLogo {
+    margin-left: 12px;
+    filter: grayscale(1) opacity(60%);
+  }
 }

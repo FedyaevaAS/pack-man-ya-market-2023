@@ -15,7 +15,7 @@ const ChangeWorkDeskPage = () => {
     setIsOpenPopup(true);
     const timer = setTimeout(() => {
       setIsOpenPopup(false);
-    }, 115000);
+    }, 5000);
 
     return () => {
       clearTimeout(timer);
