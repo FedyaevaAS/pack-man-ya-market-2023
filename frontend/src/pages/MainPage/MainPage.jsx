@@ -101,7 +101,6 @@ const MainPage = ({ efficiencyIsOpen }) => {
     if (order.packages) {
       totalPackageCount.current = Object.keys(Object.assign({}, ...order.packages)).length;
       order.status === 'fail' && setIsCanceled(true);
-      console.log(order.status);
     }
   }, [order.packages]);
 
@@ -145,7 +144,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
                   isCanceled={isCanceled}
                 />
               </div>
-              {(isCanceled || (isOrderScanned && isPackageScanned)) && (
+              {(isCanceled || isOrderScanned || (isOrderScanned && !isPackageScanned)) && (
                 <Link
                   to={
                     order.status === 'fail'
