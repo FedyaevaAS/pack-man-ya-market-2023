@@ -46,6 +46,10 @@
   <img width="700" height="250" src="https://github.com/FedyaevaAS/pack-man-ya-market-2023/blob/main/backend/DS/business-metric.png">
 </p>
 
+<p align="left">
+  <img width="700" height="250" src="https://github.com/FedyaevaAS/pack-man-ya-market-2023/blob/main/backend/DS/orders_distribution_by_items_cnt.png">
+</p>
+
 * В качестве бизнес-метрики выбрали совокупную стоимость упаковки заказа:
   * текущая средняя стоимость упаковки заказа 4.3 рубля
   * модельная средняя стоимость упаковки заказа 3.1 рубля
