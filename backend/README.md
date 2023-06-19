@@ -1,4 +1,4 @@
-### Стек технологий Backend
+### Стек технологий
 - Python
 - Django
 - PostgreSQL
