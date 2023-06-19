@@ -20,6 +20,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
 
   const totalPackageCount = useRef(0);
   const scannedPackages = useRef(0);
+  const packageRecommendationCount = useRef(0);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
@@ -77,6 +78,13 @@ const MainPage = ({ efficiencyIsOpen }) => {
     handleClosePopups();
   };
 
+  const changePackageRecommendation = (plus) => {
+    plus === 'plus'
+      ? (packageRecommendationCount.current = packageRecommendationCount.current + 1)
+      : (packageRecommendationCount.current = packageRecommendationCount.current - 1);
+    handleClosePopups();
+  };
+
   const onCancelSubmit = (value) => {
     setIsCanceled(value);
     handleClosePopups();
@@ -122,7 +130,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
                     }`}
                   />
                   <MainHeadingBadge text={order.delivery_type} />
-                  {Object.keys(Object.assign({}, ...order.packages)).map((key) => (
+                  {Object.keys(order.packages[packageRecommendationCount.current]).map((key) => (
                     <PackageButton key={key} boxType={key} setAllScanned={setAllPackageScanned} />
                   ))}
                 </ul>
@@ -167,6 +175,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
         isOpen={isRecommendationsOpen}
         onBackClick={handleClosePopups}
         changePackage={changePackageRecommendation}
+        packageRecommendationCount={packageRecommendationCount.current}
       />
       {!isRecommendationsOpen && (
         <ControlPanel

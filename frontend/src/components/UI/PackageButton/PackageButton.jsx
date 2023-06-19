@@ -6,8 +6,6 @@ const PackageButton = ({ boxType, setAllScanned }) => {
   const [buttonText, setButtonText] = useState(false);
   const [buttonStyle, setButtonStyle] = useState(false);
 
-  console.log(boxType);
-
   const handleClick = () => {
     setIsActive(true);
     setAllScanned(1);
