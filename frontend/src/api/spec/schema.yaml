@@ -1,0 +1,240 @@
+openapi: 3.0.3
+info:
+  title: "Packman"
+  version: ""
+
+paths:
+  /api/orders/generate_order_key:
+    get:
+      tags:
+        - Order
+      #тут FORMED и FAIL
+      description: Генерирует случайным образом order_key
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  # добавить статус formed, failed
+  /api/orders/{order_key}/in_progress:
+    patch:
+      tags:
+        - Order
+      description: Изменяет статус заказа на in_progress
+      parameters:
+        - name: order_key
+          in: path
+          required: true
+          description: "Уникальный id заказа."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/orders/{order_key}/formed:
+    patch:
+      tags:
+        - Order
+      description: Изменяет статус заказа на formed
+      parameters:
+        - name: order_key
+          in: path
+          required: true
+          description: "Уникальный id заказа."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/orders/{order_key}/fail:
+    patch:
+      tags:
+        - Order
+      description: Изменяет статус заказа на fail
+      parameters:
+        - name: order_key
+          in: path
+          required: true
+          description: "Уникальный id заказа."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/orders/{order_key}/canceled:
+    patch:
+      tags:
+        - Order
+      description: Отмена заказа, изменение статуса на canceled
+      parameters:
+        - name: order_key
+          in: path
+          required: true
+          description: "Уникальный id заказа."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/orders/{order_key}/ok:
+    patch:
+      tags:
+        - Order
+      description: Заказ упакован, изменение статуса на ok
+      parameters:
+        - name: order_key
+          in: path
+          required: true
+          description: "Уникальный id заказа."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/orders/{order_key}/pack:
+    get:
+      tags:
+        - Order
+      description: Информация по заказу
+      parameters:
+        - name: order_key
+          in: path
+          required: true
+          description: "Уникальный id заказа."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderWithItemsPackages"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        order_key:
+          type: string
+          format: uuid
+        status:
+          type: string
+    OrderWithItemsPackages:
+      type: object
+      properties:
+        order_key:
+          type: string
+          format: uuid
+        delivery_type:
+          type: string # почта России, сдэки тд
+        count:
+          type: integer
+        status:
+          type: string #fail - пришел уже отмененный, canceled - отмена, ok - упаковали, in_progress - начали упаковывать
+        packages:
+          type: array
+          items:
+            type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Item"
+    Item:
+      type: object
+      properties:
+        image:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        barcode:
+          type: integer
+    NotFound:
+      description: Объект не найден
+      type: object
+      properties:
+        detail:
+          description: "Описание ошибки"
+          example: "Страница не найдена."
+          type: string
+    ValidationError:
+      description: Стандартные ошибки валидации DRF
+      type: object
+      properties:
+        field_name:
+          description: "Название поля, в котором произошли ошибки. Таких полей может быть несколько"
+          example: ["Обязательное поле."]
+          type: array
+          items:
+            type: string
+
+  responses:
+    NotFound:
+      description: Объект не найден
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotFound"
+    ValidationError:
+      description: "Ошибки валидации в стандартном формате DRF"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ValidationError"

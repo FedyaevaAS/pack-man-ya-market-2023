@@ -6,7 +6,7 @@
   overflow-y: scroll;
   background-color: transparent;
   top: 104px;
-  padding-top: 40px;
+  padding: 40px 0 40px;
   /*  right: -17px; */
   right: 0;
   left: 0;
@@ -27,7 +27,7 @@
   background-color: #ffffff;
   width: 1096px;
   /* height: 185px; */
-  padding: 40px 0;
+  padding: 40px 0 40px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -53,5 +53,10 @@
     font-size: $heading-size-28-32;
     font-weight: $heading-weight-28-32;
     line-height: $heading-line-height-28-32;
+  }
+
+  &_error {
+    background-color: #de0000;
+    color: #ffffff;
   }
 }

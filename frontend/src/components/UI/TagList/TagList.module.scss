@@ -1,0 +1,48 @@
+@import '../../../vendor/variables';
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 433px;
+}
+
+.tag {
+  display: inline-flex;
+  margin-right: 10px;
+  height: 48px;
+  background: #e0eeff;
+  border: 1px solid #e0eeff;
+  border-radius: 12px;
+  align-items: center;
+  padding: 13px 16px;
+  margin-bottom: 12px;
+
+  &.nonpackTag {
+    background: #ffd9db;
+    border-color: #ffd9db;
+  }
+
+  &.qrCodeTag {
+    background: #ffeccc;
+    border-color: #ffeccc;
+  }
+
+  &.imeiCodeTag {
+    background: #ffeccc;
+    border-color: #ffeccc;
+  }
+}
+
+.tagIcon {
+  width: 27px;
+  height: 27px;
+  margin-right: 5px;
+}
+
+.tagName {
+  font-family: $body-font-20-22;
+  font-size: $body-size-20-22;
+  font-weight: $body-weight-20-22;
+  line-height: $body-line-height-20-22;
+}

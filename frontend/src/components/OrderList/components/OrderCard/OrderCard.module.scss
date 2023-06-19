@@ -1,6 +1,20 @@
 @import '../../../../vendor/variables';
 
+.disabled {
+  font-weight: $body-weight-20-22;
+  font-size: $body-size-20-22;
+  line-height: $body-line-height-20-22;
+  color: $disabled-color;
+  margin-top: 13px;
+}
+
+.emptyTags {
+  width: 300px;
+  height: 70px;
+}
+
 .container {
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   max-width: 1120px;
@@ -10,16 +24,26 @@
     border-bottom: none;
   }
 
+  .closed {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .opened {
+    visibility: visible;
+  }
+
   .content {
     display: flex;
     align-items: flex-start;
-    margin: 24px 0;
+    margin: 24px 0 0 0;
   }
 
   .image {
     width: 100px;
     height: 100px;
     margin-right: 24px;
+    object-fit: scale-down;
   }
 
   .emptyImage {
@@ -43,18 +67,11 @@
     padding-bottom: 10px;
   }
 
-  .tag {
-    display: inline-block;
-    margin-right: 10px;
-    height: 48px;
-    background: #e0eeff;
-    border: 1px solid #e0eeff;
-    border-radius: 100px;
-    text-align: center;
-    padding: 10px;
+  .expandButton {
+    margin-left: 40px;
   }
 
-  .number {
+  .barcode {
     font-weight: $body-weight-20-22;
     font-size: $body-size-20-22;
     line-height: $body-line-height-20-22;

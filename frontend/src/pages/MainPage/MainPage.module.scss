@@ -1,15 +1,16 @@
+@import '../../vendor/variables';
+
 .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin: 0 24px;
   padding-top: 96px;
-  min-height: 832px;
+  min-height: 846px;
+}
 
-  &_isRecommendationsOpen {
-    padding: 0;
-    height: 940px;
-  }
+.disabled {
+  color: $disabled-color;
 }
 
 .heading {
@@ -18,22 +19,27 @@
   margin-top: -40px;
 
   &__title {
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 50px;
+    font-family: $heading-font-48-58;
+    font-size: $heading-size-48-58;
+    font-weight: $heading-weight-48-58;
+    line-height: $heading-line-height-48-58;
   }
 
   &__order {
     margin-bottom: 12px;
     margin-top: 4px;
-    font-weight: 700;
-    font-size: 72px;
-    line-height: 90px;
+    font-family: $heading-font-72-84;
+    font-size: $heading-size-72-84;
+    font-weight: $heading-weight-72-84;
+    line-height: $heading-line-height-72-84;
   }
 
   &__badges {
+    max-width: 850px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
     list-style: none;
     padding: 0;
     margin: 0;

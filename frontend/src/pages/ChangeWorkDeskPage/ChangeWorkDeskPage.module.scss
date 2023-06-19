@@ -2,21 +2,14 @@
 
 .ChangeWorkDeskPage {
   display: flex;
-  justify-content: flex-end;
-  gap: 48px;
-  padding: 96px 24px 182px;
+  justify-content: center;
+  padding: 363px 24px 434px;
 
   div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    img {
-      margin-top: 112px;
-      width: 634px;
-      height: 275px;
-    }
 
     h1 {
       width: 1184px;
