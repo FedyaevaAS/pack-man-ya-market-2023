@@ -15,7 +15,10 @@ const Recommendations = ({ isOpen, onBackClick, changePackage, packageRecommenda
     if (totalPackages.current === 1) {
       setIsOpenPopup(true);
       console.log('openPopup');
-    } else if (totalPackages.current < packageRecommendationCount) {
+    } else if (
+      totalPackages.current < packageRecommendationCount &&
+      totalPackages.current !== packageRecommendationCount
+    ) {
       changePackage('plus');
     } else {
       changePackage('minus');
