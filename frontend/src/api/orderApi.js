@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://158.160.28.222:80/api/orders';
+const baseUrl = 'http://yphackathon2023.site/api/orders';
 
 export const fetchOrderKey = async () => {
   const { data } = await axios.get(`${baseUrl}/generate_order_key`);
