@@ -145,7 +145,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
                   isCanceled={isCanceled}
                 />
               </div>
-              {(!isCanceled || (isOrderScanned && isPackageScanned)) && (
+              {(isCanceled || (isOrderScanned && isPackageScanned)) && (
                 <Link
                   to={
                     order.status === 'fail'
