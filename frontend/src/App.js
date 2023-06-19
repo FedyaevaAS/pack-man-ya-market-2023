@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import SearchPage from './pages/SearchPage/SearchPage';
 import MainPage from './pages/MainPage/MainPage';
 import SuccessPage from './pages/SuccessPage/SuccessPage';
-import CanceledSuccessPage from './pages/CanceledSuccessPage/CanceledSuccessPage';
+import CanceledPage from './pages/CanceledPage/CanceledPage';
 import ChangeWorkDeskPage from './pages/ChangeWorkDeskPage/ChangeWorkDeskPage';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -46,7 +46,7 @@ const App = () => {
         <Route path="/" index element={<SearchPage />} />
         <Route path="/main" index element={<MainPage efficiencyIsOpen={efficiencyIsOpen} />} />
         <Route path="/success" index element={<SuccessPage />} />
-        <Route path="/canceled-success" index element={<CanceledSuccessPage />} />
+        <Route path="/canceled-success" index element={<CanceledPage />} />
         <Route path="/new-work-desk" index element={<ChangeWorkDeskPage />} />
       </Routes>
 
