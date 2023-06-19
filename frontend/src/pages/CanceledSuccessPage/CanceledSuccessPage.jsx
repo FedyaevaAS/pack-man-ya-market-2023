@@ -16,7 +16,7 @@ const CanceledSuccessPage = () => {
           localStorage.clear('orderKey');
         })
         .then(() => navigate('/')),
-      5000
+      5000,
     );
 
     return () => clearTimeout(routeByTime);

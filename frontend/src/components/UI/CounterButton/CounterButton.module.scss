@@ -25,3 +25,21 @@
     color: #fff;
   }
 }
+
+.disabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 42px;
+  width: 80px;
+  height: 48px;
+  color: $disabled-color;
+  border: transparent;
+  background-color: transparent;
+
+  font-family: $body-font-20-22;
+  font-size: $body-size-20-22;
+  font-weight: $body-weight-20-22;
+  line-height: $body-line-height-20-22;
+}

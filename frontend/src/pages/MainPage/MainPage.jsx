@@ -26,10 +26,12 @@ const MainPage = ({ efficiencyIsOpen }) => {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [isIssueButtonsOpen, setIsIssueButtonsOpen] = useState(false);
   const [isCancelButtonsOpen, setIsCancelButtonsOpen] = useState(false);
+
+  const [isCanceled, setIsCanceled] = useState(false);
+
   const [isRecommendationsOpen, setIsRecommendationsOpen] = useState(false);
   const [isOrderScanned, setIsOrderScanned] = useState(false);
   const [isPackageScanned, setIsPackageScanned] = useState(false);
-
   const [calculatorValue, setCalculatorValue] = useState('');
 
   const { status, order, errorMessage } = useSelector((state) => state.apiSlice);
@@ -83,6 +85,11 @@ const MainPage = ({ efficiencyIsOpen }) => {
     handleClosePopups();
   };
 
+  const onCancelSubmit = (value) => {
+    setIsCanceled(value);
+    handleClosePopups();
+  };
+
   useEffect(() => {
     if (order.packages) {
       totalPackageCount.current = Object.keys(Object.assign({}, ...order.packages)).length;
@@ -128,17 +135,27 @@ const MainPage = ({ efficiencyIsOpen }) => {
                   ))}
                 </ul>
               </div>
-              <OrderList
-                onCancelClick={() => handleOpenPopups('cancel')}
-                isAllScanned={setAllItemsScanned}
-                calculatorValue={calculatorValue}
-              />
+              <div className={`${isCanceled ? styles.disabled : ''}`}>
+                <OrderList
+                  onCancelClick={() => handleOpenPopups('cancel')}
+                  isAllScanned={setAllItemsScanned}
+                  calculatorValue={calculatorValue}
+                  isCanceled={isCanceled}
+                />
+              </div>
+              {(isCanceled || (isOrderScanned && isPackageScanned)) && (
+                <Link
+                  to={
+                    isCanceled
+                      ? '/canceled-success'
+                      : isOrderScanned && isPackageScanned
+                      ? '/success'
+                      : '/main'
+                  }>
+                  <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
+                </Link>
+              )}
             </div>
-            {!isOrderScanned && (
-              <Link to={!isOrderScanned && isPackageScanned ? '/success' : '/main'}>
-                <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
-              </Link>
-            )}
           </>
         )}
       </div>
@@ -149,7 +166,11 @@ const MainPage = ({ efficiencyIsOpen }) => {
         onCalculatorSubmit={onCalculatorSubmit}
       />
       <IssueButtons isOpen={isIssueButtonsOpen} buttonNames={issueButtonNames} toRedirect={true} />
-      <IssueButtons isOpen={isCancelButtonsOpen} buttonNames={cancelButtonNames} />
+      <IssueButtons
+        isOpen={isCancelButtonsOpen}
+        buttonNames={cancelButtonNames}
+        isCanceled={onCancelSubmit}
+      />
       <Recommendations
         isOpen={isRecommendationsOpen}
         onBackClick={handleClosePopups}
