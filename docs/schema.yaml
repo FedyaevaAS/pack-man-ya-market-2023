@@ -8,8 +8,7 @@ paths:
     get:
       tags:
           - Order
-#тут FORMED и FAIL
-      description: Генерирует случайным образом order_key
+      description: Генерирует заказ случайным образом
       responses:
         "200":
           description: ""
@@ -19,7 +18,6 @@ paths:
                 $ref: "#/components/schemas/Order"
         "404":
           $ref: "#/components/responses/NotFound"
-# добавить статус formed, failed
   /api/orders/{order_key}/in_progress:
     patch:
       tags:
@@ -39,8 +37,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Order"
-        "400":
-          $ref: "#/components/responses/ValidationError"
         "404":
           $ref: "#/components/responses/NotFound"
   /api/orders/{order_key}/formed:
@@ -62,8 +58,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Order"
-        "400":
-          $ref: "#/components/responses/ValidationError"
         "404":
           $ref: "#/components/responses/NotFound"
   /api/orders/{order_key}/fail:
@@ -85,8 +79,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Order"
-        "400":
-          $ref: "#/components/responses/ValidationError"
         "404":
           $ref: "#/components/responses/NotFound"
   /api/orders/{order_key}/cancel:
@@ -108,8 +100,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Order"
-        "400":
-          $ref: "#/components/responses/ValidationError"
         "404":
           $ref: "#/components/responses/NotFound"
   /api/orders/{order_key}/ok:
@@ -131,8 +121,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Order"
-        "400":
-          $ref: "#/components/responses/ValidationError"
         "404":
           $ref: "#/components/responses/NotFound"
   /api/orders/{order_key}/pack:
@@ -156,8 +144,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/OrderWithItemsPackages"
-        "400":
-          $ref: "#/components/responses/ValidationError"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -174,38 +160,38 @@ components:
     OrderWithItemsPackages:
       type: object
       properties:
-        order_key:
+        order_number:
           type: string 
           format: uuid
         delivery_type:
-          type: string # почта России, сдэки тд 
+          type: string 
         count:
           type: integer
         status:
-          type: string #fail - пришел уже отмененный, canceled - отмена, ok - упаковали, in_progress - начали упаковывать
-        packages:
-          type: array
-          items:
-            type: string
+          type: string
         items:
           type: array
           items:
             $ref: "#/components/schemas/Item"
+        packages:
+          type: array
+          items:
+            type: string
     Item:
       type: object
       properties:
-        image:
+        count:
+          type: integer
+        image_url:
           type: string
         name:
           type: string
-        count:
-          type: integer
+        barcode:
+          type: string
         tags:
           type: array
           items:
             type: string
-        barcode:
-          type: string
     NotFound:
       description: Объект не найден
       type: object
@@ -214,16 +200,6 @@ components:
           description: "Описание ошибки"
           example: "Страница не найдена."
           type: string
-    ValidationError:
-      description: Стандартные ошибки валидации DRF
-      type: object
-      properties:
-        field_name:
-          description: "Название поля, в котором произошли ошибки. Таких полей может быть несколько"
-          example: [ "Обязательное поле." ]
-          type: array
-          items:
-            type: string
   
   responses:
     NotFound:
@@ -232,10 +208,4 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/NotFound"
-    ValidationError:
-      description: "Ошибки валидации в стандартном формате DRF"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ValidationError"
       
