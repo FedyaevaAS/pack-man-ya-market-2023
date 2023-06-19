@@ -76,7 +76,6 @@ class Item(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тэг")
-    action = models.BooleanField()
 
     def __str__(self):
         return self.name
