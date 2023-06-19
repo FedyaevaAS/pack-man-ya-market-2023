@@ -123,11 +123,11 @@ const MainPage = ({ efficiencyIsOpen }) => {
                   {order.status === 'fail' && <MainHeadingBadge text={'Заказ отменён'} />}
                   <MainHeadingBadge
                     text={`${order.count} ${
-                      order.count !== 1 && order.count < 5
+                      order.count === 1
+                        ? totalCountText[0]
+                        : order.count >= 5 && order.count <= 20
                         ? totalCountText[1]
-                        : order.count > 5 && order.count < 10
-                        ? totalCountText[2]
-                        : totalCountText[0]
+                        : totalCountText[2]
                     }`}
                   />
                   <MainHeadingBadge text={order.delivery_type} />

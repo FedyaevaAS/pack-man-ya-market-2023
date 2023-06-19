@@ -4,7 +4,7 @@ import { fetchOrderByKey } from '../../api/orderApi';
 export const fetchOrder = createAsyncThunk('order/fetchOrderStatus', async (params) => {
   const orderKey = params;
   const { data } = await fetchOrderByKey(orderKey);
-  localStorage.setItem('orderKey', '25428' /* data.order_number */);
+  localStorage.setItem('orderKey', data.order_number);
   return data;
 });
 
@@ -12,7 +12,7 @@ const initialState = {
   order: [],
   orderKey: '',
   status: 'loading',
-  errorMessage: ''
+  errorMessage: '',
 };
 
 export const apiSlice = createSlice({
@@ -21,7 +21,7 @@ export const apiSlice = createSlice({
   reducers: {
     setOrderKey(state, action) {
       state.orderKey = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchOrder.pending, (state) => {
@@ -40,7 +40,7 @@ export const apiSlice = createSlice({
       state.order = [];
       state.errorMessage = action.error.message;
     });
-  }
+  },
 });
 
 export const { setOrderKey } = apiSlice.actions;

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './CanceledSuccessPage.module.scss';
+import styles from './CanceledPage.module.scss';
 import successLogo from '../../images/canceled-success.svg';
 import { setOrderStatus } from '../../api/orderApi';
 import { useSelector } from 'react-redux';
 
-const CanceledSuccessPage = () => {
+const CanceledPage = () => {
   let navigate = useNavigate();
   const { orderKey } = useSelector((state) => state.apiSlice);
 
@@ -20,7 +20,7 @@ const CanceledSuccessPage = () => {
   }, [orderKey]);
 
   return (
-    <section className={styles.CanceledSuccessPage}>
+    <section className={styles.CanceledPage}>
       <div>
         <img src={successLogo} alt="success-logo" />
         <h1>
@@ -31,4 +31,4 @@ const CanceledSuccessPage = () => {
   );
 };
 
-export default CanceledSuccessPage;
+export default CanceledPage;
