@@ -26,6 +26,16 @@ const Recommendations = ({ isOpen, onBackClick, changePackage, packageRecommenda
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpenPopup(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isOpenPopup]);
+
+  useEffect(() => {
     totalPackages.current = 0;
 
     if (order.packages) {

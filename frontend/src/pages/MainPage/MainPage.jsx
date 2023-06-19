@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import MainHeadingBadge from '../../components/UI/MainHeadingBadge/MainHeadingBadge';
 import { useSelector } from 'react-redux';
 import NotificationPopup from '../../components/UI/NotificationPopup/NotificationPopup';
+import { setOrderStatus } from '../../api/orderApi';
 
 const MainPage = ({ efficiencyIsOpen }) => {
   let navigate = useNavigate();
@@ -34,7 +35,7 @@ const MainPage = ({ efficiencyIsOpen }) => {
   const [isPackageScanned, setIsPackageScanned] = useState(false);
   const [calculatorValue, setCalculatorValue] = useState('');
 
-  const { status, order, errorMessage } = useSelector((state) => state.apiSlice);
+  const { status, order, errorMessage, orderKey } = useSelector((state) => state.apiSlice);
 
   isPopupOpen || efficiencyIsOpen
     ? (document.body.style.overflowY = 'hidden')
@@ -90,19 +91,19 @@ const MainPage = ({ efficiencyIsOpen }) => {
     handleClosePopups();
   };
 
+  const onFail = () => {
+    setOrderStatus(orderKey, 'cancel')
+      .then(() => localStorage.clear('orderKey'))
+      .then(() => navigate('/'));
+  };
+
   useEffect(() => {
     if (order.packages) {
       totalPackageCount.current = Object.keys(Object.assign({}, ...order.packages)).length;
+      order.status === 'fail' && setIsCanceled(true);
+      console.log(order.status);
     }
   }, [order.packages]);
-
-  /*   const keys = Object.keys(Object.assign({}, ...order.packages));
-
-  console.log(keys); */
-
-  /* console.log(order.packages[1]); */
-
-  /* Object.keys(order.packages).map((key) => console.log(key[0] + ' is ' + order.packages[key[0]])); */
 
   return (
     <>
@@ -130,9 +131,10 @@ const MainPage = ({ efficiencyIsOpen }) => {
                     }`}
                   />
                   <MainHeadingBadge text={order.delivery_type} />
-                  {Object.keys(order.packages[packageRecommendationCount.current]).map((key) => (
-                    <PackageButton key={key} boxType={key} setAllScanned={setAllPackageScanned} />
-                  ))}
+                  {!isCanceled &&
+                    Object.keys(order.packages[packageRecommendationCount.current]).map((key) => (
+                      <PackageButton key={key} boxType={key} setAllScanned={setAllPackageScanned} />
+                    ))}
                 </ul>
               </div>
               <div className={`${isCanceled ? styles.disabled : ''}`}>
@@ -143,16 +145,23 @@ const MainPage = ({ efficiencyIsOpen }) => {
                   isCanceled={isCanceled}
                 />
               </div>
-              {(isCanceled || (isOrderScanned && isPackageScanned)) && (
+              {(!isCanceled || (isOrderScanned && isPackageScanned)) && (
                 <Link
                   to={
-                    isCanceled
+                    order.status === 'fail'
+                      ? '/main'
+                      : isCanceled
                       ? '/canceled-success'
                       : isOrderScanned && isPackageScanned
                       ? '/success'
                       : '/main'
                   }>
-                  <MainButton text={'Готово'} onClick={() => handleOpenPopups('recommend')} />
+                  <MainButton
+                    text={'Готово'}
+                    onClick={
+                      order.status === 'fail' ? () => onFail() : () => handleOpenPopups('recommend')
+                    }
+                  />
                 </Link>
               )}
             </div>
