@@ -9,9 +9,9 @@ from packman.settings import BASE_DIR
 
 
 class Command(BaseCommand):
-    """Записывает в базу данных sqlite из csv-файлов."""
+    """Записывает данные в базу данных из csv-файлов."""
 
-    help = 'Writes to sqlite project_database from csv files.'
+    help = 'Writes data to the database from csv files.'
 
     def handle(self, *args, **options):
         CSV_TO_SQL = {
@@ -23,7 +23,7 @@ class Command(BaseCommand):
         data_location = os.path.join(BASE_DIR, "project_data")
         for name in CSV_TO_SQL:
             location_csv = os.path.join(data_location, name)
-            with open(location_csv) as csv_file:
+            with open(location_csv, encoding="utf8") as csv_file:
                 csv_reader = csv.DictReader(csv_file)
                 model = CSV_TO_SQL[name]
                 for row in csv_reader:
@@ -53,7 +53,7 @@ class Command(BaseCommand):
 
         csv_name = "order_item.csv"
         location_csv = os.path.join(data_location, csv_name)
-        with open(location_csv) as csv_file:
+        with open(location_csv, encoding="utf8") as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
                 order_key = row['order_key']
@@ -69,7 +69,7 @@ class Command(BaseCommand):
 
         csv_name = "sku_cargotype.csv"
         location_csv = os.path.join(data_location, csv_name)
-        with open(location_csv) as csv_file:
+        with open(location_csv, encoding="utf8") as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
                 cargotype = row['type']
