@@ -28,9 +28,94 @@
   color: #16523b;
 }
 
+.yme {
+  border: 4px solid #57a918;
+  color: #57a918;
+}
+
+.ymg {
+  border: 4px solid #0099ff;
+  color: #0099ff;
+}
+
+.ymh {
+  border: 4px solid #110b54;
+  color: #110b54;
+}
+
+.ymj {
+  border: 4px solid #93448b;
+  color: #93448b;
+}
+
 .ymf {
   border: 4px solid #f29a00;
   color: #f29a00;
+}
+
+.yml {
+  border: 4px solid #7ffff4;
+  color: #7ffff4;
+}
+
+.ymn {
+  border: 4px solid #500062;
+  color: #500062;
+}
+
+.ymo {
+  border: 4px solid #ea8fff;
+  color: #ea8fff;
+}
+
+.ymp {
+  border: 4px solid #f8ff8f;
+  color: #f8ff8f;
+}
+
+.ymq {
+  border: 4px solid #967fff;
+  color: #967fff;
+}
+
+.ymr {
+  border: 4px solid #92ff7f;
+  color: #92ff7f;
+}
+
+.yms {
+  border: 4px solid #0040ff;
+  color: #0040ff;
+}
+
+.ymu {
+  border: 4px solid #ffff00;
+  color: #ffff00;
+}
+
+.ymv {
+  border: 4px solid #ff311b70;
+  color: #ff311b70;
+}
+
+.ymw {
+  border: 4px solid #007924;
+  color: #007924;
+}
+
+.ymx {
+  border: 4px solid #4900796e;
+  color: #4900796e;
+}
+
+.ymy {
+  border: 4px solid #c51e00;
+  color: #c51e00;
+}
+
+.ksd {
+  border: 4px solid #176595;
+  color: #176595;
 }
 
 .myf {
@@ -73,8 +158,93 @@
   color: $main-bg-color;
 }
 
+.active.yme {
+  background-color: #57a918;
+  color: $main-bg-color;
+}
+
+.active.ymg {
+  background-color: #0099ff;
+  color: $main-bg-color;
+}
+
+.active.ymh {
+  background-color: #110b54;
+  color: $main-bg-color;
+}
+
+.active.ymj {
+  background-color: #93448b;
+  color: $main-bg-color;
+}
+
 .active.ymf {
   background-color: #f29a00;
+  color: $main-bg-color;
+}
+
+.active.yml {
+  background-color: #7ffff4;
+  color: $main-bg-color;
+}
+
+.active.ymn {
+  background-color: #500062;
+  color: $main-bg-color;
+}
+
+.active.ymo {
+  background-color: #ea8fff;
+  color: $main-bg-color;
+}
+
+.active.ymp {
+  background-color: #f8ff8f;
+  color: $main-bg-color;
+}
+
+.active.ymq {
+  background-color: #967fff;
+  color: $main-bg-color;
+}
+
+.active.ymr {
+  background-color: #92ff7f;
+  color: $main-bg-color;
+}
+
+.active.yms {
+  background-color: #0040ff;
+  color: $main-bg-color;
+}
+
+.active.ymu {
+  background-color: #ffff00;
+  color: $main-bg-color;
+}
+
+.active.ymv {
+  background-color: #ff311b70;
+  color: $main-bg-color;
+}
+
+.active.ymw {
+  background-color: #007924;
+  color: $main-bg-color;
+}
+
+.active.ymx {
+  background-color: #4900796e;
+  color: $main-bg-color;
+}
+
+.active.ymy {
+  background-color: #c51e00;
+  color: $main-bg-color;
+}
+
+.active.ksd {
+  background-color: #176595;
   color: $main-bg-color;
 }
 
