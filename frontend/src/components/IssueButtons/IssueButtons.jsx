@@ -3,7 +3,7 @@ import NotificationPopup from '../UI/NotificationPopup/NotificationPopup';
 import styles from './issueButtons.module.scss';
 import { Link } from 'react-router-dom';
 
-const IssueButtons = ({ buttonNames, isOpen, toRedirect }) => {
+const IssueButtons = ({ buttonNames, isOpen, toRedirect, isCanceled }) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   const closePopup = () => {
@@ -37,7 +37,7 @@ const IssueButtons = ({ buttonNames, isOpen, toRedirect }) => {
             })
           : buttonNames.map((name, i) => {
               return (
-                <button onClick={() => setIsOpenPopup(true)} key={i}>
+                <button onClick={() => isCanceled(true)} key={i}>
                   {name}
                 </button>
               );

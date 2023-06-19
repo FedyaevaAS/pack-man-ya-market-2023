@@ -3,7 +3,7 @@ import styles from './OrderList.module.scss';
 import OrderCard from './components/OrderCard/OrderCard';
 import { useSelector } from 'react-redux';
 
-const OrderList = ({ onCancelClick, isAllScanned, calculatorValue }) => {
+const OrderList = ({ onCancelClick, isAllScanned, calculatorValue, isCanceled }) => {
   const { order } = useSelector((state) => state.apiSlice);
 
   const totalCount = useRef(0);
@@ -11,7 +11,6 @@ const OrderList = ({ onCancelClick, isAllScanned, calculatorValue }) => {
 
   const onScanSubmit = (scanCount) => {
     scanned.current = scanned.current + scanCount;
-    console.log(scanned.current);
 
     if (scanned.current === totalCount.current) {
       isAllScanned();
@@ -19,26 +18,25 @@ const OrderList = ({ onCancelClick, isAllScanned, calculatorValue }) => {
   };
 
   useEffect(() => {
-    order.forEach((item) => {
-      totalCount.current = totalCount.current + item.counter;
-    });
-  }, []);
+    totalCount.current = order.count;
+  }, [order.count]);
 
   return (
     <>
       <ul>
-        {order?.map((order, i) => (
+        {order.items?.map((order, i) => (
           <OrderCard
             key={i}
-            image={order.image}
-            text={order.text}
-            tags={order.tag}
-            counter={order.counter}
-            barcode={order.number}
+            image={order.image_url}
+            text={order.name}
+            tags={order.tags}
+            counter={order.count}
+            barcode={order.barcode}
             onCancelClick={onCancelClick}
             isExpanded={false}
             onScanSubmit={onScanSubmit}
             calculatorValue={calculatorValue}
+            isCanceled={isCanceled}
           />
         ))}
       </ul>

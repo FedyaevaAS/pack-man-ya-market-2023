@@ -1,5 +1,5 @@
 export const getLocalStorageOrderId = () => {
-  const data = localStorage.getItem('orderId');
-  const orderId = data ? JSON.parse(data) : null;
-  return orderId;
+  const data = localStorage.getItem('orderKey');
+  const orderKey = data ? JSON.parse(data) : '';
+  return orderKey;
 };
