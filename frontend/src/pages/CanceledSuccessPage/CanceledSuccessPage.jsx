@@ -10,17 +10,14 @@ const CanceledSuccessPage = () => {
   const { orderKey } = useSelector((state) => state.apiSlice);
 
   useEffect(() => {
-    const routeByTime = setTimeout(
-      setOrderStatus(orderKey, 'canceled')
-        .then(() => {
-          localStorage.clear('orderKey');
-        })
-        .then(() => navigate('/')),
-      5000,
-    );
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, 5000);
 
-    return () => clearTimeout(routeByTime);
-  }, []);
+    setOrderStatus(orderKey, 'cancel').then(() => localStorage.clear('orderKey'));
+
+    return () => clearTimeout(timer);
+  }, [orderKey]);
 
   return (
     <section className={styles.CanceledSuccessPage}>

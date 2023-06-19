@@ -4,7 +4,7 @@ import { fetchOrderByKey } from '../../api/orderApi';
 export const fetchOrder = createAsyncThunk('order/fetchOrderStatus', async (params) => {
   const orderKey = params;
   const { data } = await fetchOrderByKey(orderKey);
-  localStorage.setItem('orderKey', /* '11212' */ data.order_number);
+  localStorage.setItem('orderKey', '25428' /* data.order_number */);
   return data;
 });
 
