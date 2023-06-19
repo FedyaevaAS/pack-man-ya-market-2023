@@ -21,6 +21,9 @@ Github Pages [ссылка](https://methodm4n.github.io/pack-man-ya-market-2023-
 Инструкция по установке на локальной машине: 
 
 ```bash
+# клонировать репозиторий
+# перейти в папку frontend
+cd frontend
 # установка зависимостей
 npm install
 # старт проекта
